@@ -2061,6 +2061,14 @@ body[data-fontsize="xlarge"] { font-size:22px; }
       <input type="color" id="profile-color-pick" style="display:none;" value="#c9a227" oninput="updateProfileColor(this.value)" />
     </div>
     <button class="settings-action-btn" onclick="saveProfile()">💾 שמור פרופיל</button>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+      <button class="settings-action-btn" onclick="loginWithEmail()" style="padding:8px 10px;min-height:36px;">📧 התחבר עם אמייל</button>
+      <button class="settings-action-btn" onclick="loginWithGoogle()" style="padding:8px 10px;min-height:36px;">🔑 התחבר עם גוגל</button>
+      <button class="settings-action-btn" onclick="logoutProfile()" style="padding:8px 10px;min-height:36px;">🚪 התנתק</button>
+    </div>
+    <div id="profile-auth-status" style="margin-top:8px;font-size:0.8rem;color:#d7c177;">מצב: אורח</div>
+    <div id="profile-auth-email" style="font-size:0.78rem;color:#aaa;">לא הוזן אימייל</div>
+    <div id="profile-auth-provider" style="font-size:0.78rem;color:#aaa;">ספק: אורח</div>
     <div id="profile-save-msg" style="color:#7ec850;font-size:0.78rem;min-height:16px;margin-top:4px;"></div>
   </div>
 
@@ -4099,6 +4107,10 @@ window.addEventListener('DOMContentLoaded', () => {
     <div class="admin-section">
       <div class="admin-section-title">📊 סטטיסטיקות</div>
       <div id="admin-stats" style="color:#ccc;font-size:0.9rem;line-height:2.2;"></div>
+      <div style="margin-top:12px;">
+        <div style="color:#ffd36b;font-weight:700;margin-bottom:6px;">🧾 פעילות אחרונה</div>
+        <div id="admin-activity-list" style="max-height:220px;overflow:auto;padding-right:4px;"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -5084,17 +5096,101 @@ async function fuGenerate() {
 // toggleSettings defined in script 1
 
 // ── PROFILE ──
+function getProfileState() {
+  return {
+    nickname: localStorage.getItem('profile-nickname') || '',
+    color: localStorage.getItem('profile-color') || '#c9a227',
+    email: localStorage.getItem('profile-email') || '',
+    provider: localStorage.getItem('profile-provider') || 'guest'
+  };
+}
+
+function appendActivityLog(action, details, role = 'user') {
+  try {
+    const list = JSON.parse(localStorage.getItem('activity-log') || '[]');
+    const actor = getProfileState().nickname || getProfileState().email || 'אורח';
+    list.unshift({
+      ts: new Date().toLocaleString('he-IL'),
+      actor,
+      role,
+      action,
+      details
+    });
+    localStorage.setItem('activity-log', JSON.stringify(list.slice(0, 25)));
+  } catch (e) {}
+}
+
+function updateProfileAuthUI() {
+  const state = getProfileState();
+  const status = document.getElementById('profile-auth-status');
+  const emailEl = document.getElementById('profile-auth-email');
+  const providerEl = document.getElementById('profile-auth-provider');
+  if (status) {
+    if (state.email) {
+      const label = state.provider === 'google' ? 'Google' : 'אמייל';
+      status.textContent = `מצב: מחובר (${label})`;
+    } else {
+      status.textContent = 'מצב: אורח';
+    }
+  }
+  if (emailEl) emailEl.textContent = state.email ? `אימייל: ${state.email}` : 'לא הוזן אימייל';
+  if (providerEl) providerEl.textContent = `ספק: ${state.provider === 'google' ? 'Google' : state.provider === 'email' ? 'אמייל' : 'אורח'}`;
+  const input = document.getElementById('profile-nickname');
+  if (input && !input.value) input.value = state.nickname || '';
+}
+
 function saveProfile() {
   const nickname = (document.getElementById('profile-nickname') || {}).value?.trim() || '';
   const color = (document.getElementById('profile-color-pick') || {}).value || '#c9a227';
+  localStorage.setItem('profile-color', color);
   if (nickname) {
     localStorage.setItem('profile-nickname', nickname);
-    localStorage.setItem('profile-color', color);
     updateProfileColor(color);
     showUserBanner(nickname, color);
   }
+  appendActivityLog('שינוי פרופיל', nickname ? `עודכן כינוי ל-${nickname}` : 'עודכנו הגדרות הפרופיל');
+  updateProfileAuthUI();
   const msg = document.getElementById('profile-save-msg');
   if (msg) { msg.textContent = '✅ נשמר!'; setTimeout(() => { msg.textContent = ''; }, 2000); }
+}
+
+function loginWithEmail() {
+  const email = window.prompt('הכנס כתובת אימייל להתחברות', getProfileState().email || '');
+  if (!email) return;
+  const nickname = window.prompt('הכנס כינוי להצגה', getProfileState().nickname || email.split('@')[0]);
+  localStorage.setItem('profile-email', email.trim());
+  localStorage.setItem('profile-provider', 'email');
+  localStorage.setItem('profile-nickname', (nickname || email.split('@')[0]).trim());
+  updateProfileColor(localStorage.getItem('profile-color') || '#c9a227');
+  showUserBanner(localStorage.getItem('profile-nickname') || email.split('@')[0], localStorage.getItem('profile-color') || '#c9a227');
+  updateProfileAuthUI();
+  appendActivityLog('התחברות', `התחבר עם אמייל: ${email.trim()}`);
+  const msg = document.getElementById('profile-save-msg');
+  if (msg) { msg.textContent = '✅ התחברת עם אמייל'; setTimeout(() => { msg.textContent = ''; }, 2000); }
+}
+
+function loginWithGoogle() {
+  const email = window.prompt('הכנס כתובת Google להתחברות', getProfileState().email || '');
+  if (!email) return;
+  const nickname = window.prompt('הכנס כינוי להצגה', getProfileState().nickname || email.split('@')[0]);
+  localStorage.setItem('profile-email', email.trim());
+  localStorage.setItem('profile-provider', 'google');
+  localStorage.setItem('profile-nickname', (nickname || email.split('@')[0]).trim());
+  updateProfileColor(localStorage.getItem('profile-color') || '#c9a227');
+  showUserBanner(localStorage.getItem('profile-nickname') || email.split('@')[0], localStorage.getItem('profile-color') || '#c9a227');
+  updateProfileAuthUI();
+  appendActivityLog('התחברות', `התחבר עם Google: ${email.trim()}`);
+  const msg = document.getElementById('profile-save-msg');
+  if (msg) { msg.textContent = '✅ התחברת עם Google'; setTimeout(() => { msg.textContent = ''; }, 2000); }
+}
+
+function logoutProfile() {
+  localStorage.removeItem('profile-email');
+  localStorage.removeItem('profile-provider');
+  updateProfileAuthUI();
+  appendActivityLog('התנתקות', 'המשתמש התנתק מהפרופיל');
+  const msg = document.getElementById('profile-save-msg');
+  if (msg) { msg.textContent = '🚪 התנתקת'; setTimeout(() => { msg.textContent = ''; }, 2000); }
 }
 
 function updateProfileColor(color) {
@@ -5362,6 +5458,7 @@ setTimeout(() => {
     const dlg = document.getElementById('welcome-dialog');
     if (dlg) dlg.classList.add('show');
   }
+  updateProfileAuthUI();
   // Restore lang
   if (currentSettings.lang) setLang(currentSettings.lang);
 }, 150);
@@ -5785,7 +5882,7 @@ setTimeout(() => {
 // ═══════════════════════════════════════════
 // ADMIN PANEL JS
 // ═══════════════════════════════════════════
-const ADMIN_CODE = '1111';
+const ADMIN_CODE = '2222';
 let isAdminLoggedIn = false;
 let currentChar = null;
 let charChatHistory = [];
@@ -5805,6 +5902,7 @@ function checkAdminCode() {
   const val = (document.getElementById('admin-code-input') || {}).value;
   if (val === ADMIN_CODE) {
     isAdminLoggedIn = true;
+    appendActivityLog('כניסת אדמין', 'נכנס לפאנל האדמין עם קוד 2222', 'admin');
     closeAdminLogin();
     openAdminDash();
   } else {
@@ -5838,6 +5936,16 @@ function loadAdminStats() {
     `✅ שאלות שפוצחו: <strong>${solved}</strong><br>` +
     `📖 עיתונים שנקראו: <strong>${papers}</strong><br>` +
     `📅 אתגר יומי היום: <strong>${daily}</strong>`;
+  const logEl = document.getElementById('admin-activity-list');
+  if (logEl) {
+    const entries = JSON.parse(localStorage.getItem('activity-log') || '[]');
+    logEl.innerHTML = entries.length ? entries.slice(0, 10).map(entry => `
+      <div style="padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.12);font-size:0.82rem;">
+        <div style="color:#ffd36b;font-weight:700;">${entry.actor} · ${entry.action}</div>
+        <div style="color:#ccc;">${entry.details}</div>
+        <div style="color:#888;font-size:0.72rem;margin-top:2px;">${entry.ts}</div>
+      </div>`).join('') : '<div style="color:#888;font-size:0.82rem;">אין פעילות עדיין</div>';
+  }
 }
 
 // ── ADD QUESTION ──
