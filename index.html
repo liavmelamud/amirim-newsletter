@@ -4269,10 +4269,42 @@ function fgScoreTxt(el, score, total) {
   if(!el) return;
   el.innerHTML = total ? `ניקוד: <span class="fg-score-badge">${score}/${total}</span>` : '';
 }
-function normAns(s){ return s.trim().toLowerCase().replace(/[\s'",.!?-]/g,''); }
+function normalizeAnswerText(s) {
+  return (s || '')
+    .toString()
+    .trim()
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^א-תa-z0-9\s]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+function levenshtein(a, b) {
+  const dp = Array.from({ length: b.length + 1 }, () => Array(a.length + 1).fill(0));
+  for (let i = 0; i <= a.length; i++) dp[0][i] = i;
+  for (let j = 0; j <= b.length; j++) dp[j][0] = j;
+  for (let j = 1; j <= b.length; j++) {
+    for (let i = 1; i <= a.length; i++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      dp[j][i] = Math.min(
+        dp[j - 1][i] + 1,
+        dp[j][i - 1] + 1,
+        dp[j - 1][i - 1] + cost
+      );
+    }
+  }
+  return dp[b.length][a.length];
+}
+function normAns(s){ return normalizeAnswerText(s); }
 function ansOk(user, correct){
-  const u=normAns(user), c=normAns(correct);
-  return u===c || c.includes(u) || u.includes(c);
+  const u = normAns(user);
+  const c = normAns(correct);
+  if (!u || !c) return false;
+  if (u === c || c.includes(u) || u.includes(c)) return true;
+  const maxLen = Math.max(u.length, c.length);
+  const threshold = maxLen <= 4 ? 1 : maxLen <= 8 ? 2 : 3;
+  return levenshtein(u, c) <= threshold;
 }
 
 // ════════════════════════════════
@@ -4326,7 +4358,7 @@ function scCheck() {
   const correct = SC_DATA[scState.idx].word;
   scState.total++;
   const res = document.getElementById('sc-result');
-  if(ans === correct) {
+  if(ansOk(ans, correct)) {
     scState.score++;
     res.innerHTML = '<div class="fg-result-ok">✓ נכון! כל הכבוד!</div>';
   } else {
@@ -5542,12 +5574,8 @@ function openDailyChallenge() {
 function submitDaily() {
   const q = getDailyQuestion();
   const ans = (document.getElementById('daily-ans') || {}).value || '';
-  const norm = s => s.toLowerCase().replace(/['",.!?\-־\s]/g,'');
   const allAnswers = [q.answer, ...(q.altAnswers || [])];
-  const correct = allAnswers.some(a => {
-    const na = norm(a), nu = norm(ans);
-    return nu.includes(na) || na.includes(nu);
-  });
+  const correct = allAnswers.some(a => ansOk(ans, a));
   const result = document.getElementById('daily-result');
   if (correct) {
     result.innerHTML = '<p style="color:#4cff80;font-size:1.1rem;">🎉 נכון! כל הכבוד!</p>';
@@ -5694,10 +5722,7 @@ function tpNextQuestion() {
 function tpSubmit() {
   if (!tpState.q) return;
   const ans = (document.getElementById('tp-answer') || {}).value;
-  const norm = s => s.toLowerCase().replace(/\s+/g,' ').trim();
-  const correctWords = norm(tpState.q.answer).split(' ').filter(w=>w.length>1);
-  const userNorm = norm(ans);
-  const correct = correctWords.some(w => userNorm.includes(w));
+  const correct = [tpState.q.answer, ...(tpState.q.altAnswers || [])].some(a => ansOk(ans, a));
   
   if (correct) {
     tpState.scores[tpState.currentPlayer-1]++;
@@ -5967,9 +5992,8 @@ function speedNextQ() {
 function speedSubmit() {
   if (!speedState.running || !speedState.q) return;
   const ans = (document.getElementById('speed-answer') || {}).value;
-  const norm = s => s.toLowerCase().replace(/[\s'",.!?]/g,'');
   const allAns = [speedState.q.answer, ...(speedState.q.altAnswers||[])];
-  const ok = allAns.some(a => { const na=norm(a),nu=norm(ans); return nu.includes(na)||na.includes(nu); });
+  const ok = allAns.some(a => ansOk(ans, a));
   if (ok) {
     speedState.score++; speedState.qCount++;
     (document.getElementById('speed-result') || {}).innerHTML = '<span style="color:#4cff80;">✓ נכון!</span>';
@@ -6061,9 +6085,8 @@ function hmNextQ() {
 function hmSubmit() {
   if (!hmState.running||!hmState.q) return;
   const ans = (document.getElementById('hm-answer') || {}).value;
-  const norm = s => s.toLowerCase().replace(/[\s'",.!?]/g,'');
   const allAns = [hmState.q.answer,...(hmState.q.altAnswers||[])];
-  const ok = allAns.some(a=>{const na=norm(a),nu=norm(ans);return nu.includes(na)||na.includes(nu);});
+  const ok = allAns.some(a=>ansOk(ans,a));
   if (ok) {
     hmState.score++;
     (document.getElementById('hm-result') || {}).innerHTML='<span style="color:#4cff80;">✓ נכון! +1</span>';
