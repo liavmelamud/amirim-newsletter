@@ -30,6 +30,60 @@
     font-family: 'Crimson Text', serif;
     min-height: 100vh;
     overflow-x: hidden;
+    font-size: clamp(16px, 1.05rem, 18px);
+    line-height: 1.6;
+    -webkit-tap-highlight-color: transparent;
+    color: var(--ink);
+  }
+
+  a { color: inherit; }
+
+  .skip-link {
+    position: absolute;
+    left: 16px;
+    top: -48px;
+    z-index: 1000;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .skip-link:focus {
+    top: 12px;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button {
+    touch-action: manipulation;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 
   /* ===== HEADER ===== */
@@ -695,6 +749,10 @@
 
   /* ===== MOBILE FIRST RESPONSIVE ===== */
   @media (max-width: 640px) {
+    body {
+      padding-bottom: 92px;
+    }
+
     /* -- newspaper viewer & article body -- */
     #viewer-screen { padding: 0; }
     .newspaper-viewer { width: 100%; max-height: 100vh; height: 100vh; border-radius: 0; }
@@ -748,6 +806,28 @@
 
     /* prevent iOS auto-zoom on focus */
     input, select, textarea { font-size: 16px; }
+
+    #bot-bubble {
+      bottom: 16px;
+      right: 12px;
+      left: 12px;
+      align-items: flex-end;
+    }
+
+    #admin-panel {
+      width: min(100vw - 16px, 360px);
+      right: 8px;
+      left: 8px;
+      bottom: 84px;
+    }
+
+    .site-header {
+      padding: 24px 16px 12px;
+    }
+
+    .site-title {
+      letter-spacing: 2px;
+    }
 
     /* -- crossword: keep horizontally scrollable, already wrapped -- */
     .crossword-grid { grid-template-columns: repeat(7, 30px) !important; }
@@ -1961,8 +2041,9 @@ body[data-fontsize="xlarge"] { font-size:22px; }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">דלג לתוכן הראשי</a>
 <!-- SETTINGS BUTTON -->
-<button id="settings-btn" onclick="toggleSettings()" title="הגדרות">⚙️</button>
+<button id="settings-btn" onclick="toggleSettings()" title="הגדרות" aria-label="פתח הגדרות">⚙️</button>
 
 <!-- SETTINGS PANEL -->
 <div id="settings-panel">
@@ -2112,6 +2193,7 @@ body[data-fontsize="xlarge"] { font-size:22px; }
 
 <div id="home-username-banner"></div>
 
+<main id="main-content" tabindex="-1">
 <header class="site-header">
   <div class="site-title">האתר של ליאב</div>
   <div class="site-subtitle">✦ עיתוני הסרטים המצוירים הנחשבים ביותר ✦</div>
@@ -2527,6 +2609,8 @@ body[data-fontsize="xlarge"] { font-size:22px; }
     <input type="text" id="chat-input" placeholder="כתוב הודעה או קוד..." onkeydown="if(event.key==='Enter') sendChat()" autocomplete="off" />
   </div>
 </div>
+
+</main>
 
 <footer class="site-footer">© האתר של ליאב · כל הזכויות שמורות · מחירים כוללים מע"מ</footer>
 
