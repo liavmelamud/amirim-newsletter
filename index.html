@@ -2256,8 +2256,9 @@ body[data-fontsize="xlarge"] { font-size:22px; }
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-end;
+  text-align: right;
+  direction: rtl;
 }
 
 .hb-tag {
@@ -2305,16 +2306,17 @@ body[data-fontsize="xlarge"] { font-size:22px; }
 
 .hb-stats {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 0;
   margin-bottom: 30px;
+  direction: rtl;
 }
 .hb-stat {
   padding: 0 20px;
-  border-left: 1px solid rgba(0,212,255,0.2);
+  border-right: 1px solid rgba(0,212,255,0.2);
   text-align: center;
 }
-.hb-stat:last-child { border-left: none; }
+.hb-stat:last-child { border-right: none; }
 .hb-stat-num {
   display: block;
   font-family: 'Orbitron', monospace;
