@@ -2257,8 +2257,8 @@ body[data-fontsize="xlarge"] { font-size:22px; }
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
+  align-items: center;
+  text-align: center;
 }
 
 .hb-tag {
@@ -2306,7 +2306,7 @@ body[data-fontsize="xlarge"] { font-size:22px; }
 
 .hb-stats {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 0;
   margin-bottom: 30px;
 }
@@ -2629,7 +2629,7 @@ body[data-fontsize="xlarge"] { font-size:22px; }
   <div class="hb-orb-2"></div>
 
   <div class="hb-inner">
-    <!-- Solar system logo -->
+    <!-- Solar system logo (left) -->
     <svg class="solar-logo" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" aria-label="מערכת השמש">
       <!-- Orbit rings -->
       <circle cx="55" cy="55" r="16" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.7"/>
@@ -2667,18 +2667,7 @@ body[data-fontsize="xlarge"] { font-size:22px; }
       </g>
     </svg>
 
-    <!-- Decorative ring (left on desktop, top on mobile) -->
-    <div class="hb-deco" aria-hidden="true">
-      <div class="hb-orbit-dot"></div>
-      <div class="hb-orbit-dot"></div>
-      <div class="hb-orbit-dot"></div>
-      <div class="hb-deco-inner">
-        <div class="hb-deco-emoji">📰</div>
-        <div class="hb-deco-label">PRESS · עיתון</div>
-      </div>
-    </div>
-
-    <!-- Text block (right on desktop, below on mobile) -->
+    <!-- Text block (center) -->
     <div class="hb-text">
       <div class="hb-tag">// LIAV'S DIGITAL PRESS · עיתוני הסרטים</div>
       <div class="hb-title">האתר של <span class="hb-accent">ליאב</span></div>
@@ -2689,6 +2678,17 @@ body[data-fontsize="xlarge"] { font-size:22px; }
         <div class="hb-stat"><span class="hb-stat-num">10+</span><span class="hb-stat-label">משחקים</span></div>
       </div>
       <a class="hb-cta" href="#papers-grid">גלה את העיתונים ▸</a>
+    </div>
+
+    <!-- Decorative ring (right) -->
+    <div class="hb-deco" aria-hidden="true">
+      <div class="hb-orbit-dot"></div>
+      <div class="hb-orbit-dot"></div>
+      <div class="hb-orbit-dot"></div>
+      <div class="hb-deco-inner">
+        <div class="hb-deco-emoji">📰</div>
+        <div class="hb-deco-label">PRESS · עיתון</div>
+      </div>
     </div>
   </div>
 
