@@ -19,14 +19,17 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: #2c1a0e;
-    background-image: repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.1) 2px,
-      rgba(0,0,0,0.1) 4px
+    background: linear-gradient(
+      180deg,
+      #ff0000 0%,
+      #ff7700 16%,
+      #ffff00 33%,
+      #00cc00 50%,
+      #0000ff 67%,
+      #8b00ff 83%,
+      #2c1a0e 100%
     );
+    background-attachment: fixed;
     font-family: 'Crimson Text', serif;
     min-height: 100vh;
     overflow-x: hidden;
@@ -832,6 +835,44 @@
     /* -- crossword: keep horizontally scrollable, already wrapped -- */
     .crossword-grid { grid-template-columns: repeat(7, 30px) !important; }
     #cw-clues { columns: 1 !important; }
+
+    /* -- language grid: 2 columns instead of 4 on small screens -- */
+    .lang-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .lang-btn { padding: 10px 6px; font-size: 0.78rem; min-height: 44px; }
+
+    /* -- font-size buttons: touch-friendly 44px -- */
+    .fsize-btn { width: 44px; height: 44px; }
+
+    /* -- print popup: prevent overflow on 320px screens -- */
+    .print-popup {
+      width: 95vw;
+      max-width: 95vw;
+      padding: 24px 18px;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+    .print-popup.show { transform: translate(-50%, -50%) scale(1); }
+
+    /* -- newspaper article page: smaller padding -- */
+    .newspaper-page { padding: 16px 16px 16px 20px; }
+    .newspaper-page::before { left: 14px; }
+
+    /* -- page nav: wrap on tiny screens -- */
+    .page-nav { flex-wrap: wrap; justify-content: center; padding: 10px 12px; }
+    .page-nav-btn { padding: 8px 14px; font-size: 0.82rem; min-height: 44px; }
+
+    /* -- settings panel: full width on very small screens -- */
+    #settings-panel { width: min(280px, 95vw); }
+
+    /* -- close button in viewer: touch target -- */
+    .close-btn { width: 44px; height: 44px; font-size: 1.4rem; }
+
+    /* -- viewer top bar: wrap if needed -- */
+    .viewer-top-bar { flex-wrap: wrap; gap: 8px; }
+    .viewer-paper-name { font-size: 1rem; }
+
+    /* -- theme grid: already 2-col, keep -- */
+    .theme-btn { padding: 14px 8px; min-height: 60px; }
   }
 
 
@@ -3555,6 +3596,11 @@ const newspapers = [
 let currentPaper = null;
 let currentPage = 0;
 
+function getVisibleNewspapers() {
+  if (isAdminLoggedIn) return newspapers;
+  return newspapers.filter(p => p.id === 'alice');
+}
+
 function renderGrid() {
   const grid = document.getElementById('papers-grid');
   if (!grid) return;
@@ -3562,7 +3608,8 @@ function renderGrid() {
   const langs = window.LANG_STRINGS || {};
   const settings = window.currentSettings || {};
   const s = langs[settings.lang] || langs.he || {};
-  newspapers.forEach((p, i) => {
+  const visibleNewspapers = getVisibleNewspapers();
+  visibleNewspapers.forEach((p, i) => {
     const card = document.createElement('article');
     card.className = 'newspaper-card';
     card.dataset.paperid = p.id;
@@ -5890,7 +5937,7 @@ setTimeout(() => {
 // ═══════════════════════════════════════════
 // ADMIN PANEL JS
 // ═══════════════════════════════════════════
-const ADMIN_CODE = '2222';
+const ADMIN_CODE = '3333';
 let isAdminLoggedIn = false;
 let currentChar = null;
 let charChatHistory = [];
@@ -5910,7 +5957,8 @@ function checkAdminCode() {
   const val = (document.getElementById('admin-code-input') || {}).value;
   if (val === ADMIN_CODE) {
     isAdminLoggedIn = true;
-    appendActivityLog('כניסת אדמין', 'נכנס לפאנל האדמין עם קוד 2222', 'admin');
+    appendActivityLog('כניסת אדמין', 'נכנס לפאנל האדמין עם קוד 3333', 'admin');
+    if (typeof renderGrid === 'function') renderGrid();
     closeAdminLogin();
     openAdminDash();
   } else {
