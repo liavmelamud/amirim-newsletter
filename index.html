@@ -1368,20 +1368,29 @@
   display: none; position: fixed; inset: 0;
   background: rgba(0,0,0,0.92); z-index: 900;
   align-items: center; justify-content: center;
+  padding: 20px;
 }
 #admin-login-overlay.show { display: flex; }
 .admin-login-box {
-  background: #0a0010;
+  background: linear-gradient(135deg, #0a0010, #180010);
   border: 2px solid #ff4444;
-  border-radius: 12px;
-  padding: 40px;
+  border-radius: 16px;
+  padding: 36px 28px;
   text-align: center;
-  box-shadow: 0 0 60px rgba(255,68,68,0.4);
+  box-shadow: 0 0 70px rgba(255,68,68,0.28);
   direction: rtl;
-  min-width: 320px;
+  min-width: min(320px, 100%);
+  position: relative; overflow: hidden;
 }
-.admin-login-box h2 { color: #ff4444; font-size: 1.6rem; margin-bottom: 6px; }
-.admin-login-box p { color: #888; font-size: 0.85rem; margin-bottom: 24px; }
+.admin-login-box::before {
+  content:''; position:absolute; inset:auto -20px -30px auto; width:140px; height:140px;
+  background:radial-gradient(circle, rgba(255,68,68,0.2), transparent 70%);
+  pointer-events:none;
+}
+.admin-login-icon { font-size: 2rem; margin-bottom: 8px; }
+.admin-login-box h2 { color: #ff4444; font-size: 1.5rem; margin-bottom: 6px; }
+.admin-login-box p { color: #aaa; font-size: 0.85rem; margin-bottom: 18px; }
+.admin-login-hint { color: #777; font-size: 0.75rem; margin-top: -8px; margin-bottom: 16px; }
 .admin-login-box input {
   width: 100%; padding: 12px; text-align: center;
   background: #1a0010; color: #fff; border: 1px solid #ff4444;
@@ -1395,7 +1404,7 @@
   border-radius: 8px; font-size: 1rem; font-weight: 700;
   cursor: pointer; transition: all 0.2s;
 }
-.admin-login-submit:hover { background: #ff2222; }
+.admin-login-submit:hover { background: #ff2222; transform: translateY(-1px); }
 .admin-login-cancel {
   margin-top: 10px; background: none; border: none;
   color: #666; cursor: pointer; font-size: 0.85rem;
@@ -1772,37 +1781,57 @@ body[data-fontsize="xlarge"] { font-size:22px; }
   display:none; position:fixed; inset:0;
   background:rgba(0,0,0,0.88); z-index:1000;
   align-items:center; justify-content:center;
+  padding:20px;
 }
 #welcome-dialog.show { display:flex; }
 .welcome-box {
   background:linear-gradient(135deg,#1a0a00,#2a1000);
-  border:2px solid var(--gold); border-radius:16px;
-  padding:36px 32px; max-width:380px; width:90%;
+  border:2px solid var(--gold); border-radius:20px;
+  padding:32px 28px; max-width:420px; width:100%;
   text-align:center; direction:rtl;
-  box-shadow:0 0 60px rgba(201,162,39,0.3);
+  box-shadow:0 0 70px rgba(201,162,39,0.28);
+  animation: welcomePop 0.35s ease;
+  position:relative; overflow:hidden;
+}
+.welcome-box::before {
+  content:''; position:absolute; inset:-20% auto auto -10%;
+  width:220px; height:220px; background:radial-gradient(circle, rgba(201,162,39,0.18), transparent 70%);
+  pointer-events:none;
+}
+.welcome-hero {
+  width:64px; height:64px; border-radius:50%; margin:0 auto 10px;
+  display:grid; place-items:center; font-size:1.6rem;
+  background:rgba(255,255,255,0.08); border:1px solid rgba(201,162,39,0.35);
 }
 .welcome-box h2 { color:var(--gold); font-size:1.5rem; margin-bottom:6px; }
-.welcome-box p { color:rgba(255,255,255,0.7); font-size:0.88rem; margin-bottom:20px; line-height:1.6; }
+.welcome-box p { color:rgba(255,255,255,0.77); font-size:0.9rem; margin-bottom:18px; line-height:1.6; }
+.welcome-features { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-bottom:16px; }
+.welcome-chip {
+  padding:6px 10px; border-radius:999px;
+  border:1px solid rgba(201,162,39,0.3); background:rgba(201,162,39,0.12);
+  color:var(--gold); font-size:0.74rem; font-weight:700;
+}
 .welcome-input {
   width:100%; padding:11px 14px; margin-bottom:14px;
   background:rgba(255,255,255,0.08); color:#fff;
   border:1px solid rgba(201,162,39,0.5); border-radius:9px;
   font-size:1rem; direction:rtl; outline:none;
 }
-.welcome-input:focus { border-color:var(--gold); }
+.welcome-input:focus { border-color:var(--gold); box-shadow:0 0 10px rgba(201,162,39,0.2); }
 .welcome-btns { display:flex; flex-direction:column; gap:8px; }
 .welcome-btn-primary {
   padding:12px; background:var(--gold); color:#1a0a00;
   border:none; border-radius:9px; font-size:1rem;
   font-weight:900; cursor:pointer; transition:all 0.2s;
 }
-.welcome-btn-primary:hover { background:#e5b82c; }
+.welcome-btn-primary:hover { background:#e5b82c; transform:translateY(-1px); }
 .welcome-btn-secondary {
-  padding:10px; background:transparent; color:rgba(255,255,255,0.5);
+  padding:10px; background:transparent; color:rgba(255,255,255,0.6);
   border:1px solid rgba(255,255,255,0.15); border-radius:9px;
   font-size:0.85rem; cursor:pointer;
 }
 .welcome-btn-secondary:hover { color:#fff; border-color:rgba(255,255,255,0.4); }
+@keyframes welcomePop { from { opacity:0; transform:translateY(10px) scale(0.98); } to { opacity:1; transform:translateY(0) scale(1); } }
 
 
 /* ===== FREE GAMES SECTION ===== */
@@ -3595,13 +3624,35 @@ const newspapers = [
 
 let currentPaper = null;
 let currentPage = 0;
+var currentSettings = window.currentSettings || {
+  theme: 'classic',
+  animations: true,
+  scanlines: true,
+  glow: true,
+  particles: true,
+  sounds: false,
+  music: false,
+  autoNight: true,
+  pageFlip: true,
+  slideshow: false,
+  twoPlayer: false,
+  highContrast: false,
+  reduceMotion: false,
+  screenReader: false,
+  alwaysSave: true,
+  fontsize: 'medium',
+  lang: 'he',
+};
 
 function isAdminAccessEnabled() {
-  return isAdminLoggedIn || localStorage.getItem('admin-access') === 'true';
+  return !!(window.isAdminLoggedIn || localStorage.getItem('admin-access') === 'true');
 }
 
 function setAdminAccess(enabled) {
-  isAdminLoggedIn = !!enabled;
+  window.isAdminLoggedIn = !!enabled;
+  if (typeof isAdminLoggedIn !== 'undefined') {
+    isAdminLoggedIn = window.isAdminLoggedIn;
+  }
   localStorage.setItem('admin-access', enabled ? 'true' : 'false');
   if (typeof renderGrid === 'function') renderGrid();
 }
@@ -3724,25 +3775,6 @@ renderGrid();
 
 // ===== SETTINGS SYSTEM =====
 let settingsOpen = false;
-let currentSettings = {
-  theme: 'classic',
-  animations: true,
-  scanlines: true,
-  glow: true,
-  particles: true,
-  sounds: false,
-  music: false,
-  autoNight: true,
-  pageFlip: true,
-  slideshow: false,
-  twoPlayer: false,
-  highContrast: false,
-  reduceMotion: false,
-  screenReader: false,
-  alwaysSave: true,
-  fontsize: 'medium',
-  lang: 'he',
-};
 
 function loadSettings() {
   try {
@@ -3859,6 +3891,14 @@ function toggleEffect(key) {
   currentSettings[key] = !currentSettings[key];
   applySettings();
   saveSettings();
+
+  if (key === 'twoPlayer') {
+    if (currentSettings.twoPlayer) {
+      startTwoPlayer();
+    } else {
+      endTwoPlayer();
+    }
+  }
 }
 
 function resetSettings() {
@@ -4083,8 +4123,10 @@ window.addEventListener('DOMContentLoaded', () => {
 <!-- ===== ADMIN LOGIN ===== -->
 <div id="admin-login-overlay">
   <div class="admin-login-box">
-    <h2>🔐 כניסת אדמין</h2>
-    <p>הכנס קוד גישה</p>
+    <div class="admin-login-icon">🔐</div>
+    <h2>כניסת אדמין</h2>
+    <p>הכנס את הקוד הסודי כדי לפתוח את פאנל הניהול</p>
+    <div class="admin-login-hint">רמז: הקוד הוא 3333</div>
     <input type="password" id="admin-code-input" maxlength="8" placeholder="••••"
       onkeydown="if(event.key==='Enter') checkAdminCode()" />
     <button class="admin-login-submit" onclick="checkAdminCode()">כניסה</button>
@@ -4301,8 +4343,14 @@ window.addEventListener('DOMContentLoaded', () => {
 <!-- WELCOME DIALOG -->
 <div id="welcome-dialog">
   <div class="welcome-box">
+    <div class="welcome-hero">🗞️</div>
     <h2>👋 שלום!</h2>
-    <p>איך תרצה שיקראו לך? הגדרות שנשמרות תמיד או מאופסות בכל פתיחה?</p>
+    <p>הכנס כינוי, בחר אם לשמור את ההגדרות, ותחל את המסע בין עיתוני הסרטים המצוירים.</p>
+    <div class="welcome-features">
+      <div class="welcome-chip">📰 עיתונים ייחודיים</div>
+      <div class="welcome-chip">🎮 חידות ומשחקים</div>
+      <div class="welcome-chip">👤 פרופיל אישי</div>
+    </div>
     <input class="welcome-input" id="welcome-name-input" maxlength="20" placeholder="הכנס כינוי..." />
     <div class="welcome-btns">
       <button class="welcome-btn-primary" onclick="saveWelcome(true)">💾 שמור לתמיד</button>
@@ -5531,7 +5579,8 @@ setTimeout(() => {
 
 // ── AUTO NIGHT/DAY ──
 function checkAutoNight() {
-  if (!currentSettings.autoNight) {
+  const settings = typeof currentSettings !== 'undefined' ? currentSettings : {};
+  if (!settings.autoNight) {
     document.documentElement.style.removeProperty('--paper');
     document.documentElement.style.removeProperty('--bg');
     document.body.style.filter = '';
@@ -5548,7 +5597,7 @@ function checkAutoNight() {
   const isMorning = h >= 6 && h < 13;    // 06:00–12:59 — בהיר
   const isAfternoon = h >= 13 && h < 20; // 13:00–19:59 — חצי-חצי
 
-  if (currentSettings.theme !== 'classic') {
+  if (settings.theme !== 'classic') {
     document.body.style.filter = '';
     return;
   }
@@ -5948,12 +5997,13 @@ setTimeout(() => {
 // ADMIN PANEL JS
 // ═══════════════════════════════════════════
 const ADMIN_CODE = '3333';
-let isAdminLoggedIn = false;
+var isAdminLoggedIn = window.isAdminLoggedIn || false;
 let currentChar = null;
 let charChatHistory = [];
 
 if (typeof window !== 'undefined') {
-  isAdminLoggedIn = localStorage.getItem('admin-access') === 'true';
+  window.isAdminLoggedIn = localStorage.getItem('admin-access') === 'true';
+  isAdminLoggedIn = window.isAdminLoggedIn;
 }
 
 // ── LOGIN ──
