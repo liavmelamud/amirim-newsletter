@@ -3596,8 +3596,18 @@ const newspapers = [
 let currentPaper = null;
 let currentPage = 0;
 
+function isAdminAccessEnabled() {
+  return isAdminLoggedIn || localStorage.getItem('admin-access') === 'true';
+}
+
+function setAdminAccess(enabled) {
+  isAdminLoggedIn = !!enabled;
+  localStorage.setItem('admin-access', enabled ? 'true' : 'false');
+  if (typeof renderGrid === 'function') renderGrid();
+}
+
 function getVisibleNewspapers() {
-  if (isAdminLoggedIn) return newspapers;
+  if (isAdminAccessEnabled()) return newspapers;
   return newspapers.filter(p => p.id === 'alice');
 }
 
@@ -3605,8 +3615,8 @@ function renderGrid() {
   const grid = document.getElementById('papers-grid');
   if (!grid) return;
   grid.innerHTML = '';
-  const langs = window.LANG_STRINGS || {};
-  const settings = window.currentSettings || {};
+  const langs = typeof LANG_STRINGS !== 'undefined' ? LANG_STRINGS : {};
+  const settings = typeof currentSettings !== 'undefined' ? currentSettings : {};
   const s = langs[settings.lang] || langs.he || {};
   const visibleNewspapers = getVisibleNewspapers();
   visibleNewspapers.forEach((p, i) => {
@@ -3636,8 +3646,8 @@ function renderGrid() {
 function openPaper(idx) {
   currentPaper = newspapers[idx];
   currentPage = 0;
-  const langs = window.LANG_STRINGS || {};
-  const settings = window.currentSettings || {};
+  const langs = typeof LANG_STRINGS !== 'undefined' ? LANG_STRINGS : {};
+  const settings = typeof currentSettings !== 'undefined' ? currentSettings : {};
   const s = langs[settings.lang] || langs.he || {};
   const displayName = (s.paperNames && s.paperNames[currentPaper.id]) || currentPaper.name;
   const fontStyle = s.cursiveFont === false ? "'Segoe UI','Helvetica Neue',Arial,sans-serif" : '';
@@ -3666,8 +3676,8 @@ function goToPage(n) {
 function renderPage() {
   const p = currentPaper.pages[currentPage];
   const total = currentPaper.pages.length;
-  const langs = window.LANG_STRINGS || {};
-  const settings = window.currentSettings || {};
+  const langs = typeof LANG_STRINGS !== 'undefined' ? LANG_STRINGS : {};
+  const settings = typeof currentSettings !== 'undefined' ? currentSettings : {};
   const s = langs[settings.lang] || langs.he || {};
   const bodyFont = s.cursiveFont === false ? "font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;" : '';
   document.getElementById('viewer-page').innerHTML = `
@@ -5942,6 +5952,10 @@ let isAdminLoggedIn = false;
 let currentChar = null;
 let charChatHistory = [];
 
+if (typeof window !== 'undefined') {
+  isAdminLoggedIn = localStorage.getItem('admin-access') === 'true';
+}
+
 // ── LOGIN ──
 function openAdminLogin() {
   if (isAdminLoggedIn) { openAdminDash(); return; }
@@ -5956,9 +5970,8 @@ function closeAdminLogin() {
 function checkAdminCode() {
   const val = (document.getElementById('admin-code-input') || {}).value;
   if (val === ADMIN_CODE) {
-    isAdminLoggedIn = true;
+    setAdminAccess(true);
     appendActivityLog('כניסת אדמין', 'נכנס לפאנל האדמין עם קוד 3333', 'admin');
-    if (typeof renderGrid === 'function') renderGrid();
     closeAdminLogin();
     openAdminDash();
   } else {
