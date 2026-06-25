@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>Hero Banner – Sci-Fi</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&family=Noto+Sans+Hebrew:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1920px;
+    height: 600px;
+    overflow: hidden;
+    background: #020810;
+  }
+
+  .banner {
+    position: relative;
+    width: 1920px;
+    height: 600px;
+    background: radial-gradient(ellipse at 30% 50%, rgba(0,180,255,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 30%, rgba(0,80,200,0.1) 0%, transparent 50%),
+                linear-gradient(180deg, #030b18 0%, #020810 60%, #010509 100%);
+    font-family: 'Noto Sans Hebrew', sans-serif;
+    overflow: hidden;
+  }
+
+  /* grid background */
+  .banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 1;
+  }
+
+  /* scanlines */
+  .banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,212,255,0.025) 2px,
+      rgba(0,212,255,0.025) 4px
+    );
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* left glow orb */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .orb-1 {
+    width: 600px; height: 600px;
+    top: -100px; right: -80px;
+    background: radial-gradient(circle, rgba(0,212,255,0.12) 0%, transparent 70%);
+  }
+  .orb-2 {
+    width: 400px; height: 400px;
+    bottom: -150px; left: 200px;
+    background: radial-gradient(circle, rgba(0,100,200,0.15) 0%, transparent 70%);
+  }
+
+  /* horizontal accent lines */
+  .line-top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #00d4ff 30%, rgba(0,212,255,0.3) 70%, transparent 100%);
+    z-index: 4;
+  }
+  .line-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, rgba(0,212,255,0.3) 30%, #00d4ff 70%, transparent 100%);
+    z-index: 4;
+  }
+
+  /* vertical accent line on right side */
+  .line-right {
+    position: absolute;
+    top: 40px; bottom: 40px; right: 120px;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(0,212,255,0.5) 30%, rgba(0,212,255,0.5) 70%, transparent);
+    z-index: 4;
+  }
+
+  /* bracket decorations */
+  .bracket-right {
+    position: absolute;
+    top: 50%;
+    right: 60px;
+    transform: translateY(-50%);
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    opacity: 0.6;
+  }
+  .bracket-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #00d4ff;
+    box-shadow: 0 0 8px #00d4ff;
+  }
+
+  /* circuit lines (decorative) */
+  .circuit {
+    position: absolute;
+    z-index: 3;
+    opacity: 0.15;
+  }
+  .circuit-svg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 3;
+    opacity: 0.12;
+  }
+
+  /* ── CONTENT ── */
+  .content {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    padding: 0 160px 0 80px;
+    gap: 0;
+  }
+
+  .text-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  /* top label */
+  .label-tag {
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: rgba(0,212,255,0.7);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .label-tag::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 1px;
+    background: rgba(0,212,255,0.5);
+  }
+
+  .site-title {
+    font-family: 'Noto Sans Hebrew', sans-serif;
+    font-size: 96px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -2px;
+    line-height: 1;
+    text-shadow:
+      0 0 40px rgba(0,212,255,0.4),
+      0 0 100px rgba(0,212,255,0.15);
+    margin-bottom: 10px;
+  }
+  .site-title .accent {
+    color: #00d4ff;
+    text-shadow:
+      0 0 24px #00d4ff,
+      0 0 70px rgba(0,212,255,0.7),
+      0 0 120px rgba(0,212,255,0.4);
+    font-weight: 700;
+  }
+
+  .subtitle {
+    font-family: 'Noto Sans Hebrew', sans-serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: rgba(224,248,255,0.55);
+    letter-spacing: 4px;
+    margin-bottom: 44px;
+    margin-top: 10px;
+    border-right: 2px solid rgba(0,212,255,0.35);
+    padding-right: 14px;
+  }
+
+  /* stats row */
+  .stats-row {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 44px;
+    direction: rtl;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .stat-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 34px;
+    font-weight: 700;
+    color: #00d4ff;
+    text-shadow: 0 0 20px rgba(0,212,255,0.7);
+  }
+  .stat-label {
+    font-size: 11px;
+    color: rgba(224,248,255,0.45);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .stat-divider {
+    width: 1px;
+    background: rgba(0,212,255,0.2);
+    align-self: stretch;
+    margin: 4px 0;
+  }
+
+  /* CTA */
+  .cta-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    direction: rtl;
+  }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 48px;
+    background: #00d4ff;
+    color: #020810;
+    font-family: 'Noto Sans Hebrew', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 1px;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    box-shadow: 0 0 40px rgba(0,212,255,0.5), 0 0 80px rgba(0,212,255,0.2), inset 0 0 20px rgba(255,255,255,0.15);
+    transition: all 0.2s;
+  }
+  .cta-btn .arrow {
+    font-family: 'Orbitron', monospace;
+    font-size: 20px;
+  }
+
+  .cta-secondary {
+    font-family: 'Noto Sans Hebrew', sans-serif;
+    font-size: 15px;
+    color: rgba(0,212,255,0.6);
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(0,212,255,0.3);
+    padding-bottom: 2px;
+  }
+
+  /* right decorative panel */
+  .deco-panel {
+    width: 340px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-right: 40px;
+  }
+
+  .hex-ring {
+    width: 260px;
+    height: 260px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hex-ring::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(0,212,255,0.3);
+    border-radius: 50%;
+    box-shadow: 0 0 30px rgba(0,212,255,0.1), inset 0 0 30px rgba(0,212,255,0.05);
+  }
+  .hex-ring::after {
+    content: '';
+    position: absolute;
+    inset: 20px;
+    border: 1px solid rgba(0,212,255,0.15);
+    border-radius: 50%;
+  }
+
+  .hex-inner {
+    width: 180px;
+    height: 180px;
+    background: rgba(0,212,255,0.04);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    box-shadow: 0 0 40px rgba(0,212,255,0.08);
+  }
+
+  .hex-emoji {
+    font-size: 72px;
+    filter: drop-shadow(0 0 20px rgba(0,212,255,0.6)) drop-shadow(0 0 40px rgba(0,212,255,0.3));
+  }
+  .hex-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: rgba(0,212,255,0.5);
+    text-transform: uppercase;
+  }
+
+  /* orbit dots */
+  .orbit-dot {
+    position: absolute;
+    width: 8px; height: 8px;
+    background: #00d4ff;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #00d4ff;
+  }
+  .orbit-dot-1 { top: 8px; left: 50%; transform: translateX(-50%); }
+  .orbit-dot-2 { bottom: 8px; left: 50%; transform: translateX(-50%); }
+  .orbit-dot-3 { right: 8px; top: 50%; transform: translateY(-50%); }
+
+  /* corner brackets on deco panel */
+  .corner-br { position: absolute; width: 20px; height: 20px; }
+  .corner-br.tl { top: 0; left: 0; border-top: 2px solid rgba(0,212,255,0.5); border-left: 2px solid rgba(0,212,255,0.5); }
+  .corner-br.tr { top: 0; right: 0; border-top: 2px solid rgba(0,212,255,0.5); border-right: 2px solid rgba(0,212,255,0.5); }
+  .corner-br.bl { bottom: 0; left: 0; border-bottom: 2px solid rgba(0,212,255,0.5); border-left: 2px solid rgba(0,212,255,0.5); }
+  .corner-br.br { bottom: 0; right: 0; border-bottom: 2px solid rgba(0,212,255,0.5); border-right: 2px solid rgba(0,212,255,0.5); }
+
+  /* bottom info bar */
+  .info-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 42px;
+    background: rgba(0,212,255,0.04);
+    border-top: 1px solid rgba(0,212,255,0.12);
+    display: flex;
+    align-items: center;
+    padding: 0 160px;
+    z-index: 10;
+    gap: 32px;
+    direction: rtl;
+  }
+  .info-item {
+    font-family: 'Orbitron', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: rgba(0,212,255,0.4);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .info-dot {
+    width: 4px; height: 4px;
+    background: rgba(0,212,255,0.5);
+    border-radius: 50%;
+  }
+</style>
+</head>
+<body>
+<div class="banner">
+  <div class="line-top"></div>
+  <div class="line-bottom"></div>
+  <div class="line-right"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="bracket-right">
+    <div class="bracket-dot"></div>
+    <div class="bracket-dot"></div>
+    <div class="bracket-dot"></div>
+    <div class="bracket-dot"></div>
+    <div class="bracket-dot"></div>
+  </div>
+
+  <!-- main content -->
+  <div class="content">
+    <!-- left: decorative ring -->
+    <div class="deco-panel">
+      <div class="corner-br tl"></div>
+      <div class="corner-br tr"></div>
+      <div class="corner-br bl"></div>
+      <div class="corner-br br"></div>
+      <div class="hex-ring">
+        <div class="orbit-dot orbit-dot-1"></div>
+        <div class="orbit-dot orbit-dot-2"></div>
+        <div class="orbit-dot orbit-dot-3"></div>
+        <div class="hex-inner">
+          <div class="hex-emoji">📰</div>
+          <div class="hex-label">PRESS · עיתון</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- right: text -->
+    <div class="text-block">
+      <div class="label-tag">// LIAV'S DIGITAL PRESS · עיתוני הסרטים</div>
+
+      <div class="site-title">האתר של <span class="accent">ליאב</span></div>
+      <div class="subtitle">עיתוני הסרטים המצוירים · גיליונות דיגיטליים</div>
+
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-num">8+</span>
+          <span class="stat-label">עיתונים</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">9</span>
+          <span class="stat-label">ערכות נושא</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">∞</span>
+          <span class="stat-label">כיף</span>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <div class="cta-btn">
+          <span>גלה את העיתונים</span>
+          <span class="arrow">▸</span>
+        </div>
+        <div class="cta-secondary">כניסה חינמית</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- bottom info bar -->
+  <div class="info-bar">
+    <div class="info-item"><div class="info-dot"></div>SYSTEM ONLINE</div>
+    <div class="info-item"><div class="info-dot"></div>עיתוני הסרטים המצוירים</div>
+    <div class="info-item"><div class="info-dot"></div>LIAV · 2025</div>
+    <div class="info-item"><div class="info-dot"></div>1920 × 600 · HERO BANNER</div>
+  </div>
+</div>
+</body>
+</html>

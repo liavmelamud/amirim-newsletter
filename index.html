@@ -4,31 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>האתר של ליאב - עיתוני הסרטים המצוירים</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&family=Raleway:wght@300;400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&family=Raleway:wght@300;400;700&family=Inter:wght@300;400;700&family=Noto+Sans+Hebrew:wght@300;400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=UnifrakturMaguntia&family=Abril+Fatface&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #1a0a00;
-    --paper: #f5ead0;
-    --aged: #e8d5a3;
-    --accent: #8b1a1a;
-    --gold: #c9a227;
-    --shadow: rgba(26,10,0,0.3);
+    --ink: #e0f7ff;
+    --paper: #080f1f;
+    --aged: #0a1929;
+    --accent: #00d4ff;
+    --gold: #00d4ff;
+    --shadow: rgba(0,212,255,0.3);
+    --tab-bg: #030c18;
+    --tab-fg: #00d4ff;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: linear-gradient(
-      180deg,
-      #ff0000 0%,
-      #ff7700 16%,
-      #ffff00 33%,
-      #00cc00 50%,
-      #0000ff 67%,
-      #8b00ff 83%,
-      #2c1a0e 100%
-    );
+    background:
+      /* Sun glow — top-right */
+      radial-gradient(ellipse at 88% 8%, rgba(255,215,60,0.65) 0%, rgba(255,150,0,0.32) 10%, rgba(255,90,10,0.12) 24%, transparent 42%),
+      /* Purple nebula — left */
+      radial-gradient(ellipse at 12% 65%, rgba(130,50,220,0.38) 0%, rgba(70,15,160,0.18) 22%, transparent 42%),
+      /* Blue nebula — center */
+      radial-gradient(ellipse at 48% 50%, rgba(18,55,180,0.22) 0%, transparent 48%),
+      /* Teal accent — bottom-right */
+      radial-gradient(ellipse at 78% 88%, rgba(0,150,210,0.18) 0%, transparent 34%),
+      /* Deep space */
+      linear-gradient(160deg, #04060f 0%, #070a1c 35%, #060912 65%, #040610 100%);
     background-attachment: fixed;
     font-family: 'Crimson Text', serif;
     min-height: 100vh;
@@ -37,6 +40,51 @@
     line-height: 1.6;
     -webkit-tap-highlight-color: transparent;
     color: var(--ink);
+  }
+
+  /* Star field for classic/default space theme */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(1px 1px at 8% 4%, rgba(255,255,255,0.85) 0%, transparent 1%),
+      radial-gradient(1.5px 1.5px at 17% 13%, rgba(255,255,255,0.7) 0%, transparent 1%),
+      radial-gradient(1px 1px at 26% 7%, rgba(255,255,255,0.55) 0%, transparent 1%),
+      radial-gradient(2px 2px at 35% 20%, rgba(255,255,255,0.9) 0%, transparent 1%),
+      radial-gradient(1px 1px at 44% 3%, rgba(255,255,255,0.6) 0%, transparent 1%),
+      radial-gradient(1px 1px at 54% 16%, rgba(255,240,180,0.7) 0%, transparent 1%),
+      radial-gradient(1.5px 1.5px at 63% 9%, rgba(255,255,255,0.8) 0%, transparent 1%),
+      radial-gradient(1px 1px at 73% 22%, rgba(255,255,255,0.5) 0%, transparent 1%),
+      radial-gradient(2px 2px at 83% 6%, rgba(255,250,220,0.75) 0%, transparent 1%),
+      radial-gradient(1px 1px at 92% 18%, rgba(255,255,255,0.65) 0%, transparent 1%),
+      radial-gradient(1px 1px at 5% 35%, rgba(255,255,255,0.4) 0%, transparent 1%),
+      radial-gradient(1.5px 1.5px at 14% 45%, rgba(200,210,255,0.7) 0%, transparent 1%),
+      radial-gradient(1px 1px at 24% 38%, rgba(255,255,255,0.55) 0%, transparent 1%),
+      radial-gradient(1px 1px at 38% 52%, rgba(255,255,255,0.45) 0%, transparent 1%),
+      radial-gradient(2px 2px at 48% 42%, rgba(255,255,255,0.8) 0%, transparent 1%),
+      radial-gradient(1px 1px at 57% 58%, rgba(255,240,200,0.6) 0%, transparent 1%),
+      radial-gradient(1px 1px at 68% 36%, rgba(255,255,255,0.5) 0%, transparent 1%),
+      radial-gradient(1.5px 1.5px at 79% 50%, rgba(220,210,255,0.7) 0%, transparent 1%),
+      radial-gradient(1px 1px at 89% 40%, rgba(255,255,255,0.45) 0%, transparent 1%),
+      radial-gradient(1px 1px at 3% 68%, rgba(255,255,255,0.55) 0%, transparent 1%),
+      radial-gradient(2px 2px at 13% 78%, rgba(255,255,255,0.75) 0%, transparent 1%),
+      radial-gradient(1px 1px at 22% 62%, rgba(200,220,255,0.5) 0%, transparent 1%),
+      radial-gradient(1px 1px at 32% 82%, rgba(255,255,255,0.6) 0%, transparent 1%),
+      radial-gradient(1.5px 1.5px at 43% 72%, rgba(255,245,210,0.7) 0%, transparent 1%),
+      radial-gradient(1px 1px at 53% 85%, rgba(255,255,255,0.4) 0%, transparent 1%),
+      radial-gradient(1px 1px at 66% 68%, rgba(255,255,255,0.55) 0%, transparent 1%),
+      radial-gradient(2px 2px at 77% 75%, rgba(255,255,255,0.8) 0%, transparent 1%),
+      radial-gradient(1px 1px at 87% 62%, rgba(210,200,255,0.6) 0%, transparent 1%),
+      radial-gradient(1px 1px at 95% 80%, rgba(255,255,255,0.5) 0%, transparent 1%),
+      radial-gradient(1.5px 1.5px at 9% 92%, rgba(255,255,255,0.65) 0%, transparent 1%),
+      radial-gradient(1px 1px at 20% 96%, rgba(255,240,180,0.5) 0%, transparent 1%),
+      radial-gradient(1px 1px at 40% 93%, rgba(255,255,255,0.45) 0%, transparent 1%),
+      radial-gradient(2px 2px at 60% 90%, rgba(255,255,255,0.7) 0%, transparent 1%),
+      radial-gradient(1px 1px at 75% 95%, rgba(220,215,255,0.55) 0%, transparent 1%),
+      radial-gradient(1px 1px at 93% 88%, rgba(255,255,255,0.6) 0%, transparent 1%);
   }
 
   a { color: inherit; }
@@ -92,60 +140,65 @@
   /* ===== HEADER ===== */
   .site-header {
     text-align: center;
-    padding: 30px 20px 15px;
+    padding: 36px 20px 22px;
     position: relative;
+    background: linear-gradient(180deg, #070a1e 0%, #0a0e28 100%);
+    border-bottom: 2px solid rgba(212,168,32,0.35);
+    box-shadow: 0 4px 40px rgba(0,0,0,0.6), 0 1px 0 rgba(212,168,32,0.1) inset;
   }
   .site-title {
     font-family: 'UnifrakturMaguntia', cursive;
     font-size: clamp(3rem, 8vw, 7rem);
     color: var(--gold);
-    text-shadow: 3px 3px 0 #5a2d00, 6px 6px 10px rgba(0,0,0,0.8);
+    text-shadow: 0 0 40px rgba(212,168,32,0.55), 0 0 80px rgba(212,168,32,0.2), 2px 2px 0 rgba(0,0,0,0.6);
     letter-spacing: 4px;
     line-height: 1;
     animation: titleGlow 3s ease-in-out infinite alternate;
   }
   @keyframes titleGlow {
-    from { text-shadow: 3px 3px 0 #5a2d00, 6px 6px 10px rgba(0,0,0,0.8), 0 0 20px rgba(201,162,39,0.3); }
-    to   { text-shadow: 3px 3px 0 #5a2d00, 6px 6px 10px rgba(0,0,0,0.8), 0 0 50px rgba(201,162,39,0.7); }
+    from { text-shadow: 0 0 30px rgba(212,168,32,0.45), 0 0 60px rgba(212,168,32,0.15), 2px 2px 0 rgba(0,0,0,0.6); }
+    to   { text-shadow: 0 0 50px rgba(212,168,32,0.7), 0 0 100px rgba(212,168,32,0.3), 2px 2px 0 rgba(0,0,0,0.6); }
   }
   .site-subtitle {
-    color: var(--aged);
+    color: rgba(230,220,255,0.6);
     font-family: 'Crimson Text', serif;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-style: italic;
     letter-spacing: 6px;
     margin-top: 8px;
-    opacity: 0.8;
   }
   .header-rule {
     border: none;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 15px auto;
-    max-width: 700px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212,168,32,0.5), transparent);
+    margin: 16px auto 0;
+    max-width: 600px;
   }
 
   /* ===== NEWSPAPERS GRID ===== */
   #home-screen {
-    padding: 20px;
+    padding: 24px 20px 32px;
     max-width: 1300px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
   }
   .newspapers-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-    gap: 30px;
-    padding: 10px;
+    gap: 28px;
+    padding: 8px 4px;
   }
 
   /* ===== NEWSPAPER CARD ===== */
   .newspaper-card {
-    background: var(--paper);
-    border: 2px solid var(--ink);
-    border-radius: 2px;
+    background: var(--paper, #080f1f);
+    border: 1px solid var(--card-border, #00d4ff);
+    border-radius: 6px;
     cursor: pointer;
     position: relative;
-    box-shadow: 6px 6px 0 var(--ink), 10px 10px 20px rgba(0,0,0,0.5);
+    z-index: 1;
+    box-shadow: 0 6px 32px rgba(0,0,0,0.7), 0 0 12px var(--glow, rgba(0,212,255,0.3));
     transition: transform 0.2s, box-shadow 0.2s;
     overflow: hidden;
     animation: cardAppear 0.6s ease backwards;
@@ -160,26 +213,20 @@
     to   { opacity: 1; transform: translateY(0) rotate(0deg); }
   }
   .newspaper-card:hover {
-    transform: translateY(-6px) rotate(1deg);
-    box-shadow: 10px 14px 0 var(--ink), 15px 20px 30px rgba(0,0,0,0.6);
+    transform: translateY(-6px) rotate(0.4deg);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 30px var(--glow, rgba(0,212,255,0.4)), 0 0 0 1px var(--card-border, #00d4ff);
   }
   .newspaper-card::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 22px,
-      rgba(26,10,0,0.06) 22px,
-      rgba(26,10,0,0.06) 23px
-    );
+    background: none;
     pointer-events: none;
   }
 
   .card-header {
-    background: var(--ink);
-    color: var(--paper);
+    background: var(--tab-bg, #3a2818);
+    color: var(--tab-fg, #f0e8d0);
     padding: 8px 12px;
     text-align: center;
     font-family: 'Playfair Display', serif;
@@ -190,7 +237,7 @@
   .card-flag {
     text-align: center;
     padding: 15px 12px 8px;
-    border-bottom: 2px solid var(--ink);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
   }
   .card-name {
     font-family: 'Abril Fatface', serif;
@@ -203,7 +250,8 @@
     font-family: 'Crimson Text', serif;
     font-style: italic;
     font-size: 0.8rem;
-    color: #5a3a1a;
+    color: var(--ink);
+    opacity: 0.55;
     display: block;
     margin-top: 3px;
   }
@@ -214,7 +262,7 @@
     align-items: center;
     justify-content: center;
     font-size: 5.5rem;
-    background: var(--aged);
+    background: var(--aged, #eef0ff);
     position: relative;
     overflow: hidden;
   }
@@ -222,15 +270,16 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at center, transparent 50%, rgba(26,10,0,0.15) 100%);
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,30,0.08) 100%);
   }
   .card-teaser {
     padding: 10px 14px 6px;
     font-size: 0.82rem;
     color: var(--ink);
+    opacity: 0.8;
     line-height: 1.5;
     font-style: italic;
-    border-bottom: 1px solid rgba(26,10,0,0.25);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
   }
   .card-footer {
     padding: 10px 14px 12px;
@@ -277,7 +326,8 @@
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(20,8,0,0.92);
+    background: rgba(10,6,2,0.82);
+    backdrop-filter: blur(4px);
     z-index: 100;
     justify-content: center;
     align-items: center;
@@ -298,19 +348,20 @@
     max-height: 94vh;
     overflow: hidden;
     position: relative;
-    border: 3px solid var(--ink);
-    box-shadow: 0 0 60px rgba(0,0,0,0.8), 0 0 0 8px rgba(201,162,39,0.2);
+    border: 2px solid rgba(26,10,0,0.6);
+    box-shadow: 0 8px 60px rgba(0,0,0,0.55), 0 0 0 5px rgba(201,162,39,0.18);
     display: flex;
     flex-direction: column;
   }
   .viewer-top-bar {
-    background: var(--ink);
-    color: var(--paper);
+    background: var(--tab-bg, #3a2818);
+    color: var(--tab-fg, #f0e8d0);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 18px;
     flex-shrink: 0;
+    border-bottom: 2px solid var(--gold);
   }
   .viewer-paper-name {
     font-family: 'Abril Fatface', serif;
@@ -426,13 +477,14 @@
   }
 
   .page-nav {
-    background: var(--ink);
+    background: var(--tab-bg, #3a2818);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 18px;
     flex-shrink: 0;
     gap: 10px;
+    border-top: 2px solid var(--gold);
   }
   .page-nav-btn {
     background: var(--gold);
@@ -471,11 +523,12 @@
   /* ===== FOOTER ===== */
   .site-footer {
     text-align: center;
-    padding: 20px;
-    color: rgba(245,234,208,0.45);
+    padding: 24px 20px;
+    color: rgba(220,215,255,0.35);
     font-family: 'Crimson Text', serif;
     font-size: 0.8rem;
     letter-spacing: 2px;
+    border-top: 1px solid rgba(255,255,255,0.06);
   }
 
   /* ===== PRINT BUTTON IN VIEWER ===== */
@@ -634,7 +687,7 @@
   }
   #admin-panel.open { display: flex; }
   .admin-panel-header {
-    background: var(--ink);
+    background: var(--tab-bg, #3a2818);
     color: var(--gold);
     padding: 12px 16px;
     font-family: 'Abril Fatface', serif;
@@ -642,6 +695,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid rgba(201,162,39,0.4);
   }
   .admin-panel-header span { font-size: 1.4rem; margin-left: 8px; }
   .admin-close-x {
@@ -907,16 +961,23 @@
 /* ===== THEME SYSTEM ===== */
 /* Theme is applied via data-theme attribute on <html> */
 
-/* ── CLASSIC (default, existing) ── */
+/* ── CLASSIC (space + white cards) ── */
 [data-theme="classic"] {
-  --ink: #1a0a00; --paper: #f5ead0; --aged: #e8d5a3;
-  --accent: #8b1a1a; --gold: #c9a227; --shadow: rgba(26,10,0,0.3);
-  --bg: #2c1a0e; --card-bg: var(--paper); --card-border: var(--ink);
-  --btn-bg: var(--gold); --btn-fg: var(--ink);
-  --chat-bg: #1a0e00; --chat-border: var(--gold);
-  --glow: rgba(201,162,39,0.4);
+  --ink: #e0f7ff; --paper: #080f1f; --aged: #0a1929;
+  --accent: #00d4ff; --gold: #00d4ff; --shadow: rgba(0,212,255,0.3);
+  --bg: #020810; --card-bg: #080f1f; --card-border: #00d4ff;
+  --btn-bg: #00d4ff; --btn-fg: #020810;
+  --chat-bg: #030c18; --chat-border: #00d4ff;
+  --glow: rgba(0,212,255,0.5);
   --font-title: 'UnifrakturMaguntia', cursive;
   --scanline: none;
+  --tab-bg: #030c18;
+  --tab-fg: #00d4ff;
+}
+
+/* Hide the classic star field for all other themes */
+[data-theme]:not([data-theme="classic"]) body::before {
+  display: none;
 }
 
 /* ── SCI-FI / SPACE ── */
@@ -1047,6 +1108,7 @@
 }
 [data-theme="galaxy"] body::before {
   content: '';
+  display: block;
   position: fixed; inset: 0; pointer-events: none; z-index: 0;
   background-image:
     radial-gradient(1px 1px at 10% 15%, white 100%, transparent),
@@ -1110,6 +1172,11 @@
 }
 [data-theme]:not([data-theme="classic"]) .site-subtitle { color: var(--ink); opacity: 0.5; }
 [data-theme]:not([data-theme="classic"]) .header-rule { background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+[data-theme]:not([data-theme="classic"]) .site-header {
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(0,0,0,0.4) 100%);
+  border-bottom-color: var(--card-border);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+}
 
 /* Viewer */
 [data-theme]:not([data-theme="classic"]) .newspaper-viewer {
@@ -1837,6 +1904,7 @@ body[data-fontsize="xlarge"] { font-size:22px; }
 /* ===== FREE GAMES SECTION ===== */
 #free-games-section {
   max-width:1300px; margin:30px auto 0; padding:0 20px 40px;
+  position: relative; z-index: 1;
 }
 .free-games-title {
   text-align:center; font-family:'Abril Fatface',serif;
@@ -1884,26 +1952,27 @@ body[data-fontsize="xlarge"] { font-size:22px; }
   to   { opacity:1; transform: translateY(0); }
 }
 .fg-card {
-  background:var(--paper);
-  border:2px solid var(--ink);
-  border-radius:4px;
+  background:var(--paper, #080f1f);
+  border:1px solid var(--card-border, #00d4ff);
+  border-radius:6px;
   padding:18px 14px 16px;
   cursor:pointer;
   text-align:center;
   position:relative;
-  box-shadow:4px 4px 0 var(--ink);
+  z-index:1;
+  box-shadow:0 4px 20px rgba(0,0,0,0.6), 0 0 10px var(--glow, rgba(0,212,255,0.3));
   transition:transform .18s,box-shadow .18s;
   overflow:hidden;
 }
 .fg-card::before {
   content:'';
   position:absolute; inset:0;
-  background:repeating-linear-gradient(0deg,transparent,transparent 22px,rgba(26,10,0,.05) 22px,rgba(26,10,0,.05) 23px);
+  background: none;
   pointer-events:none;
 }
 .fg-card:hover {
-  transform:translateY(-5px) rotate(.5deg);
-  box-shadow:7px 9px 0 var(--ink);
+  transform:translateY(-5px) rotate(.4deg);
+  box-shadow:0 12px 40px rgba(0,0,0,0.75), 0 0 20px rgba(212,168,32,0.15), 0 0 0 1px rgba(212,168,32,0.2);
 }
 .fg-icon { font-size:2.4rem; margin-bottom:8px; display:block; }
 .fg-name {
@@ -1913,7 +1982,7 @@ body[data-fontsize="xlarge"] { font-size:22px; }
 }
 .fg-desc {
   font-family:'Crimson Text',serif;
-  font-size:.78rem; color:#5a3a1a;
+  font-size:.78rem; color:var(--ink); opacity:0.6;
   font-style:italic; line-height:1.4;
 }
 .fg-badge {
@@ -2108,6 +2177,285 @@ body[data-fontsize="xlarge"] { font-size:22px; }
 .cw-cell.wrong   { background:rgba(255,68,68,.15); border-color:#ff4444; }
 .cw-clue { color:#ccc; font-size:.82rem; margin:4px 0; direction:rtl; }
 .cw-clue strong { color:#ff8888; }
+
+/* ===== HERO BANNER ===== */
+#site-header-classic { display: none; }
+
+#hero-banner-wrap { width: 100%; }
+
+#hero-banner {
+  width: 100%;
+  min-height: 420px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 25% 50%, rgba(0,180,255,0.09) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 30%, rgba(0,80,200,0.11) 0%, transparent 50%),
+    linear-gradient(180deg, #030b18 0%, #020810 60%, #010509 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#hero-banner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none; z-index: 0;
+}
+#hero-banner::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0,212,255,0.018) 2px, rgba(0,212,255,0.018) 4px
+  );
+  pointer-events: none; z-index: 0;
+}
+.hb-line-top {
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #00d4ff 30%, rgba(0,212,255,0.3) 70%, transparent);
+  z-index: 2;
+}
+.hb-line-bottom {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0,212,255,0.3) 30%, #00d4ff 70%, transparent);
+  z-index: 2;
+}
+.hb-orb-1 {
+  position: absolute; width: 500px; height: 500px; top: -120px; right: -80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,212,255,0.10) 0%, transparent 70%);
+  pointer-events: none; z-index: 1;
+}
+.hb-orb-2 {
+  position: absolute; width: 380px; height: 380px; bottom: -140px; left: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,100,200,0.13) 0%, transparent 70%);
+  pointer-events: none; z-index: 1;
+}
+
+/* Desktop: two-column */
+.hb-inner {
+  position: relative; z-index: 3;
+  width: 100%; max-width: 1100px;
+  margin: 0 auto;
+  padding: 52px 40px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+  flex-direction: row;
+  box-sizing: border-box;
+}
+
+.hb-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hb-tag {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 5px;
+  color: rgba(0,212,255,0.7);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hb-tag::before, .hb-tag::after {
+  content: '';
+  display: inline-block;
+  width: 22px; height: 1px;
+  background: rgba(0,212,255,0.45);
+}
+
+.hb-title {
+  font-family: 'Noto Sans Hebrew', 'Crimson Text', serif;
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.05;
+  text-shadow: 0 0 40px rgba(0,212,255,0.35), 0 0 100px rgba(0,212,255,0.12);
+  margin-bottom: 10px;
+  direction: rtl;
+}
+.hb-accent {
+  color: #00d4ff;
+  text-shadow: 0 0 20px #00d4ff, 0 0 60px rgba(0,212,255,0.6), 0 0 100px rgba(0,212,255,0.35);
+}
+
+.hb-subtitle {
+  font-family: 'Noto Sans Hebrew', 'Crimson Text', serif;
+  font-size: clamp(0.78rem, 1.5vw, 0.95rem);
+  font-weight: 300;
+  color: rgba(224,248,255,0.5);
+  letter-spacing: 3px;
+  margin-bottom: 28px;
+  direction: rtl;
+}
+
+.hb-stats {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 30px;
+}
+.hb-stat {
+  padding: 0 20px;
+  border-left: 1px solid rgba(0,212,255,0.2);
+  text-align: center;
+}
+.hb-stat:last-child { border-left: none; }
+.hb-stat-num {
+  display: block;
+  font-family: 'Orbitron', monospace;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #00d4ff;
+  line-height: 1;
+  text-shadow: 0 0 18px rgba(0,212,255,0.65);
+}
+.hb-stat-label {
+  display: block;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  color: rgba(224,248,255,0.4);
+  margin-top: 3px;
+  text-transform: uppercase;
+}
+
+.hb-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 36px;
+  background: #00d4ff;
+  color: #020810;
+  font-family: 'Noto Sans Hebrew', 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  text-decoration: none;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  box-shadow: 0 0 30px rgba(0,212,255,0.45), 0 0 70px rgba(0,212,255,0.18);
+  transition: all 0.2s;
+}
+.hb-cta:hover {
+  box-shadow: 0 0 50px rgba(0,212,255,0.7), 0 0 100px rgba(0,212,255,0.3);
+  transform: translateY(-2px);
+}
+
+.hb-deco {
+  flex-shrink: 0;
+  width: 220px; height: 220px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hb-deco::before {
+  content: '';
+  position: absolute; inset: 0;
+  border: 1px solid rgba(0,212,255,0.28);
+  border-radius: 50%;
+  box-shadow: 0 0 28px rgba(0,212,255,0.08), inset 0 0 28px rgba(0,212,255,0.04);
+}
+.hb-deco::after {
+  content: '';
+  position: absolute; inset: 18px;
+  border: 1px solid rgba(0,212,255,0.13);
+  border-radius: 50%;
+}
+.hb-deco-inner {
+  width: 152px; height: 152px;
+  background: rgba(0,212,255,0.04);
+  border: 1px solid rgba(0,212,255,0.18);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 0 36px rgba(0,212,255,0.07);
+}
+.hb-deco-emoji { font-size: 58px; filter: drop-shadow(0 0 16px rgba(0,212,255,0.55)); }
+.hb-deco-label {
+  font-family: 'Orbitron', monospace;
+  font-size: 7px; letter-spacing: 3px;
+  color: rgba(0,212,255,0.45);
+  text-transform: uppercase;
+}
+.hb-orbit-dot {
+  position: absolute; width: 7px; height: 7px;
+  background: #00d4ff; border-radius: 50%;
+  box-shadow: 0 0 10px #00d4ff;
+}
+.hb-orbit-dot:nth-child(1) { top: 5px; left: 50%; transform: translateX(-50%); }
+.hb-orbit-dot:nth-child(2) { bottom: 5px; left: 50%; transform: translateX(-50%); }
+.hb-orbit-dot:nth-child(3) { right: 5px; top: 50%; transform: translateY(-50%); }
+
+.hb-infobar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 34px;
+  background: rgba(0,212,255,0.04);
+  border-top: 1px solid rgba(0,212,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  gap: 28px; z-index: 3;
+}
+.hb-info-item {
+  font-family: 'Orbitron', monospace;
+  font-size: 7.5px; letter-spacing: 2px;
+  color: rgba(0,212,255,0.38);
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 6px;
+}
+.hb-info-dot { width: 3px; height: 3px; background: rgba(0,212,255,0.45); border-radius: 50%; }
+
+/* Mobile: single column, always centered */
+@media (max-width: 640px) {
+  #hero-banner { min-height: 0; }
+  .hb-inner {
+    flex-direction: column;
+    align-items: center;
+    padding: 36px 20px 52px;
+    gap: 20px;
+  }
+  .hb-deco { width: 140px; height: 140px; }
+  .hb-deco-inner { width: 96px; height: 96px; }
+  .hb-deco-emoji { font-size: 38px; }
+  .hb-title { font-size: 2rem; }
+  .hb-subtitle { font-size: 0.72rem; margin-bottom: 0; }
+  .hb-stat { padding: 0 14px; }
+  .hb-stat-num { font-size: 1.3rem; }
+  .hb-cta { font-size: 0.88rem; padding: 11px 26px; }
+  .hb-info-item:nth-child(n+3) { display: none; }
+}
+
+/* ===== SOLAR SYSTEM LOGO ===== */
+.solar-logo { display: block; width: 220px; height: 220px; flex-shrink: 0; }
+@keyframes solar-pulse {
+  from { opacity: 0.5; }
+  to   { opacity: 1; }
+}
+@keyframes solar-orbit {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.solar-sun-glow { animation: solar-pulse 3s ease-in-out infinite alternate; }
+.solar-mercury  { transform-origin: 55px 55px; animation: solar-orbit 2.2s linear infinite; }
+.solar-earth    { transform-origin: 55px 55px; animation: solar-orbit 5s linear infinite; }
+.solar-mars     { transform-origin: 55px 55px; animation: solar-orbit 9.4s linear infinite; }
+.solar-saturn   { transform-origin: 55px 55px; animation: solar-orbit 20s linear infinite; }
+@media (max-width: 640px) { .solar-logo { width: 140px; height: 140px; } }
 </style>
 </head>
 <body>
@@ -2161,7 +2509,7 @@ body[data-fontsize="xlarge"] { font-size:22px; }
   <div class="settings-section">
     <h3>🎨 סגנון עיצוב</h3>
     <div class="theme-grid">
-      <button class="theme-btn active" data-theme="classic" onclick="setTheme('classic')"><span class="theme-preview">📰</span><span class="theme-name">קלאסי</span></button>
+      <button class="theme-btn active" data-theme="classic" onclick="setTheme('classic')"><span class="theme-preview">🌠</span><span class="theme-name">חלל</span></button>
       <button class="theme-btn" data-theme="scifi" onclick="setTheme('scifi')"><span class="theme-preview">🚀</span><span class="theme-name">Sci-Fi</span></button>
       <button class="theme-btn" data-theme="holo" onclick="setTheme('holo')"><span class="theme-preview">🔮</span><span class="theme-name">הולוגרמה</span></button>
       <button class="theme-btn" data-theme="cyber" onclick="setTheme('cyber')"><span class="theme-preview">⚡</span><span class="theme-name">Cyberpunk</span></button>
@@ -2272,11 +2620,84 @@ body[data-fontsize="xlarge"] { font-size:22px; }
 <div id="home-username-banner"></div>
 
 <main id="main-content" tabindex="-1">
-<header class="site-header">
-  <div class="site-title">האתר של ליאב</div>
-  <div class="site-subtitle">✦ עיתוני הסרטים המצוירים הנחשבים ביותר ✦</div>
-  <hr class="header-rule">
+<div id="hero-banner-wrap">
+<header id="hero-banner" role="banner">
+  <div class="hb-line-top"></div>
+  <div class="hb-line-bottom"></div>
+  <div class="hb-orb-1"></div>
+  <div class="hb-orb-2"></div>
+
+  <div class="hb-inner">
+    <!-- Solar system logo -->
+    <svg class="solar-logo" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg" aria-label="מערכת השמש">
+      <!-- Orbit rings -->
+      <circle cx="55" cy="55" r="16" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.7"/>
+      <circle cx="55" cy="55" r="24" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.7"/>
+      <circle cx="55" cy="55" r="33" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="0.7"/>
+      <circle cx="55" cy="55" r="44" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.7"/>
+      <!-- Sun glow -->
+      <circle class="solar-sun-glow" cx="55" cy="55" r="13" fill="rgba(255,200,0,0.18)"/>
+      <!-- Sun -->
+      <circle cx="55" cy="55" r="8" fill="url(#sunGrad)"/>
+      <defs>
+        <radialGradient id="sunGrad" cx="40%" cy="35%">
+          <stop offset="0%" stop-color="#FFF176"/>
+          <stop offset="60%" stop-color="#FFD600"/>
+          <stop offset="100%" stop-color="#FF8F00"/>
+        </radialGradient>
+      </defs>
+      <!-- Mercury (grey, orbit r=16) -->
+      <g class="solar-mercury">
+        <circle cx="55" cy="39" r="2.5" fill="#9E9E9E"/>
+      </g>
+      <!-- Earth (blue, orbit r=24) -->
+      <g class="solar-earth">
+        <circle cx="55" cy="31" r="3.5" fill="#1565C0"/>
+        <circle cx="55" cy="31" r="3.5" fill="none" stroke="#42A5F5" stroke-width="0.8" opacity="0.6"/>
+      </g>
+      <!-- Mars (red, orbit r=33) -->
+      <g class="solar-mars">
+        <circle cx="55" cy="22" r="2.8" fill="#BF360C"/>
+      </g>
+      <!-- Saturn (gold with rings, orbit r=44) -->
+      <g class="solar-saturn">
+        <ellipse cx="55" cy="11" rx="8.5" ry="2.2" fill="none" stroke="#F9A825" stroke-width="1.8" opacity="0.65"/>
+        <circle cx="55" cy="11" r="4" fill="#F9A825"/>
+      </g>
+    </svg>
+
+    <!-- Decorative ring (left on desktop, top on mobile) -->
+    <div class="hb-deco" aria-hidden="true">
+      <div class="hb-orbit-dot"></div>
+      <div class="hb-orbit-dot"></div>
+      <div class="hb-orbit-dot"></div>
+      <div class="hb-deco-inner">
+        <div class="hb-deco-emoji">📰</div>
+        <div class="hb-deco-label">PRESS · עיתון</div>
+      </div>
+    </div>
+
+    <!-- Text block (right on desktop, below on mobile) -->
+    <div class="hb-text">
+      <div class="hb-tag">// LIAV'S DIGITAL PRESS · עיתוני הסרטים</div>
+      <div class="hb-title">האתר של <span class="hb-accent">ליאב</span></div>
+      <div class="hb-subtitle">עיתוני הסרטים המצוירים · גיליונות דיגיטליים</div>
+      <div class="hb-stats">
+        <div class="hb-stat"><span class="hb-stat-num">8+</span><span class="hb-stat-label">עיתונים</span></div>
+        <div class="hb-stat"><span class="hb-stat-num">9</span><span class="hb-stat-label">ערכות נושא</span></div>
+        <div class="hb-stat"><span class="hb-stat-num">10+</span><span class="hb-stat-label">משחקים</span></div>
+      </div>
+      <a class="hb-cta" href="#papers-grid">גלה את העיתונים ▸</a>
+    </div>
+  </div>
+
+  <div class="hb-infobar" aria-hidden="true">
+    <div class="hb-info-item"><div class="hb-info-dot"></div>SYSTEM ONLINE</div>
+    <div class="hb-info-item"><div class="hb-info-dot"></div>עיתוני הסרטים המצוירים</div>
+    <div class="hb-info-item"><div class="hb-info-dot"></div>LIAV · 2025</div>
+  </div>
 </header>
+</div>
 
 
 <!-- ═══════════════════════════════════════ FREE GAMES SECTION ═══ -->
@@ -3833,7 +4254,7 @@ function applySettings() {
   // Auto name color — update banner "שלום [שם]" color based on current theme
   if (currentSettings.autoTitleColor !== false) {
     const themeAccents = {
-      classic:  '#c9a227',
+      classic:  '#00d4ff',
       scifi:    '#00d4ff',
       holo:     '#bf5fff',
       cyber:    '#ff003c',
@@ -3872,6 +4293,9 @@ function applySettings() {
 
   // Play sound on theme change
   if (currentSettings.sounds) playClick();
+
+  // Re-evaluate night mode so inline overrides are cleaned up on theme switch
+  if (typeof checkAutoNight === 'function') checkAutoNight();
 }
 
 function setTheme(theme) {
@@ -4126,7 +4550,6 @@ window.addEventListener('DOMContentLoaded', () => {
     <div class="admin-login-icon">🔐</div>
     <h2>כניסת אדמין</h2>
     <p>הכנס את הקוד הסודי כדי לפתוח את פאנל הניהול</p>
-    <div class="admin-login-hint">רמז: הקוד הוא 3333</div>
     <input type="password" id="admin-code-input" maxlength="8" placeholder="••••"
       onkeydown="if(event.key==='Enter') checkAdminCode()" />
     <button class="admin-login-submit" onclick="checkAdminCode()">כניסה</button>
@@ -4139,6 +4562,7 @@ window.addEventListener('DOMContentLoaded', () => {
 <div id="admin-dashboard">
   <div class="admin-dash-header">
     <div class="admin-dash-title">🔴 פאנל אדמין פרמיום</div>
+    <button class="admin-dash-close" onclick="adminLogout()" style="background:#333;margin-left:8px;">🚪 התנתק</button>
     <button class="admin-dash-close" onclick="closeAdminDash()">✕ יציאה</button>
   </div>
   <div class="admin-dash-body">
@@ -5300,6 +5724,8 @@ function loginWithGoogle() {
 function logoutProfile() {
   localStorage.removeItem('profile-email');
   localStorage.removeItem('profile-provider');
+  setAdminAccess(false);
+  closeAdminDash();
   updateProfileAuthUI();
   appendActivityLog('התנתקות', 'המשתמש התנתק מהפרופיל');
   const msg = document.getElementById('profile-save-msg');
@@ -5579,42 +6005,10 @@ setTimeout(() => {
 
 // ── AUTO NIGHT/DAY ──
 function checkAutoNight() {
-  const settings = typeof currentSettings !== 'undefined' ? currentSettings : {};
-  if (!settings.autoNight) {
-    document.documentElement.style.removeProperty('--paper');
-    document.documentElement.style.removeProperty('--bg');
-    document.body.style.filter = '';
-    return;
-  }
-  // Get Israel local hour (UTC+3)
-  const now = new Date();
-  const israelOffset = 3 * 60;
-  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-  const israelTime = new Date(utc + israelOffset * 60000);
-  const h = israelTime.getHours();
-
-  const isNight = h >= 20 || h < 6;      // 20:00–05:59 — חושך
-  const isMorning = h >= 6 && h < 13;    // 06:00–12:59 — בהיר
-  const isAfternoon = h >= 13 && h < 20; // 13:00–19:59 — חצי-חצי
-
-  if (settings.theme !== 'classic') {
-    document.body.style.filter = '';
-    return;
-  }
-
-  if (isNight) {
-    document.documentElement.style.setProperty('--paper','#c8b48a');
-    document.documentElement.style.setProperty('--bg','#120800');
-    document.body.style.filter = 'brightness(0.75)';
-  } else if (isMorning) {
-    document.documentElement.style.removeProperty('--paper');
-    document.documentElement.style.removeProperty('--bg');
-    document.body.style.filter = 'brightness(1.05)';
-  } else if (isAfternoon) {
-    document.documentElement.style.setProperty('--paper','#eedd99');
-    document.documentElement.style.setProperty('--bg','#1e1000');
-    document.body.style.filter = 'brightness(0.92)';
-  }
+  // Disabled — clears any stale inline overrides from previous sessions
+  document.body.style.filter = '';
+  document.documentElement.style.removeProperty('--paper');
+  document.documentElement.style.removeProperty('--bg');
 }
 // interval only — checkAutoNight is called inside loadSettings via applySettings
 setInterval(checkAutoNight, 60000);
@@ -6029,6 +6423,12 @@ function checkAdminCode() {
     (document.getElementById('admin-code-input') || {}).value = '';
     document.getElementById('admin-code-input')?.focus();
   }
+}
+
+function adminLogout() {
+  setAdminAccess(false);
+  closeAdminDash();
+  appendActivityLog('התנתקות אדמין', 'יצא מפאנל האדמין', 'admin');
 }
 
 // ── DASHBOARD ──

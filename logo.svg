@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" width="520" height="160">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&amp;family=Crimson+Text:ital,wght@0,600;1,400&amp;display=swap');
+    </style>
+    <!-- Paper texture gradient -->
+    <linearGradient id="paperGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#faf6ed;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#f0e6cc;stop-opacity:1"/>
+    </linearGradient>
+    <!-- Gold gradient for ornaments -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e2b840;stop-opacity:1"/>
+      <stop offset="50%" style="stop-color:#c9a227;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#a07c10;stop-opacity:1"/>
+    </linearGradient>
+    <!-- Ink gradient -->
+    <linearGradient id="inkGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a1200;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#1a0a00;stop-opacity:1"/>
+    </linearGradient>
+    <!-- Drop shadow -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="#1a0a00" flood-opacity="0.25"/>
+    </filter>
+    <!-- Inner shadow for paper -->
+    <filter id="paperShadow">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#c9a227" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Outer border frame -->
+  <rect x="4" y="4" width="512" height="152" rx="4" ry="4"
+        fill="url(#inkGrad)" filter="url(#shadow)"/>
+
+  <!-- Paper background -->
+  <rect x="8" y="8" width="504" height="144" rx="2" ry="2"
+        fill="url(#paperGrad)"/>
+
+  <!-- Double border lines (newspaper style) -->
+  <rect x="12" y="12" width="496" height="136" rx="1" ry="1"
+        fill="none" stroke="#1a0a00" stroke-width="2.5"/>
+  <rect x="16" y="16" width="488" height="128" rx="1" ry="1"
+        fill="none" stroke="#c9a227" stroke-width="1"/>
+  <rect x="19" y="19" width="482" height="122" rx="1" ry="1"
+        fill="none" stroke="#1a0a00" stroke-width="0.75"/>
+
+  <!-- Gold rule lines top -->
+  <line x1="30" y1="45" x2="490" y2="45" stroke="#c9a227" stroke-width="1.5"/>
+  <line x1="30" y1="48" x2="490" y2="48" stroke="#1a0a00" stroke-width="0.5"/>
+
+  <!-- Gold rule lines bottom -->
+  <line x1="30" y1="115" x2="490" y2="115" stroke="#1a0a00" stroke-width="0.5"/>
+  <line x1="30" y1="118" x2="490" y2="118" stroke="#c9a227" stroke-width="1.5"/>
+
+  <!-- Left ornament cluster -->
+  <g transform="translate(36, 80)">
+    <!-- Star burst -->
+    <polygon points="0,-12 2,-4 8,-8 4,-1 12,0 4,1 8,8 2,4 0,12 -2,4 -8,8 -4,1 -12,0 -4,-1 -8,-8 -2,-4"
+             fill="url(#goldGrad)" opacity="0.9"/>
+    <!-- Center circle -->
+    <circle cx="0" cy="0" r="3.5" fill="#1a0a00"/>
+    <circle cx="0" cy="0" r="2" fill="#c9a227"/>
+  </g>
+
+  <!-- Right ornament cluster -->
+  <g transform="translate(484, 80)">
+    <polygon points="0,-12 2,-4 8,-8 4,-1 12,0 4,1 8,8 2,4 0,12 -2,4 -8,8 -4,1 -12,0 -4,-1 -8,-8 -2,-4"
+             fill="url(#goldGrad)" opacity="0.9"/>
+    <circle cx="0" cy="0" r="3.5" fill="#1a0a00"/>
+    <circle cx="0" cy="0" r="2" fill="#c9a227"/>
+  </g>
+
+  <!-- Tiny corner ornaments -->
+  <circle cx="26" cy="26" r="2.5" fill="#c9a227"/>
+  <circle cx="494" cy="26" r="2.5" fill="#c9a227"/>
+  <circle cx="26" cy="134" r="2.5" fill="#c9a227"/>
+  <circle cx="494" cy="134" r="2.5" fill="#c9a227"/>
+
+  <!-- Newspaper icon (small, left of headline) -->
+  <g transform="translate(56, 56)">
+    <!-- Folded newspaper -->
+    <rect x="0" y="0" width="26" height="32" rx="1" fill="#1a0a00" opacity="0.85"/>
+    <rect x="2" y="2" width="22" height="28" rx="0.5" fill="#faf6ed"/>
+    <!-- Headline bar -->
+    <rect x="4" y="4" width="18" height="5" rx="0.5" fill="#8b1a1a"/>
+    <!-- Text lines -->
+    <rect x="4" y="11" width="18" height="1.5" rx="0.5" fill="#1a0a00" opacity="0.5"/>
+    <rect x="4" y="14" width="14" height="1.5" rx="0.5" fill="#1a0a00" opacity="0.4"/>
+    <rect x="4" y="17" width="18" height="1.5" rx="0.5" fill="#1a0a00" opacity="0.4"/>
+    <rect x="4" y="20" width="10" height="1.5" rx="0.5" fill="#1a0a00" opacity="0.3"/>
+    <!-- Column divider -->
+    <rect x="14" y="23" width="0.75" height="7" fill="#1a0a00" opacity="0.2"/>
+    <rect x="4" y="23" width="9" height="1.5" rx="0.5" fill="#1a0a00" opacity="0.3"/>
+    <rect x="15.5" y="23" width="6.5" height="1.5" rx="0.5" fill="#1a0a00" opacity="0.3"/>
+    <rect x="4" y="26" width="7" height="1.5" rx="0.5" fill="#1a0a00" opacity="0.25"/>
+    <rect x="15.5" y="26" width="5" height="1.5" rx="0.5" fill="#1a0a00" opacity="0.25"/>
+    <!-- Fold crease -->
+    <line x1="0" y1="16" x2="2" y2="16" stroke="#c9a227" stroke-width="0.5"/>
+  </g>
+
+  <!-- Animation star (cartoon style, right of headline) -->
+  <g transform="translate(430, 54)">
+    <!-- Magic wand / film strip element -->
+    <rect x="0" y="8" width="32" height="20" rx="2" fill="#1a0a00" opacity="0.85"/>
+    <rect x="1" y="9" width="30" height="18" rx="1.5" fill="#2a1200"/>
+    <!-- Film perforations -->
+    <rect x="2" y="10" width="3" height="3" rx="0.5" fill="#faf6ed" opacity="0.7"/>
+    <rect x="2" y="15" width="3" height="3" rx="0.5" fill="#faf6ed" opacity="0.7"/>
+    <rect x="2" y="20" width="3" height="3" rx="0.5" fill="#faf6ed" opacity="0.7"/>
+    <rect x="27" y="10" width="3" height="3" rx="0.5" fill="#faf6ed" opacity="0.7"/>
+    <rect x="27" y="15" width="3" height="3" rx="0.5" fill="#faf6ed" opacity="0.7"/>
+    <rect x="27" y="20" width="3" height="3" rx="0.5" fill="#faf6ed" opacity="0.7"/>
+    <!-- Screen area -->
+    <rect x="6" y="10" width="20" height="16" rx="0.5" fill="#8b1a1a" opacity="0.8"/>
+    <!-- Play triangle -->
+    <polygon points="13,12 13,24 23,18" fill="#c9a227"/>
+    <!-- Magic sparkles -->
+    <circle cx="5" cy="5" r="2" fill="#c9a227" opacity="0.9"/>
+    <circle cx="28" cy="3" r="1.5" fill="#c9a227" opacity="0.7"/>
+    <circle cx="16" cy="1" r="1" fill="#c9a227" opacity="0.6"/>
+    <!-- Sparkle lines -->
+    <line x1="5" y1="0" x2="5" y2="3" stroke="#c9a227" stroke-width="0.8" opacity="0.7"/>
+    <line x1="3" y1="5" x2="0.5" y2="5" stroke="#c9a227" stroke-width="0.8" opacity="0.7"/>
+    <line x1="7" y1="3" x2="9" y2="1" stroke="#c9a227" stroke-width="0.8" opacity="0.6"/>
+    <line x1="3" y1="7" x2="1" y2="9" stroke="#c9a227" stroke-width="0.8" opacity="0.6"/>
+  </g>
+
+  <!-- Main title: האתר של ליאב -->
+  <!-- Using fallback geometric Hebrew-style text rendered as SVG paths approximation -->
+  <!-- Primary headline text -->
+  <text x="260" y="95"
+        font-family="'UnifrakturMaguntia', 'Crimson Text', Georgia, serif"
+        font-size="52"
+        font-weight="700"
+        text-anchor="middle"
+        fill="#1a0a00"
+        letter-spacing="2">האתר של ליאב</text>
+
+  <!-- Subtitle -->
+  <text x="260" y="112"
+        font-family="'Crimson Text', Georgia, serif"
+        font-size="13"
+        font-style="italic"
+        text-anchor="middle"
+        fill="#8b1a1a"
+        letter-spacing="3">עיתוני הסרטים המצוירים</text>
+
+  <!-- Decorative date-like banner (newspaper masthead style) -->
+  <text x="260" y="35"
+        font-family="'Crimson Text', Georgia, serif"
+        font-size="9"
+        text-anchor="middle"
+        fill="#1a0a00"
+        letter-spacing="4"
+        opacity="0.7">✦  ✦  ✦  ✦  ✦  ✦  ✦  ✦  ✦  ✦  ✦  ✦  ✦</text>
+
+  <!-- Bottom tagline -->
+  <text x="260" y="131"
+        font-family="'Crimson Text', Georgia, serif"
+        font-size="8.5"
+        text-anchor="middle"
+        fill="#c9a227"
+        letter-spacing="5"
+        opacity="0.85">★  THE ANIMATED PRESS  ★</text>
+
+</svg>
