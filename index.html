@@ -2468,7 +2468,7 @@ body[data-fontsize="xlarge"] { font-size:22px; }
   <div class="fg-box admin-game">
     <button class="fg-close" onclick="fgClose('fakeNews')">✕</button>
     <h2>🕵️ חדשות מזויפות</h2>
-    <div style="color:#ccc;font-size:.85rem;margin-bottom:12px;text-align:center;">איזו כותרת הומצאה על ידי AI?</div>
+    <div style="color:#ccc;font-size:.85rem;margin-bottom:12px;text-align:center;">איזו מהכותרות נראית כמו כותרת חדשה שהומצאה?</div>
     <div id="fn-cards"></div>
     <div id="fn-result" style="min-height:24px;text-align:center;margin:8px 0;font-size:1rem;"></div>
     <div class="fg-actions"><button class="fg-btn" onclick="fnNext()">הבא ›</button></div>
@@ -4860,21 +4860,21 @@ function shuffleArray(items) {
 }
 async function fnInit() { fnState.idx=0; fnState.score=0; fnState.total=0; await fnNext(); }
 async function fnNext() {
-  document.getElementById('fn-cards').innerHTML = '<div style="color:#aaa;text-align:center;">⏳ AI מחולל כותרת מזויפת...</div>';
+  document.getElementById('fn-cards').innerHTML = '<div style="color:#aaa;text-align:center;">⏳ AI יוצר כותרת חדשה...</div>';
   document.getElementById('fn-result').innerHTML = '';
   const real = FN_REAL[fnState.idx % FN_REAL.length];
-  let fake = 'כותרת מזויפת...';
+  let fake = 'כותרת חדשה...';
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
         model:'claude-sonnet-4-6', max_tokens:80,
-        messages:[{role:'user',content:`צור כותרת עיתון אחת מזויפת (לא קיימת, אבל נשמעת אמיתית) בסגנון כותרת הזו: "${real}". כותרת אחת בלבד, בעברית, ללא גרשיים.`}]
+        messages:[{role:'user',content:`צור כותרת עיתון אחת חדשה, שלא קיימת, אבל נשמעת אמיתית, בסגנון כותרת הזו: "${real}". כותרת אחת בלבד, בעברית, ללא גרשיים.`}]
       })
     });
     const data = await res.json();
-    fake = data.content?.[0]?.text?.trim() || 'כותרת מזויפת';
+    fake = data.content?.[0]?.text?.trim() || 'כותרת חדשה';
   } catch(e) {}
   const items = shuffleArray([{text:real, isFake:false},{text:fake, isFake:true}]);
   fnState.fakeIdx = items.findIndex(x=>x.isFake);
@@ -4887,9 +4887,9 @@ function fnPick(i, isFake) {
   fnState.total++;
   if(isFake) {
     fnState.score++;
-    document.getElementById('fn-result').innerHTML='<div style="color:#4cff80;font-size:1rem;">✓ בדיוק! זו הייתה הכותרת המזויפת</div>';
+    document.getElementById('fn-result').innerHTML='<div style="color:#4cff80;font-size:1rem;">✓ נכון! זו הייתה האפשרות שהומצאה</div>';
   } else {
-    document.getElementById('fn-result').innerHTML='<div style="color:#ff6060;font-size:1rem;">✗ לא נכון — זו הייתה כותרת אמיתית</div>';
+    document.getElementById('fn-result').innerHTML='<div style="color:#ff6060;font-size:1rem;">✗ לא נכון — זו הייתה האפשרות האמיתית</div>';
   }
   fnState.idx++;
   fgScoreTxt(document.getElementById('fn-score'), fnState.score, fnState.total);
