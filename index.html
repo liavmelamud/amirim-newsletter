@@ -5724,12 +5724,13 @@ function loginWithGoogle() {
 function logoutProfile() {
   localStorage.removeItem('profile-email');
   localStorage.removeItem('profile-provider');
+  localStorage.removeItem('profile-nickname');
   setAdminAccess(false);
   closeAdminDash();
   updateProfileAuthUI();
   appendActivityLog('התנתקות', 'המשתמש התנתק מהפרופיל');
-  const msg = document.getElementById('profile-save-msg');
-  if (msg) { msg.textContent = '🚪 התנתקת'; setTimeout(() => { msg.textContent = ''; }, 2000); }
+  const dlg = document.getElementById('welcome-dialog');
+  if (dlg) dlg.classList.add('show');
 }
 
 function updateProfileColor(color) {
