@@ -398,6 +398,11 @@
     object-position: center top;
     display: block;
   }
+  .card-logo-img.contain {
+    object-fit: contain;
+    object-position: center;
+    padding: 8px;
+  }
   .card-teaser {
     padding: 10px 14px 6px;
     font-size: 0.82rem;
@@ -4143,6 +4148,7 @@ const newspapers = [
     subtitle: "החיוך שנשאר תלוי באוויר",
     emoji: "😸",
     logo: "images/logos/cat.png",
+    logoFit: "contain",
     price: "₪11",
     teaser: "החתול המסתורי שנעלם ומופיע — והשאיר רק חיוך מאחור",
     pages: [
@@ -4187,6 +4193,7 @@ const newspapers = [
     subtitle: "עיתון מסיבת התה הנצחית",
     emoji: "🎩",
     logo: "images/logos/mad hatter.png",
+    logoFit: "contain",
     price: "₪12",
     teaser: "מסיבת תה שלא נגמרת לעולם — וחגיגת אי-יום-הולדת לכולם!",
     pages: [
@@ -4370,7 +4377,7 @@ function renderGrid() {
         <span class="card-name" style="${fontStyle}">${displayName}</span>
         <span class="card-subtitle-line">${p.subtitle}</span>
       </div>
-      <div class="card-cover-art">${p.logo ? `<img src="${p.logo}" alt="${displayName}" class="card-logo-img">` : p.emoji}</div>
+      <div class="card-cover-art">${p.logo ? `<img src="${p.logo}" alt="${displayName}" class="card-logo-img${p.logoFit === 'contain' ? ' contain' : ''}">` : p.emoji}</div>
       <div class="card-teaser">${p.teaser}</div>
       <div class="card-footer">
         <div class="price-badge">${p.price}</div>
