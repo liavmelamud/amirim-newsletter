@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls /Users/liav/.claude/plugins/cache/ui-ux-pro-max-skill/ui-ux-pro-max/2.6.2/.claude/skills/ui-ux-pro-max/scripts/)",
+      "Read(//Users/liav/.claude/plugins/cache/ui-ux-pro-max-skill/ui-ux-pro-max/2.6.2/src/ui-ux-pro-max/scripts/**)",
+      "Bash(python3 /Users/liav/.claude/plugins/cache/ui-ux-pro-max-skill/ui-ux-pro-max/2.6.2/.claude/skills/ui-ux-pro-max/scripts/search.py \"hebrew newspaper magazine vintage themed web app rtl\" --design-system -p \"Amirim Newsletter\")",
+      "Bash(python3 /Users/liav/.claude/plugins/cache/ui-ux-pro-max-skill/ui-ux-pro-max/2.6.2/.claude/skills/ui-ux-pro-max/scripts/search.py \"accessibility keyboard navigation modal rtl\" --domain ux -n 8)",
+      "Bash(python3 /Users/liav/.claude/plugins/cache/ui-ux-pro-max-skill/ui-ux-pro-max/2.6.2/.claude/skills/ui-ux-pro-max/scripts/search.py \"animation performance loading toast modal focus\" --domain ux -n 8)",
+      "Bash(python3 /Users/liav/.claude/plugins/cache/ui-ux-pro-max-skill/ui-ux-pro-max/2.6.2/.claude/skills/ai-artist/scripts/search.py \"sci-fi neon minimal dark hero banner glowing\")",
+      "Bash(ls /Users/liav/.claude/plugins/cache/ui-ux-pro-max-skill/ui-ux-pro-max/2.6.2/.claude/skills/banner-design/references/ 2>&1)",
+      "Read(//Users/liav/.claude/plugins/cache/ui-ux-pro-max-skill/ui-ux-pro-max/2.6.2/.claude/skills/banner-design/references/**)",
+      "Bash(python3 -m http.server 8971)",
+      "Bash(echo \"Server PID: $!\")",
+      "Bash(ls /Users/liav/.claude/plugins/cache/ui-ux-pro-max-skill/ui-ux-pro-max/2.6.2/.claude/skills/chrome-devtools/scripts/ 2>/dev/null || echo \"no chrome-devtools\")",
+      "Read(//Users/liav/.claude/plugins/cache/ui-ux-pro-max-skill/ui-ux-pro-max/2.6.2/.claude/skills/chrome-devtools/**)"
+    ]
+  }
+}

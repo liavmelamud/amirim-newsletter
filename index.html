@@ -190,6 +190,124 @@
     padding: 8px 4px;
   }
 
+  /* ===== MOVIE GALLERY ===== */
+  .gallery-section {
+    max-width: 1300px;
+    margin: 56px auto 0;
+    padding: 8px 4px;
+  }
+  .gallery-title {
+    font-family: 'Orbitron', monospace;
+    text-align: center;
+    color: var(--gold, #00d4ff);
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    text-shadow: 0 0 18px rgba(0,212,255,0.5);
+    margin: 0 0 6px;
+  }
+  .gallery-subtitle {
+    text-align: center;
+    color: rgba(224,248,255,0.5);
+    font-size: 0.85rem;
+    margin: 0 0 26px;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .gallery-item {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--card-border, rgba(0,212,255,0.35));
+    background: rgba(0,212,255,0.04);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .gallery-item:hover {
+    transform: translateY(-4px);
+    border-color: var(--gold, #00d4ff);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.6), 0 0 22px rgba(0,212,255,0.35);
+  }
+  .gallery-item:hover img { transform: scale(1.08); }
+  .gallery-item::after {
+    content: '🔍';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    background: rgba(8,15,31,0.45);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .gallery-item:hover::after { opacity: 1; }
+
+  /* lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(4,8,18,0.92);
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .lightbox.show { display: flex; }
+  .lightbox img {
+    max-width: 92vw;
+    max-height: 86vh;
+    border-radius: 10px;
+    border: 1px solid var(--gold, #00d4ff);
+    box-shadow: 0 0 40px rgba(0,212,255,0.4);
+  }
+  .lightbox-close, .lightbox-nav {
+    position: absolute;
+    background: rgba(0,212,255,0.12);
+    border: 1px solid var(--gold, #00d4ff);
+    color: var(--gold, #00d4ff);
+    font-size: 1.6rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+  }
+  .lightbox-close { top: 18px; right: 18px; }
+  .lightbox-nav.prev { right: 18px; top: 50%; transform: translateY(-50%); }
+  .lightbox-nav.next { left: 18px; top: 50%; transform: translateY(-50%); }
+  .lightbox-nav:hover, .lightbox-close:hover { background: rgba(0,212,255,0.25); }
+
+  @media (max-width: 860px) {
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .gallery-section { margin-top: 40px; }
+    .gallery-title { font-size: 1.2rem; }
+    .lightbox-nav { width: 42px; height: 42px; font-size: 1.3rem; }
+    .lightbox-nav.prev { right: 10px; }
+    .lightbox-nav.next { left: 10px; }
+    .lightbox-close { top: 12px; right: 12px; }
+  }
+  @media (max-width: 460px) {
+    .gallery-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .gallery-item { aspect-ratio: 1 / 1; }
+  }
+
   /* ===== NEWSPAPER CARD ===== */
   .newspaper-card {
     background: var(--paper, #080f1f);
@@ -2415,6 +2533,13 @@ body[data-fontsize="xlarge"] { font-size:22px; }
   box-shadow: 0 0 36px rgba(0,212,255,0.07);
 }
 .hb-deco-emoji { font-size: 58px; filter: drop-shadow(0 0 16px rgba(0,212,255,0.55)); }
+.hb-deco-img {
+  width: 124px; height: 124px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(0,212,255,0.55);
+  box-shadow: 0 0 22px rgba(0,212,255,0.45), inset 0 0 12px rgba(0,0,0,0.4);
+}
 .hb-deco-label {
   font-family: 'Orbitron', monospace;
   font-size: 7px; letter-spacing: 3px;
@@ -2459,6 +2584,7 @@ body[data-fontsize="xlarge"] { font-size:22px; }
   .hb-deco { width: 140px; height: 140px; }
   .hb-deco-inner { width: 96px; height: 96px; }
   .hb-deco-emoji { font-size: 38px; }
+  .hb-deco-img { width: 80px; height: 80px; }
   .hb-title { font-size: 2rem; }
   .hb-subtitle { font-size: 0.72rem; margin-bottom: 0; }
   .hb-stat { padding: 0 14px; }
@@ -2699,7 +2825,7 @@ body[data-fontsize="xlarge"] { font-size:22px; }
       <div class="hb-title">האתר של <span class="hb-accent">ליאב</span></div>
       <div class="hb-subtitle">עיתוני הסרטים המצוירים · גיליונות דיגיטליים</div>
       <div class="hb-stats">
-        <div class="hb-stat"><span class="hb-stat-num">8+</span><span class="hb-stat-label">עיתונים</span></div>
+        <div class="hb-stat"><span class="hb-stat-num" id="stat-papers">6</span><span class="hb-stat-label">עיתונים</span></div>
         <div class="hb-stat"><span class="hb-stat-num">9</span><span class="hb-stat-label">ערכות נושא</span></div>
         <div class="hb-stat"><span class="hb-stat-num">10+</span><span class="hb-stat-label">משחקים</span></div>
       </div>
@@ -2712,8 +2838,8 @@ body[data-fontsize="xlarge"] { font-size:22px; }
       <div class="hb-orbit-dot"></div>
       <div class="hb-orbit-dot"></div>
       <div class="hb-deco-inner">
-        <div class="hb-deco-emoji">📰</div>
-        <div class="hb-deco-label">PRESS · עיתון</div>
+        <img class="hb-deco-img" src="images/logo alice.jpg" alt="אליס בארץ הפלאות">
+        <div class="hb-deco-label">ALICE · ארץ הפלאות</div>
       </div>
     </div>
   </div>
@@ -2970,10 +3096,11 @@ body[data-fontsize="xlarge"] { font-size:22px; }
     <div style="color:#ccc;font-size:.85rem;margin-bottom:10px;text-align:center;">כתוב כמה מילים — AI ישלים כתבה עיתונית מלאה</div>
     <select class="fg-input" id="aie-paper" style="background:#1a0010;color:#fff;">
       <option value="alice">אליס בארץ הפלאות</option>
-      <option value="lion">מלך האריות</option>
-      <option value="cinderella">סינדרלה</option>
-      <option value="nemo">מוצאים את נמו</option>
-      <option value="frozen">פרוזן</option>
+      <option value="rabbit">הארנב הלבן</option>
+      <option value="cheshire">חתול צ'שייר</option>
+      <option value="hatter">הכובען המשוגע</option>
+      <option value="queen">מלכת הלבבות</option>
+      <option value="caterpillar">הזחל הכחול</option>
     </select>
     <input class="fg-input" id="aie-topic" placeholder="נושא הכתבה (לדוגמה: הנעל שנמצאה)" />
     <button class="fg-btn" onclick="aieGenerate()" id="aie-btn">✍️ צור כתבה</button>
@@ -3019,10 +3146,11 @@ body[data-fontsize="xlarge"] { font-size:22px; }
     <div style="color:#ccc;font-size:.85rem;margin-bottom:10px;text-align:center;">בחר סרט + סגנון — AI יכתוב כתבה שלמה</div>
     <select class="fg-input" id="ag-paper" style="background:#1a0010;color:#fff;">
       <option value="alice">אליס בארץ הפלאות</option>
-      <option value="lion">מלך האריות</option>
-      <option value="cinderella">סינדרלה</option>
-      <option value="nemo">מוצאים את נמו</option>
-      <option value="frozen">פרוזן</option>
+      <option value="rabbit">הארנב הלבן</option>
+      <option value="cheshire">חתול צ'שייר</option>
+      <option value="hatter">הכובען המשוגע</option>
+      <option value="queen">מלכת הלבבות</option>
+      <option value="caterpillar">הזחל הכחול</option>
     </select>
     <select class="fg-input" id="ag-style" style="background:#1a0010;color:#fff;">
       <option value="חדשות">📰 כתבת חדשות רשמית</option>
@@ -3044,10 +3172,11 @@ body[data-fontsize="xlarge"] { font-size:22px; }
     <div style="color:#ccc;font-size:.85rem;margin-bottom:10px;text-align:center;">AI מנחש מה יכתוב העיתון אחרי הסרט נגמר</div>
     <select class="fg-input" id="fu-paper" style="background:#1a0010;color:#fff;">
       <option value="alice">אחרי אליס חוזרת הביתה...</option>
-      <option value="lion">אחרי סימבה עולה לשלטון...</option>
-      <option value="cinderella">אחרי החתונה המלכותית...</option>
-      <option value="nemo">אחרי שנמו חוזר הביתה...</option>
-      <option value="frozen">אחרי שהקרח נמס...</option>
+      <option value="rabbit">אחרי שהארנב הלבן מאחר שוב...</option>
+      <option value="cheshire">אחרי שצ'שייר נעלם לגמרי...</option>
+      <option value="hatter">אחרי מסיבת התה הבאה...</option>
+      <option value="queen">אחרי שהמלכה מאבדת את הראש...</option>
+      <option value="caterpillar">אחרי שהזחל הופך לפרפר...</option>
     </select>
     <button class="fg-btn" onclick="fuGenerate()" id="fu-btn">🔮 נחש עתיד</button>
     <div class="fg-article-output" id="fu-output" style="display:none;"></div>
@@ -3056,7 +3185,51 @@ body[data-fontsize="xlarge"] { font-size:22px; }
 
 <section id="home-screen">
   <div class="newspapers-grid" id="papers-grid"></div>
+
+  <!-- Movie promo gallery -->
+  <section class="gallery-section" id="gallery">
+    <h2 class="gallery-title">🎬 גלריית תמונות מהסרט</h2>
+    <p class="gallery-subtitle">תמונות מפרסום הסרט "אליס בארץ הפלאות" — לחצו להגדלה</p>
+    <div class="gallery-grid">
+      <div class="gallery-item" onclick="openLightbox(0)"><img src="images/1.jpg" alt="אליס בארץ הפלאות — תמונה 1" loading="lazy"></div>
+      <div class="gallery-item" onclick="openLightbox(1)"><img src="images/2.jpeg" alt="אליס בארץ הפלאות — תמונה 2" loading="lazy"></div>
+      <div class="gallery-item" onclick="openLightbox(2)"><img src="images/3.jpeg" alt="אליס בארץ הפלאות — תמונה 3" loading="lazy"></div>
+      <div class="gallery-item" onclick="openLightbox(3)"><img src="images/4.jpg" alt="אליס בארץ הפלאות — תמונה 4" loading="lazy"></div>
+      <div class="gallery-item" onclick="openLightbox(4)"><img src="images/5.jpg" alt="אליס בארץ הפלאות — תמונה 5" loading="lazy"></div>
+      <div class="gallery-item" onclick="openLightbox(5)"><img src="images/6.jpg" alt="אליס בארץ הפלאות — תמונה 6" loading="lazy"></div>
+      <div class="gallery-item" onclick="openLightbox(6)"><img src="images/7.jpg" alt="אליס בארץ הפלאות — תמונה 7" loading="lazy"></div>
+      <div class="gallery-item" onclick="openLightbox(7)"><img src="images/8.jpg" alt="אליס בארץ הפלאות — תמונה 8" loading="lazy"></div>
+    </div>
+  </section>
 </section>
+
+<!-- Gallery lightbox -->
+<div class="lightbox" id="gallery-lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="סגור">✕</button>
+  <button class="lightbox-nav prev" onclick="galleryNav(-1)" aria-label="הקודם">›</button>
+  <img id="lightbox-img" src="" alt="תמונה מהסרט">
+  <button class="lightbox-nav next" onclick="galleryNav(1)" aria-label="הבא">‹</button>
+</div>
+<script>
+  const GALLERY_IMAGES = ['images/1.jpg','images/2.jpeg','images/3.jpeg','images/4.jpg','images/5.jpg','images/6.jpg','images/7.jpg','images/8.jpg'];
+  let galleryIdx = 0;
+  function openLightbox(i){
+    galleryIdx = i;
+    document.getElementById('lightbox-img').src = GALLERY_IMAGES[i];
+    document.getElementById('gallery-lightbox').classList.add('show');
+  }
+  function closeLightbox(){ document.getElementById('gallery-lightbox').classList.remove('show'); }
+  function galleryNav(dir){
+    galleryIdx = (galleryIdx + dir + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
+    document.getElementById('lightbox-img').src = GALLERY_IMAGES[galleryIdx];
+  }
+  document.addEventListener('keydown', function(e){
+    if(!document.getElementById('gallery-lightbox').classList.contains('show')) return;
+    if(e.key==='Escape') closeLightbox();
+    else if(e.key==='ArrowLeft') galleryNav(1);
+    else if(e.key==='ArrowRight') galleryNav(-1);
+  });
+</script>
 
 <!-- Viewer overlay -->
 <div id="viewer-screen">
@@ -3173,7 +3346,7 @@ function sendChat() {
 
 // ===== QUESTIONS BANK (30 total, 6 per newspaper, linked to paper content) =====
 // Types: 'trivia' | 'riddle' | 'complete' | 'find_diff' | 'describe'
-// paperKey: 'alice' | 'lion' | 'cinderella' | 'nemo' | 'frozen'
+// paperKey: 'alice' | 'rabbit' | 'cheshire' | 'hatter' | 'queen' | 'caterpillar'
 // hint_in_paper: text that appears in the newspaper article hinting at the answer
 
 const QUESTIONS = [
@@ -3227,207 +3400,190 @@ const QUESTIONS = [
     paperHint: '📰 רמז בעיתון: בעמוד 5 כתוב "חלום או מציאות? אליס מתעוררת"'
   },
 
-  // ===== THE LION KING (6) =====
+  // ===== THE WHITE RABBIT (4) =====
   {
     type: 'trivia',
-    paperKey: 'lion',
-    q: 'מי הוא הנבל במלך האריות שהרג את אחיו ואשים את הבן?',
-    answer: 'סקר',
-    hint: 'הוא הדוד של סימבה עם רעמה שחורה',
-    paperHint: '📰 רמז בעיתון: בעמוד 5 כתוב "סקר ביצע את הפשע הנוראי ביותר: הרג את אחיו"'
+    paperKey: 'rabbit',
+    q: 'מה אוחז הארנב הלבן בידו וכל הזמן מסתכל עליו בדאגה?',
+    answer: 'שעון',
+    altAnswers: ['שעון זהב','שעון כיס'],
+    hint: 'משהו שמראה את הזמן',
+    paperHint: '📰 רמז בעיתון: בעמוד 1 של הארנב הלבן — "אוחז שעון זהב גדול"'
   },
   {
     type: 'complete',
-    paperKey: 'lion',
-    q: 'השלם את הסלוגן של טימון ופומבה: "האקונה ______"',
-    answer: 'מטאטא',
-    altAnswers: ['מטטה','מטאטה','matata','מאטאטא','מטטא'],
-    hint: 'פירושה "אין דאגות" בסווהילי',
-    paperHint: '📰 רמז בעיתון: בעמוד 3 כתוב "האקונה מטאטא — אין דאגות לכל ימי חייך!"'
-  },
-  {
-    type: 'describe',
-    paperKey: 'lion',
-    q: 'נחש: "אני אבא מלך שנהרגתי בעמק הבהמות — ורוחי שומרת על בני. מי אני?"',
-    answer: 'מופסה',
-    hint: 'אבא של סימבה',
-    paperHint: '📰 רמז בעיתון: בעמוד 2 כתוב "מופסה, מלך גדול ואוהב, מת בעמק בהמות הדוהרות"'
-  },
-  {
-    type: 'riddle',
-    paperKey: 'lion',
-    q: 'אני יצאתי מהגאיה הסובלת, מצאתי את הנסיך הנעלם, ועודדתי אותו לחזור. בלעדיי לא היה מלך. מי אני?',
-    answer: 'נאלה',
-    hint: 'חברת הילדות של סימבה',
-    paperHint: '📰 רמז בעיתון: בעמוד 4 כתוב "בלי נאלה — לא היה מלך האריות"'
+    paperKey: 'rabbit',
+    q: 'השלם את קריאת הארנב: "מאוחר! מאוחר ______!"',
+    answer: 'מאוד',
+    hint: 'מילה שמדגישה כמה',
+    paperHint: '📰 רמז בעיתון: בעמוד 1 — "מאוחר! מאוחר מאוד!"'
   },
   {
     type: 'find_diff',
-    paperKey: 'lion',
-    q: 'מה ההבדל בין סימבה בתחילת הסרט לבין סימבה בסוף?',
-    answer: 'מלך',
-    hint: 'מגור לגלות ל...',
-    paperHint: '📰 רמז בעיתון: בעמוד 1 כתוב "סימבה: מהחורבן לכתר — המסע האגדי"'
+    paperKey: 'rabbit',
+    q: 'מה קרה כשאליס שתתה בקבוק בתוך ביתו של הארנב?',
+    answer: 'גדלה',
+    altAnswers: ['גדלה ענקית','התנפחה'],
+    hint: 'היא נהייתה גדולה מאוד...',
+    paperHint: '📰 רמז בעיתון: בעמוד 2 — "גדלה כל כך עד שמילאה את כל הבית"'
   },
   {
-    type: 'trivia',
-    paperKey: 'lion',
-    q: 'מה שם השיר הנפוח של סקר שבו הוא מסביר את תוכניתו הרשעית?',
-    answer: 'be prepared',
-    altAnswers: ['היו מוכנים', 'be prepare', 'היה מוכן'],
-    hint: 'שם השיר באנגלית, שתי מילים',
-    paperHint: '📰 רמז בעיתון: בעמוד 5 כתוב "שיר Be Prepared הפך לקלאסיקה"'
+    type: 'describe',
+    paperKey: 'rabbit',
+    q: 'נחש: "אני לבוש מקטורן, רץ עם שעון, ואני הכרוז של המלכה. מי אני?"',
+    answer: 'הארנב הלבן',
+    altAnswers: ['ארנב','ארנב לבן'],
+    hint: 'הדמות הראשונה שאליס פגשה',
+    paperHint: '📰 רמז בעיתון: בעמוד 3 — "הכרוז הרשמי של המלכה"'
   },
 
-  // ===== CINDERELLA (6) =====
-  {
-    type: 'trivia',
-    paperKey: 'cinderella',
-    q: 'מה הופכת פיית הגודמאדר לכרכרה?',
-    answer: 'דלעת',
-    hint: 'ירק כתום עגול',
-    paperHint: '📰 רמז בעיתון: בעמוד 3 כתוב "דלעת הפכה לכרכרה, עכברים לסוסים"'
-  },
-  {
-    type: 'complete',
-    paperKey: 'cinderella',
-    q: 'השלם את לחש הפיה: "ביבידי בובידי ______"',
-    answer: 'בו',
-    hint: 'מילה אחת קצרה',
-    paperHint: '📰 רמז בעיתון: בעמוד 3 כתוב "ביבידי בובידי בו!"'
-  },
-  {
-    type: 'describe',
-    paperKey: 'cinderella',
-    q: 'נחש: "אני עשויה זכוכית, אחת בלבד, ומתאימה לרגל אחת בעולם כולו. מה אני?"',
-    answer: 'נעל זכוכית',
-    hint: 'מה הנסיך מחפש?',
-    paperHint: '📰 רמז בעיתון: בעמוד 1 כתוב "נעל זכוכית נמצאה — הנסיך מחפש בעלים!"'
-  },
+  // ===== THE CHESHIRE CAT (4) =====
   {
     type: 'riddle',
-    paperKey: 'cinderella',
-    q: 'אני שלטתי בבית, שברתי שמלות, וקינאתי בנערה העובדת. מי אני?',
-    answer: 'אמא חורגת',
-    hint: 'הנבלת של סינדרלה',
-    paperHint: '📰 רמז בעיתון: בעמוד 2 כתוב "אמא החורגת שלטה בבית ביד רמה"'
+    paperKey: 'cheshire',
+    q: 'אני נעלם לאט לאט עד שנשאר רק החיוך שלי באוויר. מי אני?',
+    answer: 'חתול צ\'שייר',
+    altAnswers: ['צשייר','חתול','cheshire'],
+    hint: 'חתול עם פסים ורודים',
+    paperHint: '📰 רמז בעיתון: בעמוד 1 — "נשאר רק חיוכו תלוי באוויר"'
+  },
+  {
+    type: 'trivia',
+    paperKey: 'cheshire',
+    q: 'איזה צבע הפסים של חתול צ\'שייר?',
+    answer: 'ורוד',
+    altAnswers: ['ורוד סגול','סגול','ורודים'],
+    hint: 'צבע בהיר וחמוד',
+    paperHint: '📰 רמז בעיתון: בעמוד 1 — "פסים ורודים-סגולים"'
   },
   {
     type: 'find_diff',
-    paperKey: 'cinderella',
-    q: 'מה קורה לקסם של הפיה בחצות?',
-    answer: 'נעלם',
-    hint: 'הכרכרה חוזרת להיות...',
-    paperHint: '📰 רמז בעיתון: בעמוד 3 כתוב "הקסם פג בחצות"'
+    paperKey: 'cheshire',
+    q: 'לפי צ\'שייר, באיזו דרך כדאי ללכת אם לא אכפת לך לאן להגיע?',
+    answer: 'לא משנה',
+    altAnswers: ['כל דרך','כל הדרכים','אין הבדל'],
+    hint: 'אם אין יעד — אז...',
+    paperHint: '📰 רמז בעיתון: בעמוד 2 — "לא משנה באיזו דרך תלכי"'
   },
   {
-    type: 'trivia',
-    paperKey: 'cinderella',
-    q: 'מי בסופו של דבר מציל את סינדרלה — ממה מסמל הסרט את ניצחון הטוב?',
-    answer: 'אמונה',
-    hint: 'לא כוח, לא כסף — אלא...',
-    paperHint: '📰 רמז בעיתון: בעמוד 5 כתוב "כוחה של האגדה הוא שגם מי שחי בחשכה — יכול למצוא אור"'
+    type: 'describe',
+    paperKey: 'cheshire',
+    q: 'נחש: "אני מתגרה במלכה, מופיע מעל ראשה, ואין לי גוף לכרות. מי אני?"',
+    answer: 'חתול צ\'שייר',
+    altAnswers: ['צשייר','חתול'],
+    hint: 'החתול המסתורי שמציל את אליס',
+    paperHint: '📰 רמז בעיתון: בעמוד 3 — "אבל אין לו גוף!"'
   },
 
-  // ===== FINDING NEMO (6) =====
-  {
-    type: 'trivia',
-    paperKey: 'nemo',
-    q: 'מה הבעיה הפיזית של נמו שגורמת לאביו לדאוג כל כך?',
-    answer: 'סנפיר קטן',
-    hint: 'אחד הסנפירים שלו...',
-    paperHint: '📰 רמז בעיתון: בעמוד 1 כתוב "נמו, עם סנפיר קטן אחד, נלקח לאקווריום"'
-  },
+  // ===== THE MAD HATTER (4) =====
   {
     type: 'complete',
-    paperKey: 'nemo',
-    q: 'השלם את המשפט של דורי: "פשוט ממשיכים ______"',
-    answer: 'לשחות',
-    hint: 'מה דגים עושים?',
-    paperHint: '📰 רמז בעיתון: בעמוד 2 כתוב על דורי — "היא חיה ברגע, ובכל פעם מחדש"'
+    paperKey: 'hatter',
+    q: 'השלם: "יום שמח של אי-______-הולדת!"',
+    answer: 'יום',
+    hint: 'החג שחוגגים 364 ימים בשנה',
+    paperHint: '📰 רמז בעיתון: בעמוד 2 — "אי-יום-הולדת"'
   },
   {
-    type: 'describe',
-    paperKey: 'nemo',
-    q: 'נחש: "אנחנו שלושה כרישים שהחלטנו לא לאכול דגים — אבל טיפת דם אחת הרסה הכל. מי אנחנו?"',
-    answer: 'כרישי הצמחונות',
-    hint: 'ברוס, אנקל ודנטל',
-    paperHint: '📰 רמז בעיתון: בעמוד 4 כתוב "ברוס, אנקל ודנטל — שלושה כרישים שהחליטו להפסיק לאכול דגים"'
-  },
-  {
-    type: 'riddle',
-    paperKey: 'nemo',
-    q: 'אני שוכחת הכל אחרי כמה שניות — אבל בלעדיי מרלין לא היה מוצא את בנו. מי אני?',
-    answer: 'דורי',
-    hint: 'דגת כחולה עם בעיית זיכרון',
-    paperHint: '📰 רמז בעיתון: בעמוד 2 כתוב "דורי, דגת כחולה עם זיכרון קצר-טווח"'
+    type: 'trivia',
+    paperKey: 'hatter',
+    q: 'מי ישן בתוך קנקן התה במסיבה?',
+    answer: 'העכבר הישנוני',
+    altAnswers: ['עכבר','עכבר ישנוני','עכבר הישן'],
+    hint: 'חיה קטנה שכל הזמן נרדמת',
+    paperHint: '📰 רמז בעיתון: בעמוד 1 — "העכבר הישנוני שנרדם בתוך קנקן התה"'
   },
   {
     type: 'find_diff',
-    paperKey: 'nemo',
-    q: 'מה ההבדל בין מרלין בתחילת הסרט לבין מרלין בסוף?',
-    answer: 'פחות מפחד',
-    hint: 'הוא למד להרפות ולסמוך...',
-    paperHint: '📰 רמז בעיתון: בעמוד 5 כתוב "מרלין היה אבא מגן יתר. לאחר שחצה אוקיינוס — הבין שהחיים אינם בבועת בטחון"'
+    paperKey: 'hatter',
+    q: 'למה מסיבת התה לא נגמרת לעולם — מה קרה לזמן?',
+    answer: 'קפא',
+    altAnswers: ['נעצר','תקוע','תמיד זמן תה'],
+    hint: 'השעון תמיד מראה את אותה שעה...',
+    paperHint: '📰 רמז בעיתון: בעמוד 3 — "הזמן עצמו קפא"'
   },
   {
-    type: 'trivia',
-    paperKey: 'nemo',
-    q: 'לאיזו עיר נחטף נמו ושם עמד האקווריום שאליו הגיע?',
-    answer: 'סידני',
-    hint: 'עיר גדולה באוסטרליה',
-    paperHint: '📰 רמז בעיתון: בעמוד 1 כתוב "נלקח לאקווריום בסידני"'
+    type: 'describe',
+    paperKey: 'hatter',
+    q: 'נחש: "יש לי כובע ענק עם תווית מחיר, ואני חוגג אי-ימי-הולדת. מי אני?"',
+    answer: 'הכובען המשוגע',
+    altAnswers: ['כובען','הכובען','hatter'],
+    hint: 'המארח של מסיבת התה',
+    paperHint: '📰 רמז בעיתון: בעמוד 1 — "כובע ענק שעליו תווית מחיר"'
   },
 
-  // ===== FROZEN (6) =====
+  // ===== THE QUEEN OF HEARTS (4) =====
   {
     type: 'trivia',
-    paperKey: 'frozen',
-    q: 'מה גורם ללב של אנה להפוך לקרח בסרט?',
-    answer: 'קסם של אלזה',
-    hint: 'אחותה פגעה בה בטעות',
-    paperHint: '📰 רמז בעיתון: בעמוד 3 כתוב "הלב הקפוא של אנה ניתן להמסה רק על ידי מעשה אהבה אמיתית"'
-  },
-  {
-    type: 'complete',
-    paperKey: 'frozen',
-    q: 'השלם את השיר: "Let it go, let it go, ______"',
-    answer: 'can t hold it back anymore',
-    altAnswers: ["can't hold it back anymore", 'cant hold it back', 'cant hold back', "can't hold back"],
-    hint: 'המשפט שמגיע אחרי "let it go" השני',
-    paperHint: '📰 רמז בעיתון: בעמוד 1 כתוב "Let It Go הפך להמנון שחרור"'
+    paperKey: 'queen',
+    q: 'באיזה צבע חיילי הקלפים צובעים את הוורדים הלבנים כדי לרצות את המלכה?',
+    answer: 'אדום',
+    hint: 'הצבע שהמלכה אוהבת',
+    paperHint: '📰 רמז בעיתון: בעמוד 1 — "צובעים ורדים לבנים בצבע אדום"'
   },
   {
     type: 'describe',
-    paperKey: 'frozen',
-    q: 'נחש: "אני חולם על הקיץ אבל הקיץ ימיס אותי — ובכל זאת אני שמח. מי אני?"',
-    answer: 'אולף',
-    hint: 'איש שלג מצחיק',
-    paperHint: '📰 רמז בעיתון: בעמוד 4 כתוב "אולף, איש השלג, חולם בתמימות על הקיץ — מבלי שמבין שהקיץ ימיס אותו"'
-  },
-  {
-    type: 'riddle',
-    paperKey: 'frozen',
-    q: 'נראיתי כנסיך טוב ורומנטי — אך הייתי נבל שתכנן הכל מראש. מי אני?',
-    answer: 'הנס',
-    hint: 'הנסיך שאנה רצתה להתחתן איתו',
-    paperHint: '📰 רמז בעיתון: בעמוד 2 כתוב "הנס היה נבל שתכנן הכל מראש"'
+    paperKey: 'queen',
+    q: 'נחש: "אני שולטת בארץ הפלאות, אוהבת אדום, וצועקת לכרות ראשים. מי אני?"',
+    answer: 'מלכת הלבבות',
+    altAnswers: ['מלכה','מלכת לבבות','queen'],
+    hint: 'הרודנית של ארץ הפלאות',
+    paperHint: '📰 רמז בעיתון: בעמוד 1 — "מלכת הלבבות שונאת לבן"'
   },
   {
     type: 'find_diff',
-    paperKey: 'frozen',
-    q: 'מה ההבדל בין אגדות נסיכות רגילות לבין פרוזן — מה מציל את הגיבורה?',
-    answer: 'אהבת אחות',
-    hint: 'לא נסיך — אלא...',
-    paperHint: '📰 רמז בעיתון: בעמוד 3 כתוב "לראשונה בסרטי הנסיכות, הגיבורה ניצלה על ידי אהבת אחים"'
+    paperKey: 'queen',
+    q: 'במשחק הקריקט של המלכה — במה משתמשים במקום מחבט?',
+    answer: 'פלמינגו',
+    altAnswers: ['ציפור פלמינגו','עוף פלמינגו'],
+    hint: 'ציפור ורודה עם צוואר ארוך',
+    paperHint: '📰 רמז בעיתון: בעמוד 2 — "המחבטים הם ציפורי פלמינגו חיות"'
+  },
+  {
+    type: 'complete',
+    paperKey: 'queen',
+    q: 'השלם את משפט אליס מול המלכה: "אתם רק חבילה של ______!"',
+    answer: 'קלפים',
+    hint: 'מה כל הצבא של המלכה עשוי ממנו',
+    paperHint: '📰 רמז בעיתון: בעמוד 3 — "אתם רק חבילה של קלפים!"'
+  },
+
+  // ===== THE CATERPILLAR (4) =====
+  {
+    type: 'riddle',
+    paperKey: 'caterpillar',
+    q: 'אני יושב על פטרייה, מעשן נרגילה, ונושף עשן בצורת אותיות. מי אני?',
+    answer: 'הזחל הכחול',
+    altAnswers: ['זחל','זחל כחול','caterpillar'],
+    hint: 'הופך בסוף לפרפר',
+    paperHint: '📰 רמז בעיתון: בעמוד 1 — "הזחל הכחול יושב על פטרייה"'
   },
   {
     type: 'trivia',
-    paperKey: 'frozen',
-    q: 'מה שם הצבי של קרסטוף שהוא מדבר בשמו ועונה לעצמו?',
-    answer: 'סבן',
-    hint: 'שם קצר, צבי נאמן',
-    paperHint: '📰 רמז בעיתון: בעמוד 5 כתוב "קרסטוף ו-סבן: ידידות אמת בין אדם לצבי"'
+    paperKey: 'caterpillar',
+    q: 'מה השאלה הגדולה שהזחל שואל את אליס?',
+    answer: 'מי את',
+    altAnswers: ['מי את?','who are you'],
+    hint: 'שאלה על זהות',
+    paperHint: '📰 רמז בעיתון: בעמוד 1 — "מי את?"'
+  },
+  {
+    type: 'find_diff',
+    paperKey: 'caterpillar',
+    q: 'מה ההבדל בין שני צידי הפטרייה הקסומה?',
+    answer: 'מגדיל ומקטין',
+    altAnswers: ['אחד מגדיל אחד מקטין','גדל וקטן','מגדיל מקטין'],
+    hint: 'צד אחד גורם לגדול, צד שני לקטון',
+    paperHint: '📰 רמז בעיתון: בעמוד 2 — "צד אחד מגדיל, הצד השני מקטין"'
+  },
+  {
+    type: 'describe',
+    paperKey: 'caterpillar',
+    q: 'נחש: "אני נותן לאליס את סוד הפטרייה שמאפשר לה לשלוט בגודלה. מי אני?"',
+    answer: 'הזחל הכחול',
+    altAnswers: ['זחל','זחל כחול'],
+    hint: 'דמות כחולה ורגועה על פטרייה',
+    paperHint: '📰 רמז בעיתון: בעמוד 2 — "נותן הזחל לאליס מתנה יקרה: הסוד של הפטרייה"'
   },
 ];
 
@@ -3481,7 +3637,7 @@ function startGame() {
   if (q.type === 'find_diff')typeLabel = '🔍 <strong>מצא את ההבדל / ההסבר</strong>';
   if (q.type === 'describe') typeLabel = '🎭 <strong>נחש לפי התיאור</strong>';
 
-  const paperName = { alice:'אליס', lion:'מלך האריות', cinderella:'סינדרלה', nemo:'נמו', frozen:'פרוזן' }[q.paperKey] || q.paperKey;
+  const paperName = { alice:'אליס', rabbit:'הארנב הלבן', cheshire:'חתול צ\'שייר', hatter:'הכובען המשוגע', queen:'מלכת הלבבות', caterpillar:'הזחל הכחול' }[q.paperKey] || q.paperKey;
 
   addMsg(
     `${typeLabel} <span style="font-size:0.75em;opacity:0.6;">(מתוך עיתון: ${paperName})</span><br><br>`
@@ -3929,142 +4085,206 @@ const newspapers = [
     ]
   },
   {
-    id: "lion",
-    name: "מלך האריות",
-    subtitle: "כתב העת של מלך החיות",
-    emoji: "🦁",
+    id: "rabbit",
+    name: "הארנב הלבן",
+    subtitle: "כתב העת של שעון הזהב",
+    emoji: "⏰",
     price: "₪10",
-    teaser: "סימבה — מלך או נסיג? הסיפור המלא מהגאיה",
+    teaser: "מי הארנב שגרם לכל הכאוס? הדמות שפתחה את הדלת לארץ הפלאות",
     pages: [
       {
-        headline: "סימבה: מהחורבן לכתר — המסע האגדי",
-        dateline: "ממלכת הגאיה · עמוד ראשון",
-        body: `<div class="page-img">🦁</div><div class="pull-quote">"זיכרה מי אתה" — רוח מופסה</div><p>כשסימבה, יורש כס הגאיה, נאלץ לברוח לאחר מותו של אביו, העולם השתנה לעד. מנחיל רשמי לגלות מוחלטת — מסע בן שנים התחיל.</p><p>אך הגורל לא ויתר. בין ג'ונגלים ירוקים ומלחמות פנימיות, סימבה חזר להתמודד עם הדוד הרשע סקר וכבש את הכס.</p>`
+        headline: "הארנב הלבן רץ בשדה — \"מאוחר! מאוחר מאוד!\"",
+        dateline: "ארץ הפלאות · גיליון ראשון",
+        body: `
+          <div class="page-img">🐇</div>
+          <div class="page-img-caption">הארנב הלבן — לבוש מקטורן, אוחז שעון זהב</div>
+          <div class="pull-quote">"אוי לא, אוי לא, אני מאחר!" — הארנב הלבן, שמעולם לא הפסיק לרוץ</div>
+          <p>הדמות שהציתה את כל ההרפתקה היא <strong>הארנב הלבן</strong> — ארנב לבוש מקטורן משובץ, שאוחז בידו <strong>שעון זהב</strong> גדול ולא מפסיק להציץ בו בדאגה. "מאוחר! מאוחר מאוד!" קרא בלי הרף, בעודו רץ בין השדות.</p>
+          <p>אליס, סקרנית מטבעה, רדפה אחריו עד שנעלם לתוך חור ארנב עמוק. בלי הארנב — לא הייתה ארץ פלאות. הוא הדמות הראשונה שאליס פגשה, והוא זה שמשך אותה אל תוך העולם המופלא.</p>
+        `
       },
       {
-        headline: "מופסה: אבא שמת — ואיך זה שבר את ליבות המיליונים",
-        dateline: "ממלכת הגאיה · עמוד שני",
-        body: `<div class="page-img">💔</div><div class="pull-quote">"אל תשכח אותי, בני"</div><p>הסצנה הנחשבת לקשה ביותר בהיסטוריית האנימציה: מופסה, מלך גדול ואוהב, מת בעמק בהמות הדוהרות. ילדים ברחבי העולם בכו בקולי קולות.</p><p>מחקרים מראים שסצנה זו הייתה חוויה מכוננת לדור שלם. הרגש האנושי שבה — אובדן הורה — חצה תרבויות ויבשות.</p>`
+        headline: "אליס נתקעת בתוך ביתו של הארנב — וכמעט הורסת אותו!",
+        dateline: "ארץ הפלאות · גיליון שני",
+        body: `
+          <div class="page-img">🏠</div>
+          <div class="page-img-caption">בית הארנב — אליס גדלה וזרועה יוצאת מהחלון</div>
+          <div class="pull-quote">"מפלצת בבית שלי!" — הארנב הלבן, מבועת</div>
+          <p>בדרכו הביתה שלח הארנב את אליס להביא את כפפותיו. אך בתוך הבית שתתה אליס בקבוק מסתורי — ו<strong>גדלה כל כך עד שמילאה את כל הבית</strong>! זרועה יצאה מהחלון ורגלה מהארובה.</p>
+          <p>הארנב, מבוהל, חשב שמפלצת פלשה לביתו. הוא קרא לעזרה, שלח את הלטאה ביל לארובה, ואף ניסה לשרוף את הבית. רק עוגייה קסומה החזירה את אליס לגודלה והצילה את המצב.</p>
+        `
       },
       {
-        headline: "טימון ופומבה: הפילוסופים הסודיים של האנימציה",
-        dateline: "ממלכת הגאיה · עמוד שלישי",
-        body: `<div class="page-img">🐗</div><div class="pull-quote">"האקונה <strong>מטאטא</strong> — אין דאגות לכל ימי חייך!" — טימון ופומבה</div><p>טימון (סורינוקס) ופומבה (חזיר יבחיני) אינם רק קומיקסים — הם מגלמים פילוסופיה שלמה של חיים ללא דאגה. "האקונה מטאטה" הפך לסלוגן עולמי.</p><p>הם הצילו את סימבה מרעב, גידלו אותו ולימדו אותו לחיות — ובקרב האחרון, הסיחו את דעת היינות בריקוד מטורף.</p>`
-      },
-      {
-        headline: "נאלה: הגיבורה הנשכחת שהציל את הכל",
-        dateline: "ממלכת הגאיה · עמוד רביעי",
-        body: `<div class="page-img">🌿</div><div class="pull-quote">"הגאיה גוועת. סימבה, חזור הביתה."</div><p>בלי נאלה — לא היה מלך האריות. חברת הילדות של סימבה עזבה את הגאיה הסובלת, מצאה אותו ביער, ועודדה אותו לחזור ולהילחם על ממלכתו.</p><p>מבחינות רבות, נאלה היא הגיבורה האמיתית: היא לא ברחה, נשארה בסבל — ואז יצאה למשימה בלתי אפשרית ולבדה.</p>`
-      },
-      {
-        headline: "סקר: הנבל שאין כמוהו — ולמה אנחנו אוהבים לשנוא אותו",
-        dateline: "ממלכת הגאיה · עמוד חמישי",
-        body: `<div class="page-img">😈</div><div class="pull-quote">"אני מוקף בטיפשים..."</div><p>סקר, הדוד הרשע, ביצע את הפשע הנוראי ביותר: הרג את אחיו ואשים את בנו. אך בכישרון קולי ובנוכחות כריזמטית, הוא הפך לאחד מנבלי הקולנוע האהובים.</p><p>שיר <strong>"Be Prepared"</strong> — "היו מוכנים" — הפך לקלאסיקה ידועה. סקר שר אותו לפני הפשע הגדול. הבמאים הודו שסקר נועד לגלם רוע פוליטי — שאיננו נזקק לכוח גופני אלא רק לשכל ומניפולציה.</p>`
+        headline: "הארנב הלבן בתפקיד הכרוז הרשמי של מלכת הלבבות",
+        dateline: "ארץ הפלאות · גיליון שלישי",
+        body: `
+          <div class="page-img">📯</div>
+          <div class="page-img-caption">הארנב מכריז על פתיחת המשפט המלכותי</div>
+          <div class="pull-quote">"שקט בבית המשפט!" — הארנב הלבן, בקול חצוצרה</div>
+          <p>בחצר ארמון מלכת הלבבות מתגלה תפקידו האמיתי של הארנב: הוא <strong>הכרוז הרשמי של המלכה</strong>. עם חצוצרה ומגילה הוא פותח את משפטו של נסיך הלבבות, שהואשם בגניבת העוגיות.</p>
+          <p>הארנב הלבן, שתמיד ממהר ותמיד מודאג, הוא קו מקשר בכל הסיפור — מהשדה הירוק ועד אולם המשפט. הוא מלמד אותנו שלפעמים הסקרנות לרדוף אחרי משהו קטן ומוזר מובילה להרפתקה הגדולה בחיים.</p>
+        `
       }
     ]
   },
   {
-    id: "cinderella",
-    name: "סינדרלה",
-    subtitle: "מגזין בית המלוכה הקסום",
-    emoji: "👠",
-    price: "₪9",
-    teaser: "הנעל הקסומה — פשע לילי או אגדת אהבה?",
-    pages: [
-      {
-        headline: "נעל זכוכית נמצאה — הנסיך מחפש בעלים!",
-        dateline: "ממלכת המלך · גיליון ראשי",
-        body: `<div class="page-img">👠</div><div class="pull-quote">"אם הנעל מתאימה — תהיי אשתי!"</div><p>בשעה אחת לילה, בורחת נערה אנונימית מהארמון, שוכחת נעל זכוכית אחת על המדרגות. הנסיך — שנפל בה לאחר ריקוד אחד — שולח שליחים לכל הממלכה.</p><p>הנעל שנמצאה היא ייחודית לחלוטין: זכוכית מושלמת, ללא שריטה, שמתאימה לרגל אחת בלבד בעולם. "זו פשוט פיזיקה בלתי אפשרית," אמרו מומחי נעלי חצר.</p>`
-      },
-      {
-        headline: "אמא החורגת: הנבלת שמסתירה נערה מהאושר",
-        dateline: "ממלכת המלך · גיליון שני",
-        body: `<div class="page-img">😡</div><div class="pull-quote">"סינדרלה לא הולכת לשום מקום!"</div><p>אמא החורגת, שלטה בבית ביד רמה. שתי בנותיה — אנסטסיה ודריזלה — קיבלו כל טוב, בעוד סינדרלה עבדה ללא הרף. ובכל זאת, כשבא המכתב מהארמון, שברה אמא החורגת את שמלת הנסיכות של סינדרלה.</p><p>פסיכולוגים מגדירים אמא חורגת זו כמייצגת של קנאה ושליטה רעילה — דמות שמעמידה את הרצון שלה לפני אושר ילד חסר ישע.</p>`
-      },
-      {
-        headline: "פיה-יונקת: ניסוי קסמים שיצא משליטה?",
-        dateline: "ממלכת המלך · גיליון שלישי",
-        body: `<div class="page-img">🧚</div><div class="pull-quote">"ביבידי בובידי בו!"</div><p>פיית הגודמאדר הגיעה בזמן. דלעת הפכה לכרכרה, עכברים לסוסים, לטאה לעגלון — וסינדרלה בשמלת נסיכות. אך <strong>הקסם נעלם בחצות</strong> — הכרכרה חזרה לדלעת, הסוסים לעכברים, והשמלה נעלמה.</p><p>מדענים (בארץ הזו) תוהים: למה חצות? לפי תיאוריות הקסם, הרגע שבין יום ללילה הוא נקודת חולשה אנרגטית. "הפיה ידעה מה היא עושה," אמר קוסם ותיק בראיון.</p>`
-      },
-      {
-        headline: "הריקוד שבלב: מה עבר לסינדרלה כשפגשה את הנסיך?",
-        dateline: "ממלכת המלך · גיליון רביעי",
-        body: `<div class="page-img">💃</div><div class="pull-quote">"הוא הסתכל עלי... כאילו באמת ראה אותי."</div><p>בנשף המפואר, הצטיירה סינדרלה כנסיכה זרה. הנסיך בחר לרקוד רק איתה. שניים ריקדו לבד, נפרדים מהעולם — עד שפעמוני חצות הדהדו.</p><p>מחקר שפורסם בכתב העת לרומנטיקה קסומה: זה היה פגישה של שתי נפשות בודדות שמצאו זו את זו בין המוני אנשים. ולא בגלל השמלה — בגלל הנסיכות שמבפנים.</p>`
-      },
-      {
-        headline: "החתונה: ומה היה אחרי 'חיו באושר ועושר'?",
-        dateline: "ממלכת המלך · גיליון חמישי — מהדורה מיוחדת",
-        body: `<div class="page-img">💒</div><div class="pull-quote">"חיו באושר עד עצם היום הזה!"</div><p>הנסיך מצא את סינדרלה. הנעל התאימה. אמא החורגת פגשה את גורלה. והחתונה התקיימה בפאר ובהדר. אך האמת הגדולה? כוחה של האגדה הוא שגם מי שחי בחשכה ובסבל — יכול למצוא אור.</p><p>סינדרלה אינה רק סיפור נסיכות — היא סיפור על <strong>אמונה</strong> שאפשר להיות טוב ועדין גם כשהחיים אכזריים. הניצחון האמיתי לא בא מכוח, כסף או מזל — אלא מכוחה של <strong>אמונה פנימית</strong> שהטוב ינצח. ועל כך שלעיתים, הטוב מנצח.</p>`
-      }
-    ]
-  },
-  {
-    id: "nemo",
-    name: "מוצאים את נמו",
-    subtitle: "ידיעות מעמקי הים",
-    emoji: "🐠",
+    id: "cheshire",
+    name: "חתול צ'שייר",
+    subtitle: "החיוך שנשאר תלוי באוויר",
+    emoji: "😸",
     price: "₪11",
-    teaser: "נמו נמצא! הסיפור המלא על הדגון האמיץ",
+    teaser: "החתול המסתורי שנעלם ומופיע — והשאיר רק חיוך מאחור",
     pages: [
       {
-        headline: "נמו נחטף! אבא יוצא לשליחות בלתי אפשרית",
-        dateline: "שונית האלמוגים · עמוד ראשון",
-        body: `<div class="page-img">🐠</div><div class="pull-quote">"אמצא אותך, נמו. הבטחתי."</div><p>מרלין, דג ליצן מתוחכם, קיבל את הסיוט הגרוע ביותר: בנו הצעיר נחטף על ידי צוללן אנושי. נמו, עם סנפיר קטן אחד, נלקח לאקווריום בסידני.</p><p>מרלין, הנודע בפחדנותו, החליט לחצות את האוקיינוס לבדו — מהשונית האוסטרלית לסידני. מהלך בלתי נתפס לדג שפחד ממים עמוקים.</p>`
+        headline: "חתול מסתורי נעלם — ונשאר רק החיוך שלו באוויר!",
+        dateline: "ארץ הפלאות · גיליון ראשון",
+        body: `
+          <div class="page-img">😸</div>
+          <div class="page-img-caption">חתול צ'שייר — פסים ורודים וחיוך ענק</div>
+          <div class="pull-quote">"אנחנו כולנו משוגעים כאן" — חתול צ'שייר</div>
+          <p>הדמות המוזרה ביותר בארץ הפלאות היא ללא ספק <strong>חתול צ'שייר</strong> — חתול בעל פסים ורודים-סגולים וחיוך רחב מאוזן לאוזן. הכישרון המיוחד שלו: <strong>להיעלם בהדרגה</strong> עד שנשאר רק חיוכו תלוי באוויר.</p>
+          <p>"התחלת בזנב והסתיים בראש," אמרה אליס בפליאה. החתול נעלם ומופיע מתי שבא לו, מבלבל את כולם, וצוחק מהכאוס שהוא יוצר.</p>
+        `
       },
       {
-        headline: "דורי: הזיכרון הפגוע שהציל הכל",
-        dateline: "שונית האלמוגים · עמוד שני",
-        body: `<div class="page-img">🐟</div><div class="pull-quote">"<strong>פשוט ממשיכים לשחות!</strong>" — דורי</div><p>דורי, דגת כחולה עם זיכרון קצר-טווח, הפכה לבת הלוויה של מרלין. למרות שכחתה התמידית, היא הייתה זאת שקראה את כתובת הצוללן, שדיברה לקרישות, שהוביל.</p><p>מדענים ראו בה דמות מופת: אדם (או דג) עם מוגבלות שלא מגדיר את עצמו לפיה. "היא חיה ברגע," אמרה ד"ר מרי פין, "ובכל פעם מחדש."</p>`
+        headline: "עצות מבלבלות: \"כל דרך מובילה לאנשהו\"",
+        dateline: "ארץ הפלאות · גיליון שני",
+        body: `
+          <div class="page-img">🌳</div>
+          <div class="page-img-caption">צ'שייר יושב על ענף ומצביע לשני כיוונים</div>
+          <div class="pull-quote">"אם לא אכפת לך לאן להגיע — לא משנה באיזו דרך תלכי"</div>
+          <p>כשאליס שאלה את החתול לאיזו דרך ללכת, ענה לה צ'שייר בחידה: "זה תלוי לאן את רוצה להגיע." הוא הצביע לכיוון <strong>הכובען המשוגע</strong> ולכיוון <strong>ארנבון מרץ</strong> — "שניהם משוגעים."</p>
+          <p>למרות הבלבול, צ'שייר הוא הדמות היחידה שבאמת עוזרת לאליס להבין את ארץ הפלאות. הוא מלמד שלפעמים השאלה החשובה אינה "באיזו דרך" אלא "לאן אני רוצה להגיע באמת."</p>
+        `
       },
       {
-        headline: "אקווריום שן: הבריחה שהדהימה את כולם",
-        dateline: "שונית האלמוגים · עמוד שלישי",
-        body: `<div class="page-img">🌊</div><div class="pull-quote">"השקית תגיע לים אם תדחפנה מהשיש!"</div><p>בינתיים בסידני, נמו הצטרף לחבורת הדגים של האקווריום. הוא תכנן בריחה עם גיל (שן שוחה ומוזמן) ואחרים — והצליח לחסום את מסנן המים ולכפות ניקוי.</p><p>התוכנית הבלתי סבירה כמעט הצליחה — אך נמו נמצא ועבר לשקית. לבסוף, הוא שחה לחופשי לים וחזר לאביו.</p>`
-      },
-      {
-        headline: "כרישי ה'צמחונות': האירגון שנכשל בפגישתו הראשונה",
-        dateline: "שונית האלמוגים · עמוד רביעי",
-        body: `<div class="page-img">🦈</div><div class="pull-quote">"דגים הם חברים, לא אוכל!"</div><p>ברוס, אנקל ודנטל — שלושה כרישים שהחליטו להפסיק לאכול דגים. הם ייסדו קבוצת תמיכה ב"AA לכרישים". אך כשטיפה דם אחת נחתה על ברוס — הפגישה הפכה למרדף.</p><p>הפרק הזה מעלה שאלות מרתקות על יצרים מולדים מול החלטות מודעות — ועל כמה קל לחזור לדפוסים ישנים.</p>`
-      },
-      {
-        headline: "מרלין ונמו: מה ההרפתקאה לימדה על להרפות",
-        dateline: "שונית האלמוגים · עמוד חמישי",
-        body: `<div class="page-img">🌅</div><div class="pull-quote">"אם אתה אף פעם לא תתן לו לנסות, הוא לא ילמד."</div><p>מרלין היה אבא מגן יתר על המידה. הפחד שלו מהעולם הוביל לחסימה של נמו. אך לאחר שחצה אוקיינוס, הבין שהחיים אינם נמצאים בבועת בטחון.</p><p>מרלין שהיה <strong>מלא פחד</strong> בתחילת הסרט הפך <strong>לפחות מפחד</strong> בסופו — שכן הבין שהחיים האמיתיים הם מחוץ לבועה. מצאנו גבורה לא בחוסר פחד — אלא בפעולה למרות הפחד. ומרלין, שפחד ממים עמוקים, חצה את כולם בשביל אהבה.</p>`
+        headline: "צ'שייר מתגרה במלכת הלבבות — ומציל את אליס!",
+        dateline: "ארץ הפלאות · גיליון שלישי",
+        body: `
+          <div class="page-img">👑</div>
+          <div class="page-img-caption">החתול מופיע מעל ראש המלכה הזועמת</div>
+          <div class="pull-quote">"כרות את ראשו! — אבל אין לו גוף!" — מלכת הלבבות, מבולבלת</div>
+          <p>ברגע הדרמטי של הסרט, מופיע צ'שייר מעל ראשה של <strong>מלכת הלבבות</strong> ומתחיל לעולל לה תעלולים. המלכה צועקת "כרות את ראשו!" — אך כיצד כורתים ראש לחתול שאין לו גוף?</p>
+          <p>הבלבול שצ'שייר יוצר נותן לאליס הזדמנות לברוח. החתול המסתורי, חצי ידיד וחצי שובב, מוכיח שלפעמים דווקא הדמות הכי משוגעת היא זו שמצילה אותך ברגע האמת.</p>
+        `
       }
     ]
   },
   {
-    id: "frozen",
-    name: "פרוזן — קסם של אהבה",
-    subtitle: "עיתון ממלכת הקרח של ארנדל",
-    emoji: "❄️",
-    price: "₪13",
-    teaser: "אלזה שחררה קרח נצחי — מה קרה בהר הצפוני?",
+    id: "hatter",
+    name: "הכובען המשוגע",
+    subtitle: "עיתון מסיבת התה הנצחית",
+    emoji: "🎩",
+    price: "₪12",
+    teaser: "מסיבת תה שלא נגמרת לעולם — וחגיגת אי-יום-הולדת לכולם!",
     pages: [
       {
-        headline: "אלזה מכתירה — ומשגרת ארנדל לקפאון נצחי!",
-        dateline: "ארנדל · גיליון ראשי",
-        body: `<div class="page-img">❄️</div><div class="pull-quote">"Let it go! Let it go!"</div><p>יום ההכתרה של אלזה הפך לאסון: כפפות נשרו, עם הסודות גלה — ופתאום כל ארנדל קפאה בקרח. אלזה ברחה להר ובנתה ארמון קרח בכוחות עצמה.</p><p>השיר "Let It Go" — <strong>"Let it go, let it go, can't hold it back anymore!"</strong> — הפך להמנון שחרור לאנשים ברחבי העולם. המון צופים ראו בו ביטוי לשחרור מסודות, מבושה, מציפיות — נושאים שגעו נפשות מיליוני צופים.</p>`
+        headline: "מסיבת תה משוגעת: הכובען, הארנבון והעכבר הישנוני",
+        dateline: "ארץ הפלאות · גיליון ראשון",
+        body: `
+          <div class="page-img">🎩</div>
+          <div class="page-img-caption">שולחן עמוס בכוסות תה — שלוש דמויות משוגעות</div>
+          <div class="pull-quote">"אין מקום! אין מקום!" — צעקו, למרות שולחן ריק לגמרי</div>
+          <p>במרכז ארץ הפלאות מתקיימת <strong>מסיבת התה המשוגעת ביותר בעולם</strong>. סביב שולחן ארוך יושבים שלושה: <strong>הכובען המשוגע</strong> עם כובע ענק שעליו תווית מחיר, <strong>ארנבון מרץ</strong> המטורף, ו<strong>העכבר הישנוני</strong> שנרדם בתוך קנקן התה.</p>
+          <p>הם עוברים ממקום למקום סביב השולחן, מוזגים תה שלא שותים, ומדברים בחידות. כשאליס הצטרפה, קיבלה אותה חבורה של אי-סדר מוחלט — בדיוק כמו שאוהבים בארץ הפלאות.</p>
+        `
       },
       {
-        headline: "הנס: הנסיך שהחביא פרצוף — שיעור על אמון עיוור",
-        dateline: "ארנדל · גיליון שני",
-        body: `<div class="page-img">🃏</div><div class="pull-quote">"אף אחד לא יאהב אותך לעולם."</div><p>אנה, שגדלה בבדידות, נפלה מיד על הנסיך הנאה הנס — ורצתה להתחתן אחרי פגישה ראשונה. זה היה נורמלי לאגדות ישנות. אבל "פרוזן" הפך את הזבל לסיפור: <strong>הנס</strong> היה <strong>נבל שתכנן הכל מראש</strong> — חיפש להשתלט על ממלכה, ולא מצא דרך טובה יותר מלשחק את הנסיך האוהב.</p><p>הצופים הדהומים ראו בכך מהפך: אגדת הנסיכות לימדה לא לסמוך על "מחזר נוצץ" שמופיע בחיים שלך מהיום לאחריו.</p>`
+        headline: "\"יום שמח של אי-יום-הולדת!\" — החגיגה שקורית 364 ימים בשנה",
+        dateline: "ארץ הפלאות · גיליון שני",
+        body: `
+          <div class="page-img">🎂</div>
+          <div class="page-img-caption">עוגת אי-יום-הולדת עם נר אחד</div>
+          <div class="pull-quote">"יום הולדת יש רק פעם בשנה — אבל אי-יום-הולדת יש 364!"</div>
+          <p>הכובע וחבריו חוגגים את החג המיוחד ביותר: <strong>אי-יום-הולדת</strong>. ההיגיון פשוט — ליום הולדת אמיתי יש רק יום אחד בשנה, אבל לכל שאר 364 הימים אפשר לחגוג "אי-יום-הולדת"!</p>
+          <p>הם שרו לאליס את "A Very Merry Unbirthday", הגישו עוגה, ומזגו עוד תה. זו אחת הסצנות האהובות בסרט — שיר שמח, צבעוני ומשוגע שמלמד שאפשר למצוא סיבה לחגוג בכל יום.</p>
+        `
       },
       {
-        headline: "אנה: הנסיכה שהצילה הכל ב... אהבת אחות?!",
-        dateline: "ארנדל · גיליון שלישי",
-        body: `<div class="page-img">💕</div><div class="pull-quote">"אהבה אמיתית היא מעשה של אמת לאדם אחר."</div><p>הלב הקפוא של אנה — שנגרם מ<strong>קסם של אלזה</strong> שפגע בה בטעות — ניתן להמסה רק על ידי "מעשה אהבה אמיתית". כולם ציפו לנשיקת הנסיך. אך אנה ניצלה בגלל שהציבה את גופה בין אחותה לחרב.</p><p>מהפכה בנרטיב: לראשונה בסרטי הנסיכות של דיסני, גיבורת הסרט ניצלה לא על ידי נסיך — אלא על ידי <strong>אהבת אחות</strong> אמיתית.</p>`
+        headline: "תעלומת הזמן הקפוא: למה השעון תמיד מראה שש?",
+        dateline: "ארץ הפלאות · גיליון שלישי",
+        body: `
+          <div class="page-img">🕕</div>
+          <div class="page-img-caption">שעון תקוע — תמיד שעת התה</div>
+          <div class="pull-quote">"אצלנו תמיד זמן תה!" — הכובען המשוגע</div>
+          <p>הסוד הגדול של מסיבת התה: <strong>הזמן עצמו קפא</strong>. השעון תמיד מראה את אותה שעה — שעת התה. לכן החבורה לכודה במסיבת תה נצחית, ולעולם לא יכולה לנקות את הכלים.</p>
+          <p>הכובען מספר שרב עם "הזמן" עצמו, ומאז הזמן מסרב לזוז עבורו. זו אחת ההמצאות היפות של הסיפור — רעיון שהזמן הוא דמות שאפשר לריב איתה, ושמסיבה אינסופית יכולה להיות גם ברכה וגם קללה.</p>
+        `
+      }
+    ]
+  },
+  {
+    id: "queen",
+    name: "מלכת הלבבות",
+    subtitle: "כרוניקת ממלכת הקלפים",
+    emoji: "👑",
+    price: "₪13",
+    teaser: "הרודנית של ארץ הפלאות — \"כרות את הראש!\" על כל דבר קטן",
+    pages: [
+      {
+        headline: "גן הוורדים בסכנה: חיילי הקלפים צובעים ורדים לבנים באדום!",
+        dateline: "ארץ הפלאות · גיליון ראשון",
+        body: `
+          <div class="page-img">🌹</div>
+          <div class="page-img-caption">חיילי קלפים צובעים ורדים בדלי צבע אדום</div>
+          <div class="pull-quote">"שתלנו ורדים לבנים בטעות — המלכה תכרות את ראשנו!"</div>
+          <p>בכניסה לארמון פגשה אליס שלושה <strong>חיילי קלפים</strong> צובעים בבהלה ורדים לבנים בצבע אדום. הסיבה? הם שתלו בטעות שיח ורדים לבנים, ו<strong>מלכת הלבבות</strong> שונאת לבן — היא דורשת אדום בלבד.</p>
+          <p>אם המלכה תגלה את הטעות, היא תכרות את ראשם. הסצנה הזו פותחת את העולם של המלכה — עולם של פחד, צבע אדום, וקלפים חיים שמשרתים שליטה רודנית.</p>
+        `
       },
       {
-        headline: "אולף: שאלות קיומיות מפיו של איש שלג",
-        dateline: "ארנדל · גיליון רביעי",
-        body: `<div class="page-img">⛄</div><div class="pull-quote">"חולם לראות את הקיץ פעם אחת!"</div><p><strong>אולף</strong>, איש השלג שאלזה יצרה, חולם בתמימות על הקיץ — מבלי שמבין שהקיץ <strong>ימיס אותו</strong>. זו האירוניה הגדולה שלו. שיר "In Summer" הפך לרגע קומי-נוגע, עם עומק מפתיע.</p><p>הוא מגלם תמימות וחלומות ללא פחד. "חיבוקים חמים" — זה המשפט שמגדיר אותו. ובסוף, אלזה נותנת לו ענן קרח קטן כדי שלא ימס.</p>`
+        headline: "משחק קריקט מטורף: פלמינגו במקום מחבט וקיפודים במקום כדור",
+        dateline: "ארץ הפלאות · גיליון שני",
+        body: `
+          <div class="page-img">🦩</div>
+          <div class="page-img-caption">המלכה משחקת קריקט עם פלמינגו חי</div>
+          <div class="pull-quote">"כל אחד מנצח — חוץ ממי שהמלכה לא רוצה!"</div>
+          <p>מלכת הלבבות הזמינה את אליס למשחק <strong>קריקט מלכותי</strong> — אך לא משחק רגיל. ה<strong>מחבטים הם ציפורי פלמינגו חיות</strong>, ה<strong>כדורים הם קיפודים מגולגלים</strong>, והשערים הם חיילי קלפים כפופים.</p>
+          <p>כמובן, החוקים משתנים לפי גחמות המלכה, וכל מי שמנצח אותה — "כרות את ראשו!". המשחק הכאוטי מציג את אופייה: עריצה, לא הוגנת, וקצרת רוח.</p>
+        `
       },
       {
-        headline: "קרסטוף ו-סבן: ידידות אמת בין אדם לצבי",
-        dateline: "ארנדל · גיליון חמישי",
-        body: `<div class="page-img">🦌</div><div class="pull-quote">"האם אתה מדבר עם הצבי שלך? אני ידע."</div><p>קרסטוף, מוכר הקרח הגסוס, בנה עולם עם צבי-ידידו <strong>סבן</strong>. <strong>סבן</strong> — שמו הפשוט של הצבי הנאמן ביותר בסרט. הוא דיבר עבורו, השיב לעצמו, ויצר מערכת יחסים מדהימה — ואנחנו התאהבנו בה.</p><p>מחקרי קולנוע ציינו שהקשר בין קרסטוף לסבן ייצג אמון אמיתי, לא תלוי ולא מחשב — בניגוד לכל שאר הדמויות בסרט שמשקרות ומסתירות. לפעמים, הכנות הגדולה ביותר היא בין אדם לחיה.</p>`
+        headline: "משפט הראווה: נסיך הלבבות גנב את העוגיות?",
+        dateline: "ארץ הפלאות · גיליון שלישי",
+        body: `
+          <div class="page-img">🃏</div>
+          <div class="page-img-caption">אולם המשפט — המלכה שופטת, הארנב מכריז</div>
+          <div class="pull-quote">"גזר דין קודם — משפט אחר כך!" — מלכת הלבבות</div>
+          <p>בשיא הסרט מתקיים <strong>משפט מופרך</strong>: נסיך הלבבות מואשם בגניבת העוגיות של המלכה. אך זה אינו משפט אמיתי — המלכה דורשת <strong>"גזר דין תחילה, משפט אחר כך"</strong>.</p>
+          <p>אליס, שגדלה שוב בגודלה, מעזה לעמוד מול המלכה ולומר את האמת: "אתם רק חבילה של קלפים!" הקלפים מתפזרים באוויר — ואליס מתעוררת. המלכה היא הנבל שמלמד אותנו לעמוד מול עוול, גם כשהוא לובש כתר.</p>
+        `
+      }
+    ]
+  },
+  {
+    id: "caterpillar",
+    name: "הזחל הכחול",
+    subtitle: "יומן הפטרייה הקסומה",
+    emoji: "🐛",
+    price: "₪9",
+    teaser: "הזחל המעשן על הפטרייה — \"מי... את?\" החידה הגדולה של אליס",
+    pages: [
+      {
+        headline: "זחל כחול על פטרייה שואל את השאלה הגדולה: \"מי את?\"",
+        dateline: "ארץ הפלאות · גיליון ראשון",
+        body: `
+          <div class="page-img">🐛</div>
+          <div class="page-img-caption">הזחל הכחול יושב על פטרייה ונושף עשן בצורת אותיות</div>
+          <div class="pull-quote">"מ-י... א-ת?" — הזחל הכחול, נושף עשן בצורת המילים</div>
+          <p>על פטרייה גדולה יושב <strong>הזחל הכחול</strong> — דמות רגועה ומסתורית שמעשנת נרגילה ונושפת עשן צבעוני <strong>בצורת אותיות ומילים</strong>. שאלתו הראשונה לאליס היא גם החידה הגדולה של כל הסרט: "מי את?"</p>
+          <p>אליס, שכבר השתנתה בגודלה כל כך הרבה פעמים, מתקשה לענות. "אני... אני בקושי יודעת, אדוני," היא עונה. הזחל מאלץ אותה לחשוב מי היא באמת — שאלה שמלווה אותה לאורך כל המסע.</p>
+        `
+      },
+      {
+        headline: "סוד הפטרייה הקסומה: צד אחד מגדיל, צד שני מקטין",
+        dateline: "ארץ הפלאות · גיליון שני",
+        body: `
+          <div class="page-img">🍄</div>
+          <div class="page-img-caption">הפטרייה הקסומה — שני צדדים, שני כוחות</div>
+          <div class="pull-quote">"צד אחד יגדיל אותך, הצד השני יקטין אותך"</div>
+          <p>לפני שנעלם, נותן הזחל לאליס מתנה יקרה: הסוד של <strong>הפטרייה הקסומה</strong>. <strong>צד אחד מגדיל</strong> את מי שאוכל ממנו, וה<strong>צד השני מקטין</strong>. סוף סוף — דרך לשלוט בגודל!</p>
+          <p>בעזרת חתיכות הפטרייה לומדת אליס לכוון את גובהה כרצונה, וכך שורדת את המכשולים שלפניה. הזחל, שהפך בעצמו לפרפר, מסמל שינוי והתבגרות — בדיוק מה שאליס עוברת בארץ הפלאות.</p>
+        `
       }
     ]
   }
@@ -4106,8 +4326,13 @@ function setAdminAccess(enabled) {
 }
 
 function getVisibleNewspapers() {
-  if (isAdminAccessEnabled()) return newspapers;
-  return newspapers.filter(p => p.id === 'alice');
+  // All newspapers are Alice in Wonderland themed and shown on the main page
+  return newspapers;
+}
+
+function updatePaperCount() {
+  const el = document.getElementById('stat-papers');
+  if (el) el.textContent = getVisibleNewspapers().length;
 }
 
 function renderGrid() {
@@ -4140,6 +4365,7 @@ function renderGrid() {
     `;
     grid.appendChild(card);
   });
+  updatePaperCount();
 }
 
 function openPaper(idx) {
@@ -4603,7 +4829,7 @@ window.addEventListener('DOMContentLoaded', () => {
       </div>
       <div class="admin-sub-panel" id="sub-add-question">
         <h3>➕ הוספת שאלה חדשה</h3>
-        <select class="admin-input" id="aq-paper"><option value="alice">אליס</option><option value="lion">מלך האריות</option><option value="cinderella">סינדרלה</option><option value="nemo">נמו</option><option value="frozen">פרוזן</option></select>
+        <select class="admin-input" id="aq-paper"><option value="alice">אליס</option><option value="rabbit">הארנב הלבן</option><option value="cheshire">חתול צ'שייר</option><option value="hatter">הכובען המשוגע</option><option value="queen">מלכת הלבבות</option><option value="caterpillar">הזחל הכחול</option></select>
         <select class="admin-input" id="aq-type"><option value="trivia">טריוויה</option><option value="complete">השלם משפט</option><option value="riddle">חידה</option><option value="describe">נחש תיאור</option><option value="find_diff">מצא הבדל</option></select>
         <input class="admin-input" id="aq-q" placeholder="השאלה..." />
         <input class="admin-input" id="aq-ans" placeholder="התשובה..." />
@@ -4944,10 +5170,11 @@ function scNext() {
 // ════════════════════════════════
 const EM_DATA = [
   {scene:'🐇🕳️👧✨🎩🐱😸',   answer:'אליס', alts:['alice','אליס בארץ הפלאות'], hint:'נערה נופלת לחור ארנב'},
-  {scene:'🦁👑🌅🐾🌿🎵',     answer:'מלך האריות', alts:['lion','lion king','סימבה'], hint:"מלך הג'ונגל"},
-  {scene:'👠✨🎃🐭🧚‍♀️🕛',   answer:'סינדרלה', alts:['cinderella'], hint:'נעל זכוכית וקסם'},
-  {scene:'🐠🐟🦈🌊🔍🐙',     answer:'מוצאים את נמו', alts:['nemo','finding nemo'], hint:'אבא מחפש את בנו'},
-  {scene:'❄️👑👸🏔️⛄🎵',    answer:'פרוזן', alts:['frozen','אלזה'], hint:'Let it go!'},
+  {scene:'🐇⏰🏃💨🧥',       answer:'הארנב הלבן', alts:['ארנב','rabbit','ארנב לבן'], hint:'מאוחר! מאוחר מאוד!'},
+  {scene:'😸🌳✨👻🌀',       answer:"חתול צ'שייר", alts:['צשייר','cheshire','חתול'], hint:'נשאר רק החיוך באוויר'},
+  {scene:'🎩☕🐭🐰🎂',       answer:'הכובען המשוגע', alts:['כובען','hatter','מסיבת תה'], hint:'תמיד זמן תה'},
+  {scene:'👑🃏🌹❤️🦩',       answer:'מלכת הלבבות', alts:['מלכה','queen','queen of hearts'], hint:'כרות את הראש!'},
+  {scene:'🐛🍄💨❓🦋',       answer:'הזחל הכחול', alts:['זחל','caterpillar','זחל כחול'], hint:'מי את?'},
 ];
 let emState = {idx:0, hintUsed:false, score:0, total:0};
 function emInit() { emState.idx=0; emState.score=0; emState.total=0; emRender(); }
@@ -5378,7 +5605,7 @@ async function aieGenerate() {
   btn.textContent = '⏳ כותב...'; btn.disabled = true;
   const out = document.getElementById('aie-output');
   out.style.display='block'; out.textContent = '...';
-  const names = {alice:'אליס בארץ הפלאות',lion:'מלך האריות',cinderella:'סינדרלה',nemo:'מוצאים את נמו',frozen:'פרוזן'};
+  const names = {alice:'אליס בארץ הפלאות',rabbit:'הארנב הלבן',cheshire:'חתול צ\'שייר',hatter:'הכובען המשוגע',queen:'מלכת הלבבות',caterpillar:'הזחל הכחול'};
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
@@ -5606,7 +5833,7 @@ async function agGenerate() {
   const out = document.getElementById('ag-output');
   out.style.display='block';
   out.innerHTML = skeletonHTML(5);
-  const names = {alice:'אליס בארץ הפלאות',lion:'מלך האריות',cinderella:'סינדרלה',nemo:'מוצאים את נמו',frozen:'פרוזן'};
+  const names = {alice:'אליס בארץ הפלאות',rabbit:'הארנב הלבן',cheshire:'חתול צ\'שייר',hatter:'הכובען המשוגע',queen:'מלכת הלבבות',caterpillar:'הזחל הכחול'};
   let fullText = ''; let started = false;
   try {
     await streamAnthropicText(
@@ -5790,7 +6017,7 @@ const LANG_STRINGS = {
     saveProfile:'💾 שמור פרופיל',
     dailyBtn:'📅 אתגר יומי', leaderBtn:'🏆 לוח תוצאות', bcardBtn:'🃏 כרטיס ביקור',
     twoPlayer:'👥 מצב 2 שחקנים',
-    paperNames: { alice:'אליס בארץ הפלאות', lion:'מלך האריות', cinderella:'סינדרלה', nemo:'מוצאים את נמו', frozen:'פרוזן — קסם של אהבה' },
+    paperNames: { alice:'אליס בארץ הפלאות', rabbit:'הארנב הלבן', cheshire:'חתול צ\'שייר', hatter:'הכובען המשוגע', queen:'מלכת הלבבות', caterpillar:'הזחל הכחול' },
     cursiveFont: true,
   },
   en: {
@@ -5807,7 +6034,7 @@ const LANG_STRINGS = {
     saveProfile:'💾 Save Profile',
     dailyBtn:'📅 Daily Challenge', leaderBtn:'🏆 Leaderboard', bcardBtn:'🃏 Business Card',
     twoPlayer:'👥 2-Player Mode',
-    paperNames: { alice:'Alice in Wonderland', lion:'The Lion King', cinderella:'Cinderella', nemo:'Finding Nemo', frozen:'Frozen' },
+    paperNames: { alice:'Alice in Wonderland', rabbit:'The White Rabbit', cheshire:'The Cheshire Cat', hatter:'The Mad Hatter', queen:'The Queen of Hearts', caterpillar:'The Caterpillar' },
     cursiveFont: false,
   },
   ar: {
@@ -5824,7 +6051,7 @@ const LANG_STRINGS = {
     saveProfile:'💾 حفظ الملف',
     dailyBtn:'📅 التحدي اليومي', leaderBtn:'🏆 لوحة النتائج', bcardBtn:'🃏 بطاقة العمل',
     twoPlayer:'👥 وضع اللاعبين',
-    paperNames: { alice:'أليس في بلاد العجائب', lion:'ملك الأسود', cinderella:'سندريلا', nemo:'إيجاد نيمو', frozen:'فروزن' },
+    paperNames: { alice:'أليس في بلاد العجائب', rabbit:'الأرنب الأبيض', cheshire:'قط شيشاير', hatter:'القبعجي المجنون', queen:'ملكة القلوب', caterpillar:'اليرقة' },
     cursiveFont: false,
   },
   ru: {
@@ -5841,7 +6068,7 @@ const LANG_STRINGS = {
     saveProfile:'💾 Сохранить профиль',
     dailyBtn:'📅 Ежедневное задание', leaderBtn:'🏆 Таблица лидеров', bcardBtn:'🃏 Визитка',
     twoPlayer:'👥 Режим 2 игроков',
-    paperNames: { alice:'Алиса в Стране чудес', lion:'Король Лев', cinderella:'Золушка', nemo:'В поисках Немо', frozen:'Холодное сердце' },
+    paperNames: { alice:'Алиса в Стране чудес', rabbit:'Белый Кролик', cheshire:'Чеширский Кот', hatter:'Безумный Шляпник', queen:'Червонная Королева', caterpillar:'Синяя Гусеница' },
     cursiveFont: false,
   },
   fr: {
@@ -5858,7 +6085,7 @@ const LANG_STRINGS = {
     saveProfile:'💾 Enregistrer',
     dailyBtn:'📅 Défi quotidien', leaderBtn:'🏆 Classement', bcardBtn:'🃏 Carte de visite',
     twoPlayer:'👥 Mode 2 joueurs',
-    paperNames: { alice:'Alice au pays des merveilles', lion:'Le Roi Lion', cinderella:'Cendrillon', nemo:'Le Monde de Nemo', frozen:'La Reine des neiges' },
+    paperNames: { alice:'Alice au pays des merveilles', rabbit:'Le Lapin Blanc', cheshire:'Le Chat du Cheshire', hatter:'Le Chapelier Fou', queen:'La Reine de Cœur', caterpillar:'La Chenille' },
     cursiveFont: false,
   },
   es: {
@@ -5875,7 +6102,7 @@ const LANG_STRINGS = {
     saveProfile:'💾 Guardar perfil',
     dailyBtn:'📅 Desafío diario', leaderBtn:'🏆 Clasificación', bcardBtn:'🃏 Tarjeta',
     twoPlayer:'👥 Modo 2 jugadores',
-    paperNames: { alice:'Alicia en el País de las Maravillas', lion:'El Rey León', cinderella:'Cenicienta', nemo:'Buscando a Nemo', frozen:'Frozen' },
+    paperNames: { alice:'Alicia en el País de las Maravillas', rabbit:'El Conejo Blanco', cheshire:'El Gato de Cheshire', hatter:'El Sombrerero Loco', queen:'La Reina de Corazones', caterpillar:'La Oruga' },
     cursiveFont: false,
   },
   de: {
@@ -5892,7 +6119,7 @@ const LANG_STRINGS = {
     saveProfile:'💾 Profil speichern',
     dailyBtn:'📅 Tägliche Herausforderung', leaderBtn:'🏆 Bestenliste', bcardBtn:'🃏 Visitenkarte',
     twoPlayer:'👥 2-Spieler-Modus',
-    paperNames: { alice:'Alice im Wunderland', lion:'Der König der Löwen', cinderella:'Cinderella', nemo:'Findet Nemo', frozen:'Die Eiskönigin' },
+    paperNames: { alice:'Alice im Wunderland', rabbit:'Das weiße Kaninchen', cheshire:'Die Grinsekatze', hatter:'Der verrückte Hutmacher', queen:'Die Herzkönigin', caterpillar:'Die Raupe' },
     cursiveFont: true,
   },
   ja: {
@@ -5909,7 +6136,7 @@ const LANG_STRINGS = {
     saveProfile:'💾 プロフィール保存',
     dailyBtn:'📅 デイリーチャレンジ', leaderBtn:'🏆 リーダーボード', bcardBtn:'🃏 名刺',
     twoPlayer:'👥 2人プレイ',
-    paperNames: { alice:'不思議の国のアリス', lion:'ライオン・キング', cinderella:'シンデレラ', nemo:'ファインディング・ニモ', frozen:'アナと雪の女王' },
+    paperNames: { alice:'不思議の国のアリス', rabbit:'白うさぎ', cheshire:'チェシャ猫', hatter:'いかれ帽子屋', queen:'ハートの女王', caterpillar:'イモムシ' },
     cursiveFont: false,
   },
 };
@@ -6069,10 +6296,11 @@ window.renderPage = function() {
 // ── MINI MUSIC PLAYER ──
 const PAPER_MUSIC = {
   alice:      { title:'Alice in Wonderland Theme', freq:[261,294,330,349,392,440] },
-  lion:       { title:'Circle of Life', freq:[392,440,494,523,440,392] },
-  cinderella: { title:'A Dream is a Wish', freq:[523,494,440,392,440,494] },
-  nemo:       { title:'Nemo Egg / Main Theme', freq:[330,370,415,440,415,370] },
-  frozen:     { title:'Let It Go', freq:[440,494,523,587,523,494] },
+  rabbit:      { title:'The White Rabbit', freq:[392,440,494,523,440,392] },
+  cheshire:    { title:"Twas Brillig (Cheshire)", freq:[523,494,440,392,440,494] },
+  hatter:      { title:'The Unbirthday Song', freq:[330,370,415,440,415,370] },
+  queen:       { title:'Painting the Roses Red', freq:[440,494,523,587,523,494] },
+  caterpillar: { title:'How Doth the Little Crocodile', freq:[349,392,440,392,349,330] },
 };
 let musicInterval = null;
 let musicPlaying = false;
@@ -6505,7 +6733,7 @@ function adminAddQuestion() {
   if (!q || !ans) { alert('חסרים שדות!'); return; }
   const newQ = { type, paperKey: paper, q, answer: ans, hint: hint || 'חשוב טוב...', paperHint: '📰 חפש בעיתון הרלוונטי' };
   QUESTIONS.push(newQ);
-  const paperNames = { alice:'אליס', lion:'מלך האריות', cinderella:'סינדרלה', nemo:'נמו', frozen:'פרוזן' };
+  const paperNames = { alice:'אליס', rabbit:'הארנב הלבן', cheshire:'חתול צ\'שייר', hatter:'הכובען המשוגע', queen:'מלכת הלבבות', caterpillar:'הזחל הכחול' };
   const list = document.getElementById('admin-q-list');
   const item = document.createElement('div');
   item.className = 'admin-q-item';
@@ -6843,52 +7071,47 @@ const TIMELINES = {
     {t:'המשפט',e:'⚖️',d:'"כרות את הראש!" — משפט המלכה'},
     {t:'ההתעוררות',e:'☀️',d:'אליס מתעוררת — כל הרפתקה הייתה חלום'},
   ],
-  lion: [
-    {t:'לידת סימבה',e:'🌅',d:'מופסה מציג את סימבה על גבעת פריידרוק'},
-    {t:'ילדות בגאיה',e:'🦁',d:'סימבה גדל יחד עם נאלה'},
-    {t:'מות מופסה',e:'💔',d:'סקר מסיח את דעת הבהמות — מופסה נהרג'},
-    {t:'בריחת סימבה',e:'🌿',d:'סימבה בורח מהגאיה בבושה'},
-    {t:'פגישת טימון ופומבה',e:'🐗',d:'האקונה מטאטא — חיים ללא דאגה'},
-    {t:'פגישת נאלה',e:'🌙',d:'נאלה מוצאת את סימבה ומעודדת אותו לחזור'},
-    {t:'רוח מופסה',e:'⭐',d:'"זכור מי אתה" — מופסה מדבר מהשמיים'},
-    {t:'קרב האחרון',e:'⚡',d:'סימבה מנצח את סקר ועולה על פריידרוק'},
+  rabbit: [
+    {t:'מרוץ בשדה',e:'🐇',d:'הארנב הלבן רץ עם שעון — "מאוחר! מאוחר!"'},
+    {t:'נפילה לחור',e:'🕳️',d:'אליס רודפת אחריו לתוך חור הארנב'},
+    {t:'בית הארנב',e:'🏠',d:'אליס גדלה וממלאת את כל הבית'},
+    {t:'הכפפות',e:'🧤',d:'הארנב שולח את אליס להביא כפפות'},
+    {t:'הכרוז המלכותי',e:'📯',d:'הארנב מכריז על משפט המלכה'},
   ],
-  cinderella: [
-    {t:'חיי הבית הקשים',e:'🧹',d:'סינדרלה עובדת עבור אמא החורגת'},
-    {t:'הזמנה לנשף',e:'📜',d:'מכתב מהארמון — נשף לכבוד הנסיך'},
-    {t:'שמלה קרועה',e:'😢',d:'אמא החורגת קורעת את שמלת סינדרלה'},
-    {t:'הפיה מגיעה',e:'✨',d:'"ביבידי בובידי בו!" — קסם הפיה'},
-    {t:'הנשף',e:'💃',d:'סינדרלה ריקדה עם הנסיך'},
-    {t:'חצות',e:'🕛',d:'הקסם פג — סינדרלה בורחת'},
-    {t:'הנעל על המדרגות',e:'👠',d:'נעל זכוכית נשכחת'},
-    {t:'הנסיך מוצא',e:'💍',d:'הנעל מתאימה — חתונה מלכותית'},
+  cheshire: [
+    {t:'הופעה ראשונה',e:'😸',d:"צ'שייר מופיע על ענף ומחייך"},
+    {t:'היעלמות',e:'🌀',d:'החתול נעלם ונשאר רק חיוכו'},
+    {t:'עצה מבלבלת',e:'🌳',d:'"כל דרך מובילה לאנשהו"'},
+    {t:'הכוונה לכובען',e:'🎩',d:'מצביע לכיוון מסיבת התה'},
+    {t:'הצלת אליס',e:'👑',d:'מתגרה במלכה ומאפשר לאליס לברוח'},
   ],
-  nemo: [
-    {t:'הפתיחה הטראגית',e:'😢',d:'אמא של נמו ורוב הביצים אבדו לכריש'},
-    {t:'יום ראשון בבית ספר',e:'🏫',d:'נמו מאתגר את הצוללן וניחטף'},
-    {t:'פגישת דורי',e:'🐟',d:'מרלין פוגש את דורי — שותפות לא צפויה'},
-    {t:'כרישי הצמחונות',e:'🦈',d:'"דגים הם חברים, לא אוכל!"'},
-    {t:'מדוזות ואחר',e:'🌊',d:'מרלין ודורי חוצים מכשולים בדרך'},
-    {t:'האקווריום בסידני',e:'🐠',d:'נמו מתכנן בריחה עם חבורת הדגים'},
-    {t:'הפגישה מחדש',e:'🤗',d:'מרלין ונמו נפגשים — לאחר אוקיינוס שלם'},
-    {t:'שיעור החיים',e:'🌅',d:'מרלין מבין: חיים הם לא בועת בטחון'},
+  hatter: [
+    {t:'מסיבת התה',e:'🎩',d:'הכובען, ארנבון מרץ והעכבר הישנוני'},
+    {t:'אין מקום!',e:'🪑',d:'צועקים "אין מקום" ליד שולחן ריק'},
+    {t:'אי-יום-הולדת',e:'🎂',d:'"יום שמח של אי-יום-הולדת!"'},
+    {t:'זמן קפוא',e:'🕕',d:'השעון תמיד מראה את שעת התה'},
+    {t:'שיר משוגע',e:'🎵',d:'"A Very Merry Unbirthday" לכבוד אליס'},
   ],
-  frozen: [
-    {t:'ילדות יחד',e:'⛄',d:'אלזה ואנה משחקות בשלג בלילה'},
-    {t:'התאונה',e:'💥',d:'אלזה פוגעת בטעות באנה — זיכרונות נמחקים'},
-    {t:'בידוד',e:'🚪',d:'אלזה נסגרת בחדרה, אנה לא מבינה למה'},
-    {t:'יום ההכתרה',e:'👑',d:'הכתרת אלזה — ארנדל נפתחת לאורחים'},
-    {t:'ארנדל קופאת',e:'❄️',d:'אלזה מגלה כוחותיה בפומבי — ובורחת'},
-    {t:'בניית ארמון הקרח',e:'🏰',d:'"Let It Go" — אלזה חופשייה לבסוף'},
-    {t:'לב קפוא',e:'💔',d:'קסם אלזה פוגע בלב אנה'},
-    {t:'מעשה האהבה',e:'💕',d:'אנה מקריבה את עצמה — ומצילה את אחותה'},
+  queen: [
+    {t:'גן הוורדים',e:'🌹',d:'חיילי קלפים צובעים ורדים לבנים באדום'},
+    {t:'פגישת המלכה',e:'👑',d:'מלכת הלבבות מאיימת "כרות את הראש!"'},
+    {t:'משחק קריקט',e:'🦩',d:'קריקט עם פלמינגו וקיפודים'},
+    {t:'המשפט',e:'🃏',d:'נסיך הלבבות מואשם בגניבת העוגיות'},
+    {t:'הבריחה',e:'💨',d:'"אתם רק חבילה של קלפים!" — אליס מתעוררת'},
+  ],
+  caterpillar: [
+    {t:'על הפטרייה',e:'🐛',d:'הזחל הכחול מעשן ונושף עשן בצורת אותיות'},
+    {t:'מי את?',e:'❓',d:'הזחל שואל את אליס "מי את?"'},
+    {t:'סוד הפטרייה',e:'🍄',d:'צד אחד מגדיל, הצד השני מקטין'},
+    {t:'שליטה בגודל',e:'📏',d:'אליס לומדת לכוון את גובהה'},
+    {t:'הפיכה לפרפר',e:'🦋',d:'הזחל הופך לפרפר — סמל לשינוי'},
   ],
 };
 function openTimeline() {
   closeAdminDash();
   document.getElementById('timeline-overlay')?.classList.add('show');
   const sel = document.getElementById('tl-paper-select');
-  const names = {alice:'🐇 אליס',lion:'🦁 מלך האריות',cinderella:'👠 סינדרלה',nemo:'🐠 נמו',frozen:'❄️ פרוזן'};
+  const names = {alice:'🐇 אליס',rabbit:'⏰ הארנב הלבן',cheshire:'😸 צ\'שייר',hatter:'🎩 הכובען',queen:'👑 מלכת הלבבות',caterpillar:'🐛 הזחל הכחול'};
   sel.innerHTML = Object.entries(names).map(([k,v])=>
     `<button onclick="showTimeline('${k}')" style="padding:7px 14px;background:rgba(255,68,68,0.15);border:1px solid rgba(255,68,68,0.4);color:#fff;border-radius:6px;cursor:pointer;">${v}</button>`
   ).join('');
@@ -6916,7 +7139,7 @@ function showTimeline(key) {
 function openKnowledge() {
   closeAdminDash();
   document.getElementById('knowledge-overlay')?.classList.add('show');
-  const papers = {alice:'🐇 אליס',lion:'🦁 מלך האריות',cinderella:'👠 סינדרלה',nemo:'🐠 נמו',frozen:'❄️ פרוזן'};
+  const papers = {alice:'🐇 אליס',rabbit:'⏰ הארנב הלבן',cheshire:'😸 צ\'שייר',hatter:'🎩 הכובען',queen:'👑 מלכת הלבבות',caterpillar:'🐛 הזחל הכחול'};
   const bars = document.getElementById('knowledge-bars');
   bars.innerHTML = '';
   Object.entries(papers).forEach(([key,name]) => {
@@ -6933,11 +7156,11 @@ function openKnowledge() {
 
 // ── CHAT WITH CHARACTER ──
 const CHARACTERS = {
-  'אולף ⛄': { paper:'frozen', persona:'אתה אולף, איש השלג התמים מפרוזן. אתה שמח, נאיבי, אוהב חיבוקים חמים וחולם על הקיץ. דבר בפשטות ועם אמוג\'י חמים.' },
-  'דורי 🐟': { paper:'nemo', persona:'אתה דורי, הדגה הכחולה עם זיכרון קצר מאוד. תשכח דברים בין משפטים, תהיה אופטימית ותמיד אמרי "פשוט ממשיכים לשחות!"' },
-  'הכובען 🎩': { paper:'alice', persona:'אתה הכובען המשוגע מארץ הפלאות. דבר בצורה מוזרה, מבלבלת, עם חידות ושאלות שאין להן תשובה.' },
-  'סימבה 🦁': { paper:'lion', persona:'אתה סימבה הצעיר מלך האריות. דבר בגאווה אבל גם עם ספק פנימי, תזכיר את מופסה ואת האקונה מטאטא.' },
-  'סינדרלה 👠': { paper:'cinderella', persona:'אתה סינדרלה. דבר בעדינות, בחלומות, ותמיד ברוח חיובית למרות הקשיים.' },
+  'הארנב הלבן ⏰': { paper:'rabbit', persona:'אתה הארנב הלבן מארץ הפלאות. אתה תמיד ממהר ומודאג, חוזר על "מאוחר! מאוחר מאוד!" ומסתכל כל הזמן בשעון הזהב שלך.' },
+  'חתול צ\'שייר 😸': { paper:'cheshire', persona:'אתה חתול צ\'שייר. דבר בחידות מבלבלות, צחקק, נעלם ומופיע, ותזכיר שכולם משוגעים כאן.' },
+  'הכובען 🎩': { paper:'hatter', persona:'אתה הכובען המשוגע מארץ הפלאות. דבר בצורה מוזרה ומבלבלת, חגוג אי-ימי-הולדת, והזמן תמיד תקוע בשעת התה.' },
+  'מלכת הלבבות 👑': { paper:'queen', persona:'אתה מלכת הלבבות. דברי בתקיפות ובכעס, אהבי את הצבע האדום, ואיימי "כרות את הראש!" על כל דבר קטן.' },
+  'הזחל הכחול 🐛': { paper:'caterpillar', persona:'אתה הזחל הכחול היושב על פטרייה. דבר לאט, ברוגע ובמסתורין, ושאל שוב ושוב "מי... את?"' },
 };
 function openChatChar() {
   closeAdminDash();
@@ -7046,10 +7269,11 @@ function wkSubmit() {
 // ── COLLECTOR ──
 const COLLECTOR_ITEMS = [
   {id:'alice-read',emoji:'🐇',name:'קרא אליס'},
-  {id:'lion-read',emoji:'🦁',name:'קרא מלך האריות'},
-  {id:'cinderella-read',emoji:'👠',name:'קרא סינדרלה'},
-  {id:'nemo-read',emoji:'🐠',name:'קרא נמו'},
-  {id:'frozen-read',emoji:'❄️',name:'קרא פרוזן'},
+  {id:'rabbit-read',emoji:'⏰',name:'קרא הארנב הלבן'},
+  {id:'cheshire-read',emoji:'😸',name:"קרא חתול צ'שייר"},
+  {id:'hatter-read',emoji:'🎩',name:'קרא הכובען המשוגע'},
+  {id:'queen-read',emoji:'👑',name:'קרא מלכת הלבבות'},
+  {id:'caterpillar-read',emoji:'🐛',name:'קרא הזחל הכחול'},
   {id:'first-solve',emoji:'⭐',name:'פיצח ראשון'},
   {id:'five-solve',emoji:'🌟',name:'5 פתרונות'},
   {id:'ten-solve',emoji:'💫',name:'10 פתרונות'},
@@ -7065,7 +7289,7 @@ function openCollector() {
   const solved = parseInt(localStorage.getItem('total-solved')||'0');
   const papersRead = (localStorage.getItem('papers-read-list')||'').split(',');
   const unlocked = new Set();
-  ['alice','lion','cinderella','nemo','frozen'].forEach(p=>{ if(papersRead.includes(p)) unlocked.add(p+'-read'); });
+  ['alice','rabbit','cheshire','hatter','queen','caterpillar'].forEach(p=>{ if(papersRead.includes(p)) unlocked.add(p+'-read'); });
   if(solved>=1) unlocked.add('first-solve');
   if(solved>=5) unlocked.add('five-solve');
   if(solved>=10) unlocked.add('ten-solve');
