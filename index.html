@@ -943,7 +943,15 @@
 
     /* -- newspaper viewer & article body -- */
     #viewer-screen { padding: 0; }
-    .newspaper-viewer { width: 100%; max-height: 100vh; height: 100vh; border-radius: 0; }
+    /* use dynamic viewport height so the bottom nav bar (הקודם/הבא/הדפס)
+       isn't pushed behind the mobile browser toolbar */
+    .newspaper-viewer {
+      width: 100%; border-radius: 0;
+      max-height: 100vh; height: 100vh;
+      max-height: 100dvh; height: 100dvh;
+    }
+    /* keep nav buttons clear of the home indicator / browser chrome */
+    .page-nav { padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
     .viewer-top-bar { padding: 10px 12px; }
     .viewer-paper-name { font-size: 1.1rem; }
     .page-body { columns: 1; column-gap: 0; }
@@ -1043,7 +1051,7 @@
     .newspaper-page::before { left: 14px; }
 
     /* -- page nav: wrap on tiny screens -- */
-    .page-nav { flex-wrap: wrap; justify-content: center; padding: 10px 12px; }
+    .page-nav { flex-wrap: wrap; justify-content: center; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); }
     .page-nav-btn { padding: 8px 14px; font-size: 0.82rem; min-height: 44px; }
 
     /* -- settings panel: full width on very small screens -- */
