@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>האתר של ליאב - עיתוני הסרטים המצוירים</title>
+<title>האתר של ליאב - עיתוני אליס בארץ הפלאות</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&family=Raleway:wght@300;400;700&family=Inter:wght@300;400;700&family=Noto+Sans+Hebrew:wght@300;400;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=UnifrakturMaguntia&family=Abril+Fatface&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -2834,9 +2834,9 @@ body[data-fontsize="xlarge"] { font-size:22px; }
 
     <!-- Text block (center) -->
     <div class="hb-text">
-      <div class="hb-tag">// LIAV'S DIGITAL PRESS · עיתוני הסרטים</div>
+      <div class="hb-tag">// LIAV'S DIGITAL PRESS · אליס בארץ הפלאות</div>
       <div class="hb-title">האתר של <span class="hb-accent">ליאב</span></div>
-      <div class="hb-subtitle">עיתוני הסרטים המצוירים · גיליונות דיגיטליים</div>
+      <div class="hb-subtitle">עיתוני אליס בארץ הפלאות · גיליונות דיגיטליים</div>
       <div class="hb-stats">
         <div class="hb-stat"><span class="hb-stat-num" id="stat-papers">6</span><span class="hb-stat-label">עיתונים</span></div>
         <div class="hb-stat"><span class="hb-stat-num">9</span><span class="hb-stat-label">ערכות נושא</span></div>
@@ -2859,7 +2859,7 @@ body[data-fontsize="xlarge"] { font-size:22px; }
 
   <div class="hb-infobar" aria-hidden="true">
     <div class="hb-info-item"><div class="hb-info-dot"></div>SYSTEM ONLINE</div>
-    <div class="hb-info-item"><div class="hb-info-dot"></div>עיתוני הסרטים המצוירים</div>
+    <div class="hb-info-item"><div class="hb-info-dot"></div>אליס בארץ הפלאות</div>
     <div class="hb-info-item"><div class="hb-info-dot"></div>LIAV · 2026</div>
   </div>
 </header>
@@ -3849,38 +3849,40 @@ function botReply(raw) {
 
 
   else if (/תמליץ|מה כדאי|מה לקרות|לא יודע מה/.test(txt))
-    reply = '🤔 ספר לי מה אתה אוהב! למשל: "אני אוהב ים", "אני אוהב שלג" — ואמליץ על העיתון המושלם! ⭐';
+    reply = '🤔 ספר לי מה מעניין אותך! למשל: "אני אוהב מסתורין", "אני אוהב מסיבות" — ואמליץ על הגיליון המושלם מארץ הפלאות! ⭐';
 
   else if (/אני אוהב|אוהב|מעניין אותי/.test(txt)) {
     const rec = getRecommendation(txt);
     reply = rec || pick([
-      '⭐ ממליץ על <strong>אליס בארץ הפלאות</strong> — כי כל אחד צריך קצת פנטזיה! 🐇',
-      '⭐ נסה <strong>מלך האריות</strong> — קלאסיקה שלא מתיישנת! 🦁',
-      '⭐ <strong>פרוזן</strong> תמיד עובד — מוזיקה, אחיות, קסם! ❄️'
+      '⭐ ממליץ על <strong>אליס בארץ הפלאות</strong> — הגיליון הראשי עם כל הסיפור! 🐇',
+      '⭐ נסה את <strong>חתול צ\'שייר</strong> — החיוך הכי מסתורי בארץ הפלאות! 😸',
+      '⭐ <strong>הכובען המשוגע</strong> תמיד עובד — מסיבת תה נצחית! 🎩'
     ]);
   }
 
   else if (/מחיר|עולה|כמה|שקל/.test(txt))
-    reply = '💰 מחירים: אליס ₪12 · מלך האריות ₪10 · סינדרלה ₪9 · נמו ₪11 · פרוזן ₪13';
+    reply = '💰 מחירים: אליס ₪12 · הארנב הלבן ₪10 · חתול צ\'שייר ₪11 · הכובען המשוגע ₪12 · מלכת הלבבות ₪13 · הזחל הכחול ₪9';
 
   else if (/הדפס|הדפסה|print/.test(txt))
     reply = adminMode
       ? '🖨️ אתה אדמין — הדפסות חינם ללא הגבלה!'
       : `🖨️ יש לך ${freePrintsLeft} הדפסה חינם. פתח עיתון ולחץ הדפסה!`;
 
-  else if (/אליס|ארץ הפלאות|ארנב/.test(txt))
-    reply = '🐇 עיתון אליס — 5 עמודים עם הארנב הלבן, מלכת הלבבות, והחתול! ₪12.';
-  else if (/אריה|סימבה|מלך|מופסה|סקר|נאלה/.test(txt))
-    reply = '🦁 מלך האריות — האקונה מטאטא ועוד! ₪10.';
-  else if (/סינדרלה|נעל|נסיך|פיה|אמא חורגת/.test(txt))
-    reply = '👠 סינדרלה — מהמטבח לנשף! ₪9.';
-  else if (/נמו|דג|אוקיינוס|דורי|מרלין|כריש/.test(txt))
-    reply = '🐠 מוצאים את נמו — הרפתקת ים מרגשת! ₪11.';
-  else if (/פרוזן|אלזה|אנה|אולף|קרסטוף|סבן/.test(txt))
-    reply = '❄️ פרוזן — Let it go! אלזה, אנה, ואולף. ₪13.';
+  else if (/אליס|ארץ הפלאות/.test(txt))
+    reply = '🐇 עיתון אליס — הגיליון הראשי עם כל הרפתקאות ארץ הפלאות! ₪12.';
+  else if (/ארנב|שעון|מאחר/.test(txt))
+    reply = '🐇 הארנב הלבן — "מאוחר! מאוחר מאוד!" כתב העת של שעון הזהב. ₪10.';
+  else if (/חתול|צ\'שייר|חיוך|נעלם/.test(txt))
+    reply = '😸 חתול צ\'שייר — החיוך שנשאר תלוי באוויר. ₪11.';
+  else if (/כובען|מסיבה|תה|כובע/.test(txt))
+    reply = '🎩 הכובען המשוגע — עיתון מסיבת התה הנצחית! ₪12.';
+  else if (/מלכה|קלפים|לבבות|רודן|כריתת/.test(txt))
+    reply = '♥️ מלכת הלבבות — "כרות את ראשה!" כרוניקת ממלכת הקלפים. ₪13.';
+  else if (/זחל|פטרייה|עשן|חידה/.test(txt))
+    reply = '🐛 הזחל הכחול — יומן הפטרייה הקסומה. "מי את?" ₪9.';
 
   else if (/רשימה|מה יש|כמה עיתון/.test(txt))
-    reply = '📰 5 עיתונים: אליס 🐇 | מלך האריות 🦁 | סינדרלה 👠 | נמו 🐠 | פרוזן ❄️';
+    reply = '📰 6 גיליונות מארץ הפלאות: אליס 🐇 | הארנב הלבן 🐇 | חתול צ\'שייר 😸 | הכובען המשוגע 🎩 | מלכת הלבבות ♥️ | הזחל הכחול 🐛';
 
   else if (/קוד|סיסמה|אדמין|חינם/.test(txt))
     reply = '🔑 יש קוד סודי! כתוב <strong>"תן רמזים"</strong> ושחק 😄 — כל ניצחון מגלה אות!';
@@ -3906,9 +3908,9 @@ function botReply(raw) {
 }
 
 async function callAI(userMsg) {
-  const system = `אתה בוט עזרה חמוד של "האתר של ליאב" — עיתוני סרטים מצוירים בעברית.
-העיתונים: אליס (₪12), מלך האריות (₪10), סינדרלה (₪9), נמו (₪11), פרוזן (₪13).
-ענה בעברית, קצר ועם אמוג'י.`;
+  const system = `אתה בוט עזרה חמוד של "האתר של ליאב" — עיתוני הסרט אליס בארץ הפלאות בעברית.
+הגיליונות: אליס בארץ הפלאות (₪12), הארנב הלבן (₪10), חתול צ'שייר (₪11), הכובען המשוגע (₪12), מלכת הלבבות (₪13), הזחל הכחול (₪9).
+כל הגיליונות מבוססים על הסרט אליס בארץ הפלאות. ענה בעברית, קצר ועם אמוג'י.`;
   try {
     let reply = '';
     if (currentAIProvider === 'claude') {
@@ -3973,7 +3975,7 @@ function handlePrint() {
   function pageCard(p, idx, extraClass) {
     return '<div class="pr-card ' + extraClass + '">'
       + '<div class="pa-masthead">'
-      + '<div class="pa-sitename">האתר של ליאב — עיתוני הסרטים המצוירים</div>'
+      + '<div class="pa-sitename">האתר של ליאב — עיתוני אליס בארץ הפלאות</div>'
       + '<div class="pa-papername">' + currentPaper.name + '</div>'
       + '</div>'
       + '<div class="pa-dateline">' + (p.dateline || '') + ' · עמוד ' + (idx+1) + ' מתוך ' + currentPaper.pages.length + '</div>'
@@ -4283,6 +4285,7 @@ const newspapers = [
     subtitle: "יומן הפטרייה הקסומה",
     emoji: "🐛",
     logo: "images/logos/caterpillar.png",
+    logoFit: "contain",
     price: "₪9",
     teaser: "הזחל המעשן על הפטרייה — \"מי... את?\" החידה הגדולה של אליס",
     pages: [
@@ -5044,7 +5047,7 @@ window.addEventListener('DOMContentLoaded', () => {
   <div class="welcome-box">
     <div class="welcome-hero">🗞️</div>
     <h2>👋 שלום!</h2>
-    <p>הכנס כינוי, בחר אם לשמור את ההגדרות, ותחל את המסע בין עיתוני הסרטים המצוירים.</p>
+    <p>הכנס כינוי, בחר אם לשמור את ההגדרות, ותחל את המסע בין עיתוני אליס בארץ הפלאות.</p>
     <div class="welcome-features">
       <div class="welcome-chip">📰 עיתונים ייחודיים</div>
       <div class="welcome-chip">🎮 חידות ומשחקים</div>
