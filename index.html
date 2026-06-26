@@ -762,8 +762,12 @@
     flex-direction: column;
     align-items: flex-end;
     gap: 10px;
+    /* container is just a positioner – let taps fall through its empty
+       area to the content behind, only the button/label catch taps */
+    pointer-events: none;
   }
   #bot-btn {
+    pointer-events: auto;
     width: 62px; height: 62px;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--gold), #e8a020);
