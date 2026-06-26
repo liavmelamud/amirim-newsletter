@@ -2189,9 +2189,9 @@ body[data-fontsize="xlarge"] { font-size:22px; }
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(ellipse at 25% 50%, rgba(0,180,255,0.09) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 30%, rgba(0,80,200,0.11) 0%, transparent 50%),
-    linear-gradient(180deg, #030b18 0%, #020810 60%, #010509 100%);
+    radial-gradient(ellipse at 25% 50%, color-mix(in srgb, var(--accent) 9%, transparent) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 30%, color-mix(in srgb, var(--accent) 11%, transparent) 0%, transparent 50%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg) 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2201,8 +2201,8 @@ body[data-fontsize="xlarge"] { font-size:22px; }
   content: '';
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--accent) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 4%, transparent) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events: none; z-index: 0;
 }
@@ -2211,18 +2211,44 @@ body[data-fontsize="xlarge"] { font-size:22px; }
   position: absolute; inset: 0;
   background: repeating-linear-gradient(
     0deg, transparent, transparent 2px,
-    rgba(0,212,255,0.018) 2px, rgba(0,212,255,0.018) 4px
+    color-mix(in srgb, var(--accent) 2%, transparent) 2px,
+    color-mix(in srgb, var(--accent) 2%, transparent) 4px
   );
   pointer-events: none; z-index: 0;
 }
+/* Themes with body gradient backgrounds — mirror them in the hero */
+[data-theme="sunset"] #hero-banner {
+  background: linear-gradient(160deg,#1a0820 0%,#3d1040 30%,#8b2252 55%,#d4562a 80%,#ff8c42 100%);
+}
+[data-theme="forest"] #hero-banner {
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(45,139,78,0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(20,80,30,0.5) 0%, transparent 50%),
+    #050f05;
+}
+[data-theme="ocean"] #hero-banner {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(0,100,180,0.6) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 100%, rgba(0,60,120,0.8) 0%, transparent 50%),
+    linear-gradient(180deg, #000a14 0%, #001a3a 50%, #000a14 100%);
+}
+[data-theme="galaxy"] #hero-banner {
+  background:
+    radial-gradient(ellipse at 15% 25%, rgba(155,89,182,0.35) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 75%, rgba(224,86,253,0.25) 0%, transparent 45%),
+    #050010;
+}
+[data-theme="minimal"] #hero-banner {
+  background: linear-gradient(180deg, #e8e8e8 0%, #f0f0f0 100%);
+}
 .hb-line-top {
   position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, #00d4ff 30%, rgba(0,212,255,0.3) 70%, transparent);
+  background: linear-gradient(90deg, transparent, var(--accent) 30%, color-mix(in srgb, var(--accent) 30%, transparent) 70%, transparent);
   z-index: 2;
 }
 .hb-line-bottom {
   position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(0,212,255,0.3) 30%, #00d4ff 70%, transparent);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 30%, transparent) 30%, var(--accent) 70%, transparent);
   z-index: 2;
 }
 .hb-orb-1 {
