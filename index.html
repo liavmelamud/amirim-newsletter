@@ -799,6 +799,9 @@
     white-space: nowrap;
     border: 1px solid var(--gold);
   }
+  /* hide the help bot while reading a newspaper – it sits on the
+     "next" button; it returns automatically when the viewer closes */
+  #viewer-screen.active ~ #bot-bubble { display: none; }
 
   /* ===== ADMIN / BOT CHAT PANEL ===== */
   #admin-panel {
